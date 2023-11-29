@@ -1,0 +1,27 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Играть онлайн";
+}
+<body>
+    <section>
+        <div class="form-box">
+            <div class="form-value">
+                <form>
+                    <h2>Авторизация</h2>
+                    <div class="inputbox">
+                        <ion-icon name="mail-outline" href="login.png"></ion-icon> <input type="text" placeholder="Логин" required>
+                    </div>
+                    <div class="inputbox">
+                        <ion-icon name="lock-closed-outline"></ion-icon> <input type="password"
+                                                                                placeholder="Пароль" required>
+                    </div>
+                    <div class="forget"> <label><input type="checkbox">Показать пароль</label></div> <button>Войти</button>
+                    <div class="register">
+                        <p>Нет аккаунта? <a asp-page="/Registration">Зарегистрироваться</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>

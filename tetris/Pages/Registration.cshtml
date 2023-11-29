@@ -1,0 +1,33 @@
+﻿@page
+@model tetris.Pages.RegistrationModel
+@{
+    ViewData["Title"] = "Регистрация";
+}
+<body>
+    <section>
+        <div class="form-box">
+            <div class="form-value">
+                <form method="POST">
+                    <h2>Регистрация</h2>
+                    <div class="inputbox">
+                        <ion-icon name="mail-outline" href="login.png"></ion-icon> <input type="text" name="login" id="login" placeholder="Логин" required>
+                    </div>
+                    <div class="inputbox">
+                        <ion-icon name="lock-closed-outline"></ion-icon> <input type="password" name="pass1" id="pass1"
+                                                                                placeholder="Пароль" varequired>
+                    </div>
+                    <div class="inputbox">
+                        <ion-icon name="lock-closed-outline"></ion-icon> <input type="password" name="pass2" id="pass2"
+                                                                                placeholder="Повторите пароль" onChange="checkPasswordMatch();" required>
+
+                    </div>
+                    <div class="registrationFormAlert" id="divCheckPasswordMatch">
+                    </div>
+
+                    <div class="forget"> <label><input type="checkbox">Показать пароль</label></div>
+                    <input class="submit" type="submit" name="submit" value="Зарегистрироваться">
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
