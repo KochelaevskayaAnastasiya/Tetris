@@ -29,7 +29,7 @@ namespace tetris.Pages
             password = Request.Form["pass1"];
             string connectionString = "Data source=.\\SQLEXPRESS;database=Tetris; Integrated security=true;";
             //string sqlExpression = "INSERT INTO [User] (ID_user,Login,Password) VALUES (1,'Tom', '18')";
-            string sqlExpression = "INSERT INTO [User] (ID_user,Login,Password) VALUES (1,'"+login+"', '"+password+"')";
+            string sqlExpression = "INSERT INTO Users VALUES ('"+login+"', '"+password+"')";
 
 
             using (SqlConnection connection = new SqlConnection(connectionString))
