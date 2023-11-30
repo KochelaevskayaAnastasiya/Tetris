@@ -3,14 +3,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data;
 using System.Data.SqlClient;
 
+
 namespace tetris.Pages
 {
     public class RegistrationModel : PageModel
     {
+        private DataBase database = new DataBase();
         private readonly ILogger<IndexModel> _logger;
 
         private string login = "";
         private string password = "";
+        private string password2 = "";
 
         public RegistrationModel(ILogger<IndexModel> logger)
         {
@@ -23,68 +26,40 @@ namespace tetris.Pages
         }
 
         [HttpPost]
-        public async void OnPost()
+        public IActionResult OnPost()
         {
             login = Request.Form["login"];
             password = Request.Form["pass1"];
-            string connectionString = "Data source=.\\SQLEXPRESS;database=Tetris; Integrated security=true;";
-            //string sqlExpression = "INSERT INTO [User] (ID_user,Login,Password) VALUES (1,'Tom', '18')";
-            string sqlExpression = "INSERT INTO Users VALUES ('"+login+"', '"+password+"')";
+            password2 = Request.Form["pass2"];
+            if (string.Compare(password, password2)==0)
+            {
+                string queryString = "SELECT * FROM Users WHERE Login ='"+login+"';";
 
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                int number = command.ExecuteNonQuery();
-                Console.WriteLine("Добавлено объектов: {0}", number);
-            }
-
-            /*SqlConnection connection = new SqlConnection(connectionString);
-            try
-            {
-                // Открываем подключение
-                await connection.OpenAsync();
-                Console.WriteLine("Подключение открыто");
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                // если подключение открыто
-                if (connection.State == ConnectionState.Open)
+                SqlCommand command = new SqlCommand(queryString, database.getConnection());
+                database.openConnection();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
                 {
-
-                    using (SqlDataAdapter dataAdapter = new SqlDataAdapter())
-                    {
-                        dataAdapter.InsertCommand = new SqlCommand("INSERT [User] VALUES (1,'"+login+"','"+password+"' );", connection);
-                        dataAdapter.InsertCommand = new SqlCommand("INSERT [User] VALUES (2,'12','12');", connection);
-
-                    }
-                    //connection.Open();
-                    try
-                    {
-                        SqlCommand command = new SqlCommand();
-                        command.CommandText = "INSERT [User] VALUES (1,'12','12');";
-                        command.Connection = connection;
-
-
-                        SqlCommand command2 = new SqlCommand();
-                        command2.CommandText = "SELECT * FROM [User]";
-                        command2.Connection = connection;
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
-
-                    // закрываем подключение
-                    await connection.CloseAsync();
-                    Console.WriteLine("Подключение закрыто...");
+                    reader.Close();
                 }
-            }*/
+                else
+                {
+                    reader.Close();
+                    string sqlExpression = "INSERT INTO Users VALUES ('" + login + "', '" + password + "')";
+                    SqlCommand command_insert = new SqlCommand(sqlExpression, database.getConnection());
+                    int number = command_insert.ExecuteNonQuery();
+                    Console.WriteLine("Добавлен пользователь: {0}", number);
+                }
+                database.closeConnection();
+                return RedirectToPage("Index");
+
+            }
+            else
+            {
+                return RedirectToPage("Registration");
+                //webBrowser1.Document.GetElementById("body").InnerText = "text";
+
+            }
 
         }
     }
