@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
 using System.Data;
 using System.Data.SqlClient;
-
+using tetris;
 
 namespace tetris.Pages
 {
@@ -15,6 +16,8 @@ namespace tetris.Pages
         private string password = "";
         private string password2 = "";
 
+        public string warn;
+
         public RegistrationModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
@@ -24,6 +27,8 @@ namespace tetris.Pages
         {
 
         }
+
+        
 
         [HttpPost]
         public IActionResult OnPost()
@@ -40,7 +45,10 @@ namespace tetris.Pages
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.Read())
                 {
+                    warn = "Такой логин уже существует!";
                     reader.Close();
+                    database.closeConnection();
+                    return RedirectToPage("Registration");
                 }
                 else
                 {
@@ -49,13 +57,13 @@ namespace tetris.Pages
                     SqlCommand command_insert = new SqlCommand(sqlExpression, database.getConnection());
                     int number = command_insert.ExecuteNonQuery();
                     Console.WriteLine("Добавлен пользователь: {0}", number);
+                    database.closeConnection();
+                    return RedirectToPage("Index");
                 }
-                database.closeConnection();
-                return RedirectToPage("Index");
-
             }
             else
             {
+                warn = "Пароли не совпадают!";
                 return RedirectToPage("Registration");
                 //webBrowser1.Document.GetElementById("body").InnerText = "text";
 

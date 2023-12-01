@@ -21,7 +21,8 @@
                                                                                 placeholder="Повторите пароль" onChange="checkPasswordMatch();" required>
 
                     </div>
-                    <div class="registrationFormAlert" id="divCheckPasswordMatch">
+                    <div class="registrationFormAlert" id="divCheckPasswordMatch" name="divCheckPasswordMatch">
+                        @Model.warn
                     </div>
                     <div class="forget"> <label><input type="checkbox">Показать пароль</label></div>
                     <input class="submit" id="submitRegist" type="submit" name="submitRegist" value="Зарегистрироваться">
