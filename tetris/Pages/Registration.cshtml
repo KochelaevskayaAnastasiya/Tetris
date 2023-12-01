@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Регистрация";
 }
-<body>
+<body onLoad="codeAddress()">
     <section>
         <div class="form-box">
             <div class="form-value">
@@ -24,7 +24,7 @@
                     <div class="registrationFormAlert" id="divCheckPasswordMatch" name="divCheckPasswordMatch">
                         @Model.warn
                     </div>
-                    <div class="forget"> <label><input type="checkbox">Показать пароль</label></div>
+                    <div class="forget"> <label><input type="checkbox" class="password-checkbox-reg">Показать пароль</label></div>
                     <input class="submit" id="submitRegist" type="submit" name="submitRegist" value="Зарегистрироваться">
                 </form>
             </div>

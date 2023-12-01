@@ -2,14 +2,43 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-divCheckPasswordMatch.innerHTML = localStorage.getItem("warn2");
-divCheckPasswordMatch.innerHTML = localStorage.getItem("warn");
 
 const buttonRegist = document.querySelector('#submitRegist');
 const login = document.querySelector('#login');
 const pass1 = document.querySelector('#pass1');
 const pass2 = document.querySelector('#pass2');
 
+function validate_form() {
+    localStorage.setItem("login", login);
+    localStorage.setItem("pass1", pass1);
+    localStorage.setItem("pass2", pass2);
+    return true;
+}
+function codeAddress() {
+    divCheckPasswordMatch.innerHTML = localStorage.getItem("warn2");
+    divCheckPasswordMatch.innerHTML = localStorage.getItem("warn");
+    document.getElementById("login").innerHTML = localStorage.getItem("login");;
+    document.getElementById("pass1").innerHTML = localStorage.getItem("pass1");;
+    document.getElementById("pass2").innerHTML = localStorage.getItem("pass2");;
+}
+
+$('body').on('click', '.password-checkbox-reg', function () {
+    if ($(this).is(':checked')) {
+        $('#pass1').attr('type', 'text');
+        $('#pass2').attr('type', 'text');
+    } else {
+        $('#pass1').attr('type', 'password');
+        $('#pass2').attr('type', 'password');
+    }
+}); 
+
+$('body').on('click', '.password-checkbox-auto', function () {
+    if ($(this).is(':checked')) {
+        $('#pass').attr('type', 'text');
+    } else {
+        $('#pass').attr('type', 'password');
+    }
+});
 
 function checkPasswordMatch() {
     var password = $("#pass1").val();
