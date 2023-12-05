@@ -3,9 +3,10 @@
 @{
     ViewData["Title"] = "Игра";
 }
-<body>
-    <canvas width="320" height="640" id="game"></canvas>
+<body class="body_game">
+    <canvas width="320" height="640" id="game" class="game"></canvas>
     <script>
+
         // https://tetris.fandom.com/wiki/Tetris_Guideline
 
         // get a random integer between the range of [min,max]
@@ -208,11 +209,24 @@
         let tetromino = getNextTetromino();
         let rAF = null;  // keep track of the animation frame so we can cancel it
         let gameOver = false;
+        
+        
 
         // game loop
         function loop() {
             rAF = requestAnimationFrame(loop);
             context.clearRect(0, 0, canvas.width, canvas.height);
+
+
+             /*добавленый*/
+            context.fillStyle = 'black';
+            for (let row = 0; row < 10; row++) {
+                context.fillRect(row * grid-1, 0, 0.5, canvas.height);
+            }
+            for (let col = 0; col < 20; col++) {
+                context.fillRect(0, col * grid - 1, canvas.width, 0.5);
+            }
+            /*добавленый*/
 
             // draw the playfield
             for (let row = 0; row < 20; row++) {
@@ -247,7 +261,6 @@
                 for (let row = 0; row < tetromino.matrix.length; row++) {
                     for (let col = 0; col < tetromino.matrix[row].length; col++) {
                         if (tetromino.matrix[row][col]) {
-
                             // drawing 1 px smaller than the grid creates a grid effect
                             context.fillRect((tetromino.col + col) * grid, (tetromino.row + row) * grid, grid - 1, grid - 1);
                         }

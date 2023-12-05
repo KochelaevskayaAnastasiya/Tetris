@@ -9,6 +9,8 @@ html, body {
     width: 100%;
     margin: 0;
 }
+
+
 section {
     display: flex;
     justify-content: center;
@@ -150,3 +152,16 @@ button {
     .register p a:hover {
         text-decoration: underline;
     }
+
+
+  /*game*/
+.body_game {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game {
+    border: 1px solid black;
+    justify-content: center
+}
