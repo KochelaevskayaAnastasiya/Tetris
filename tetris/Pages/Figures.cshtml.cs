@@ -10,8 +10,8 @@ namespace tetris.Pages
         private DataBase database = new DataBase();
         public List<Figure> figures = new List<Figure>();
 
-        public int figure_count = 0;
-        public int k = 0;
+        public int figure_count=0;
+        public int k=0;
 
         public void OnGet()
         {
@@ -28,6 +28,15 @@ namespace tetris.Pages
             figure_count=figures.Count;
             reader.Close();
             database.closeConnection();
+        }
+
+        public void ClickButtonBack()
+        {
+            k--;
+        }
+        public void ClickButtonFor()
+        {
+            k++;
         }
     }
 }

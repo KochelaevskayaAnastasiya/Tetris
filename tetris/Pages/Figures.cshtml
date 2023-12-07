@@ -11,21 +11,15 @@
             <div class="figure">
                 <canvas width="128" height="128" id="figure" class="figure"></canvas>
                 <script>
-                    function showFigure(context) {
-                        
-                    }
 
                     const canvas = document.getElementById('figure');
                     const context = canvas.getContext('2d');
                     const grid = 32;
-                    
-
                     context.fillStyle = '#000000'; //для линий
 
                     context.strokeStyle = 'rgba(0,0,0,1)'; //для закрашенных фигур
                     if (@Model.k < @Model.figure_count) {
                         
-                    }
                     }
                     else{
                         for (let row = 0; row < 4; row++) {
@@ -35,23 +29,26 @@
                             }
                         }
                     }
-                    function buttonBack() {
-                        var vv = $("#k").val();
-                        vv--;
-                        $("#k").val(vv);
+
+
+                    function buttonFor2() // no ';' here
+                    {
+                        let elem = document.getElementById('kkk');
+                        elem.innerHTML = @Model.k;
+                        let elem2 = document.getElementById('ddffff');
+                        elem2.innerHTML = "gbgtw";
 
                     }
-                    function buttonFor() {
-                        var vv = $("#k").val();
-                        vv++;
-                        $("#k").val(vv);
-                    }
+
+                    
 
                 </script>
             </div>
             <button id="for" onclick="buttonFor()">Вперед</button>
-            <label>@Model.k</label>
-            <label>@Model.figure_count</label>
+            <label id="kkk">@Model.k</label>
+            <label id="ddffff">@Model.figure_count</label>
+            <label>@Model.figures.Count</label>
+            <input onclick="buttonFor2()" type="button" value="eue" id="myButton1">
 
         </div>
     </form>
