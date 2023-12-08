@@ -2,6 +2,7 @@
 @model tetris.Pages.FiguresModel
 @{
     ViewData["Title"] = "Фигуры";
+    var someint = 0;
 }
 <body>
     <h1>Фигуры</h1>
@@ -10,25 +11,57 @@
             <button id="back" onclick="buttonBack()">Назад</button>
             <div class="figure">
                 <canvas width="128" height="128" id="figure" class="figure"></canvas>
+                <label id="kkk"></label>
                 <script>
+                    var model = @Html.Raw(JsonConvert.SerializeObject(Model));
+
+
+                    let kkk=@someint;
+                    function drow_figure_chac(str)
+                    {
+                        context.clearRect(0, 0, canvas.width, canvas.height);
+                        if (@someint < @Model.figure_count) {
+                            drow_figure(str);
+                        }
+                        else {
+                            drow_figure_empty();
+                        }
+                    }
+                    function drow_figure(str) // no ';' here
+                    {
+                        for (let row = 0; row < 4; row++) {
+                            for (let col = 0; col < 4; col++) {
+                                if (str.charAt(row * 4 + col) == '1') {
+
+                                    context.fillRect(col * grid, row * grid, grid - 1, grid - 1);
+
+                                }
+                                else {
+                                    context.lineWidth = 0.5;
+                                    context.strokeRect(col * grid, row * grid, grid - 1, grid - 1);
+                                }
+                            }
+                        }
+
+                    }
+
+                    function drow_figure_empty() {
+                        for (let row = 0; row < 4; row++) {
+                            for (let col = 0; col < 4; col++) {
+                                context.lineWidth = 0.5;
+                                context.strokeRect(col * grid, row * grid, grid - 1, grid - 1);
+                            }
+                        }
+                    }
 
                     const canvas = document.getElementById('figure');
                     const context = canvas.getContext('2d');
                     const grid = 32;
                     context.fillStyle = '#000000'; //для линий
-
                     context.strokeStyle = 'rgba(0,0,0,1)'; //для закрашенных фигур
-                    if (@Model.k < @Model.figure_count) {
-                        
-                    }
-                    else{
-                        for (let row = 0; row < 4; row++) {
-                            for (let col = 0; col < 4; col++) {
-                                    context.lineWidth = 0.5;
-                                    context.strokeRect(col * grid, row * grid, grid - 1, grid - 1);
-                            }
-                        }
-                    }
+                    let str = `@Model.figures[someint].Structure`;
+                    
+                    drow_figure_chac(str);
 
 
                     function buttonFor2() // no ';' here
@@ -40,15 +73,36 @@
 
                     }
 
+                    function buttonFor3()
+                    {
+                   
+                        kkk++;
+                        @someint=kkk;
                     
+                        let str2 = `@Model.figures[someint].Structure`;
+                        drow_figure_chac(str2);
 
+
+                        let elem2 = document.getElementById('12');
+                        elem2.innerHTML = kkk;
+
+                        let elem5 = document.getElementById('22');
+                        elem5.innerHTML = @someint;
+                        uu++;
+                        let elem6 = document.getElementById('33');
+                        elem6.innerHTML = uu;
+                    }
                 </script>
             </div>
             <button id="for" onclick="buttonFor()">Вперед</button>
-            <label id="kkk">@Model.k</label>
+            <label id="kkk">@someint</label>
             <label id="ddffff">@Model.figure_count</label>
             <label>@Model.figures.Count</label>
-            <input onclick="buttonFor2()" type="button" value="eue" id="myButton1">
+            <input onclick="buttonFor3()" type="button" value="eue" id="myButton1">
+
+            <label id="12"></label>
+            <label id="22"></label>
+            <label id="33"></label>
 
         </div>
     </form>
