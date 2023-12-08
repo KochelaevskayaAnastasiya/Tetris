@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 using tetris.Add_classes;
-using Newtonsoft.Json;
 
 namespace tetris.Pages
 {
@@ -13,6 +12,9 @@ namespace tetris.Pages
 
         public int figure_count=0;
         public int k=0;
+
+        public List<List<int>> fig = new List<List<int>>();
+        public List<String> fig_str = new List<String>();
 
         public void OnGet()
         {
@@ -29,15 +31,20 @@ namespace tetris.Pages
             figure_count=figures.Count;
             reader.Close();
             database.closeConnection();
-        }
 
-        public void ClickButtonBack()
-        {
-            k--;
-        }
-        public void ClickButtonFor()
-        {
-            k++;
+            for(int i = 0; i < figure_count; i++)
+            {
+                List<int> a = new List<int>();
+                string str = figures[i].Structure;
+                for (int j = 0; j < 16; j++)
+                {
+                    a.Add(int.Parse(Convert.ToString(str[j])));
+
+                }
+                fig.Add(a);
+                fig_str.Add(str);
+            }
+
         }
     }
 }
