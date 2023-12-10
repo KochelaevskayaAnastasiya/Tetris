@@ -6,17 +6,30 @@
 }
 <body>
     <h1>Фигуры</h1>
-    <form method="POST" onsubmit="">
+    <form method="POST" onsubmit="DoSubmit();" name="formFigures">
         <div class="block_1">
-            <button id="back" onclick="buttonBack()">Назад</button>
+            <input onclick="buttonBack()" type="button" value="Назад" id="myButton0">
             <div class="figure">
                 <canvas width="128" height="128" id="figure" class="figure"></canvas>
-                <label id="kkk"></label>
+                <input type="hidden" id="kkk" name="kkk"/>
                 <script>
+                    let k = 0;
+                    const canvas = document.getElementById('figure');
+                    const context = canvas.getContext('2d');
+                    const grid = 32;
+                    context.fillStyle = '#000000'; //для линий
+                    context.strokeStyle = 'rgba(0,0,0,1)'; //для закрашенных фигур
+                    let str = `@Model.figures[someint].Structure`;
+
+                    let l2 = '@String.Join(",",Model.fig_str)';
+                    let figu = l2.split(',');
+
+                    drow_figure_chac(figu[k]);
+
                     function drow_figure_chac(fig)
                     {
                         context.clearRect(0, 0, canvas.width, canvas.height);
-                        if (@someint < @Model.figure_count) {
+                        if (k < figu.length) {
                             drow_figure(fig);
                         }
                         else {
@@ -28,9 +41,7 @@
                         for (let row = 0; row < 4; row++) {
                             for (let col = 0; col < 4; col++) {
                                 if (fig[row * 4 + col] == '1') {
-
                                     context.fillRect(col * grid, row * grid, grid - 1, grid - 1);
-
                                 }
                                 else {
                                     context.lineWidth = 0.5;
@@ -40,7 +51,6 @@
                         }
 
                     }
-
                     function drow_figure_empty() {
                         for (let row = 0; row < 4; row++) {
                             for (let col = 0; col < 4; col++) {
@@ -49,44 +59,52 @@
                             }
                         }
                     }
-
-                    const canvas = document.getElementById('figure');
-                    const context = canvas.getContext('2d');
-                    const grid = 32;
-                    context.fillStyle = '#000000'; //для линий
-                    context.strokeStyle = 'rgba(0,0,0,1)'; //для закрашенных фигур
-                    let str = `@Model.figures[someint].Structure`;
-
-                    let l2 = '@String.Join(",",Model.fig_str)';
-                    let figu = l2.split(',');
-                    let elem2 = document.getElementById('kkk');
-                    let k = 0;
-
-                    elem2.innerHTML = figu[k];
-
-
-                    drow_figure_chac(figu[k]);
-
                     function buttonFor3()
                     {
-                        elem2.innerHTML = figu[k];
-
                         k++;
                         drow_figure_chac(figu[k]);
-
                     }
+                    function buttonBack(){
+                        k--;
+                        if(k==-1) k=figu.length;
+                        drow_figure_chac(figu[k]);
+                    }
+                    function replaceIndex(str, index, replacement) {
+                        return str.substr(0, index) + replacement + str.substr(index + 1);
+                    }
+                    function replaceCommon(str, index) {
+                        if (str[index] == "0") { return replaceIndex(str, index,1); }
+                        else { return replaceIndex(str, index, 0); }
+                    }
+                    function figuToString(){
+                        let str = '';
+                        for (let col = 0; col < figu.length; col++) {
+                            str+=figu[col];
+                            if (col != figu.length - 1) { str +=',';}
+                        }
+                        return str;
+                    }
+
+                    function DoSubmit() {
+                        document.formFigures.kkk.value = figuToString();
+                        return true;
+                    }
+                    canvas.addEventListener('click', function (event) {
+                        const rect = canvas.getBoundingClientRect();
+                        let x = event.pageX - rect.left,
+                            y = event.pageY - rect.top;
+                        let col = Math.floor(x / grid), row = Math.floor(y / grid);
+                        let index = row * 4 + col;
+                        if (k>=figu.length) {
+                            figu.push('0000000000000000');
+                        }
+                        figu[k] = replaceCommon(figu[k], index);
+                        drow_figure_chac(figu[k]);
+                    }, false);
                 </script>
             </div>
-            <button id="for" onclick="buttonFor()">Вперед</button>
-            <label id="kkk">@someint</label>
-            <label id="ddffff">@Model.figure_count</label>
-            <label>@Model.figures.Count</label>
-            <input onclick="buttonFor3()" type="button" value="eue" id="myButton1">
-
-            <label id="12"></label>
-            <label id="22"></label>
-            <label id="33"></label>
-
+            <input onclick="buttonFor3()" type="button" value="Вперед" id="myButton1">
+            <button class="button" id="addButton" type="submit">Сохранить</button>
         </div>
     </form>
 </body>
