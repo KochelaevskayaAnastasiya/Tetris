@@ -1,0 +1,53 @@
+﻿@page
+@model tetris.Pages.LevelsModel
+@{
+    ViewData["Title"] = "Уровни сложности";
+}
+<body>
+    <section>
+        <div class="form-box">
+            <div class="form-value">
+                <h2>Уровни сложности</h2>
+                <form method="GET" name="formLevels">
+                    <div class="content">
+                        <label id="12">12</label>
+                        <script>
+                            let k = 0;
+                            let l2 = '@String.Join(".",Model.lvls_str)';
+
+                            let lvl = l2.split('.');
+                            let lvl_array = new Array(Model.level_count);
+
+                            for (let j = 0; j < lvl_array.length; j++) {
+                                lvl_array[j] = new Array(6);
+                                let l = lvl.split(';');
+                                for (let i = 0; i < 6; i++) {
+                                    lvl_array[j][i] = l[i];
+                                }
+                            }
+                                
+                                document.querySelector('.content').innerHTML = `<table class="levels"></table>`;
+                                let row = document.createElement('tr');
+                                row.innerHTML = `
+                                                <td>Номер</td>
+                                                <td>Стакан</td>
+                                                <td>Набор фигур</td>
+                                                <td>Скорость</td>
+                                                <td>Очков за ряд</td>
+                                                <td>Очков на след.уровень</td>
+                                                `;
+                                document.querySelector('.levels').appendChild(row);
+                                for (let i = 0; i < lvl_array.length; i++) {
+                                    let rw = document.createElement('tr');
+                                    for (let j = 0; j < 6; j++) {
+                                        rw.innerHTML = `<td>${lvl_array[i][j]}</td>`;
+                                        document.querySelector('.levels').appendChild(rw);
+                                    }
+                                }
+                        </script>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>

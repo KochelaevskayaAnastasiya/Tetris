@@ -6,25 +6,25 @@
 
 <body>
     <section>
-        <div class="form-box">
+        <div class="form-box-menu">
             <div class="form-value">
-                <form method="POST" onsubmit="">
-			<label>Администратор</label>
-                    <h2>Тетрис</h2>
-                    <div class="inputbox">
-			<button>Уровни сложности</button>
+                <form class="form" method="POST" onsubmit="">
+                    <div class="img">
+                        <img class="image" src="images/login.png">
+                        <p class="login">Администратор</p>
                     </div>
-                    <div class="inputbox">
-			<button>Стаканы</button>
-                    </div>
-                    <div class="inputbox">
-			<button>Фигуры</button>
+                    <h2 class="h2-menu">Тетрис</h2>
+                    <div class="inputbox-menu">
+                        <a asp-page="/Levels">Уровни сложности</a>
+
+                        <button class="button-menu">Стаканы</button>
+
                         <a asp-page="/Figures">Фигуры</a>
-   		
-			<button>О системе</button>
-   		
-			<button>О разработчиках</button>
-   		</div>
+
+                        <button class="button-menu">О системе</button>
+
+                        <button class="button-menu">О разработчиках</button>
+                    </div>
                 </form>
             </div>
         </div>

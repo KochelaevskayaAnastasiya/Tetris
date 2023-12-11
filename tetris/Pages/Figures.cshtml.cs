@@ -50,8 +50,10 @@ namespace tetris.Pages
             }
 
         }
-        public bool CheckFigure(string fi)
+       
+        public string[] CheckFigures(string[] fi)
         {
+           
             /*for(int k=0;k< fig_str.Count; k++)
             {
                 string queryString = "SELECT * FROM Figures WHERE Structure ='" + fi + "';";
@@ -74,7 +76,7 @@ namespace tetris.Pages
                     database.closeConnection();
                 }
             }*/
-            return true;
+            return fi;
         }
         public int CountFiguBD()
         {
@@ -92,11 +94,13 @@ namespace tetris.Pages
             database.closeConnection();
             return l;
         }
+
             [HttpPost]
         public IActionResult OnPost()
         {
             string s = Request.Form["kkk"];
             string[] figures_new = s.Split(',');
+            //---------------------------------
             int k = 0;
             int coun = CountFiguBD();
             for (int i=0;i<coun;i++)

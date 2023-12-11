@@ -6,25 +6,26 @@ ViewData["Title"] = "Меню";
 
 <body>
     <section>
-        <div class="form-box">
+        <div class="form-box-menu">
             <div class="form-value">
-                <form method="POST" onsubmit="">
-			<label>Игрок</label>
-                    <h2>Тетрис</h2>
-                    <a asp-page="/Game">Играть</a>
-                    <div class="inputbox">
-			<button>Играть</button>
+                <form class="form" method="POST" onsubmit="">
+                    <div class="img">
+                        <img class="image" src="login.png">
+                        <p class="login">Логин</p>
                     </div>
-                    <div class="inputbox">
-			<button>Статистика</button>
+                    <h2 class="h2-menu">Тетрис</h2>
+                    <div class="inputbox-menu">
+                        <button class="button-play"><a asp-page="/Game">Играть</a></button>
                     </div>
-                    <div class="inputbox">
-			<button>Настройки</button>
-   		
-			<button>О системе</button>
-   		
-			<button>О разработчиках</button>
-   		</div>
+                    <div class="inputbox-menu">
+                        <button class="button-menu">Статистика</button>
+
+                        <button class="button-menu">Настройки</button>
+
+                        <button class="button-menu">О системе</button>
+
+                        <button class="button-menu">О разработчиках</button>
+                    </div>
                 </form>
             </div>
         </div>
