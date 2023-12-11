@@ -14,8 +14,8 @@ namespace tetris.Pages
         private DataBase database = new DataBase();
         public List<Figure> figures = new List<Figure>();
 
-        public int figure_count=0;
-        public int k=0;
+        public int figure_count = 0;
+        public int k = 0;
 
         public List<List<int>> fig = new List<List<int>>();
         public List<String> fig_str = new List<String>();
@@ -32,11 +32,11 @@ namespace tetris.Pages
             {
                 figures.Add(new Figure(reader[0].ToString()));
             }
-            figure_count=figures.Count;
+            figure_count = figures.Count;
             reader.Close();
             database.closeConnection();
 
-            for(int i = 0; i < figure_count; i++)
+            for (int i = 0; i < figure_count; i++)
             {
                 List<int> a = new List<int>();
                 string str = figures[i].Structure;
@@ -50,10 +50,10 @@ namespace tetris.Pages
             }
 
         }
-       
+
         public string[] CheckFigures(string[] fi)
         {
-           
+
             /*for(int k=0;k< fig_str.Count; k++)
             {
                 string queryString = "SELECT * FROM Figures WHERE Structure ='" + fi + "';";
@@ -85,7 +85,7 @@ namespace tetris.Pages
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
             database.openConnection();
             SqlDataReader reader = command.ExecuteReader();
-            int l=0;
+            int l = 0;
             while (reader.Read())
             {
                 l = int.Parse(reader[0].ToString());
@@ -95,36 +95,72 @@ namespace tetris.Pages
             return l;
         }
 
-            [HttpPost]
+        [HttpPost]
         public IActionResult OnPost()
         {
             string s = Request.Form["kkk"];
             string[] figures_new = s.Split(',');
+            List<String> fig_str2 = new List<String>();
+            for(int i = 0; i < figures_new.Length; i++)
+            {
+                if (CheckFigure.CheckIntegrity(figures_new[i]))
+                {
+                    fig_str2.Add(figures_new[i]);
+                }
+            }
+            int noIntegrity = figures_new.Length-fig_str2.Count;
+
+            string[] res = CheckFigure.CheckFigures(fig_str2.ToArray());
+
+            int noUnick = fig_str2.Count - res.Length;
+
             //---------------------------------
             int k = 0;
             int coun = CountFiguBD();
-            for (int i=0;i<coun;i++)
+            if (coun < res.Length)
             {
-                k = i + 1;
-                string queryString = "UPDATE Figures SET Structure = '"+figures_new[i]+ "' WHERE ID_figure = '" + k + "';";
+                for (int i = 0; i < coun; i++)
+                {
+                    k = i + 1;
+                    string queryString = "UPDATE Figures SET Structure = '" + res[i] + "' WHERE ID_figure = '" + k + "';";
+                    database.openConnection();
+                    SqlCommand command_insert = new SqlCommand(queryString, database.getConnection());
+                    int number = command_insert.ExecuteNonQuery();
+                    Console.WriteLine("Изменено: {0}", number);
+                    database.closeConnection();
+                }
+
+                for (int j = coun; j < res.Length; j++)
+                {
+                    string queryString = "INSERT INTO[Figures] VALUES('" + res[j] + "');";
+                    database.openConnection();
+                    SqlCommand command_insert = new SqlCommand(queryString, database.getConnection());
+                    int number = command_insert.ExecuteNonQuery();
+                    Console.WriteLine("Добавлено: {0}", number);
+                    database.closeConnection();
+                }
+            }
+            else
+            {
+                string queryString2 = "DELETE FROM Figures;";
                 database.openConnection();
-                SqlCommand command_insert = new SqlCommand(queryString, database.getConnection());
-                int number = command_insert.ExecuteNonQuery();
-                Console.WriteLine("Изменено: {0}", number);
+                SqlCommand command_insert2 = new SqlCommand(queryString2, database.getConnection());
+                int number2 = command_insert2.ExecuteNonQuery();
+                Console.WriteLine("Изменено: {0}", number2);
                 database.closeConnection();
+
+                for (int i = 0; i < res.Length; i++)
+                {
+                    string queryString = "INSERT INTO[Figures] VALUES('" + res[i] + "');";
+                    database.openConnection();
+                    SqlCommand command_insert = new SqlCommand(queryString, database.getConnection());
+                    int number = command_insert.ExecuteNonQuery();
+                    Console.WriteLine("Добавлено: {0}", number);
+                    database.closeConnection();
+                }
             }
 
-            for(int j = coun; j < figures_new.Length; j++) 
-            {
-                string queryString = "INSERT INTO[Figures] VALUES('" + figures_new[j] + "');";
-                database.openConnection();
-                SqlCommand command_insert = new SqlCommand(queryString, database.getConnection());
-                int number = command_insert.ExecuteNonQuery();
-                Console.WriteLine("Добавлено: {0}", number);
-                database.closeConnection();
-            }
-
-            Console.WriteLine();
+            Console.WriteLine("Не целостны:"+ noIntegrity+"\nНе уникальны:"+ noUnick);
             return RedirectToPage("Figures");
         }
     }
