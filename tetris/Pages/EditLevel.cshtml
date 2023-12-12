@@ -1,0 +1,53 @@
+﻿@page
+@model tetris.Pages.NewLevelModel
+@{
+	ViewData["Title"] = "Редактировать уровень сложности";	
+}
+<body>
+	<section>
+		<div class="form-box-lvl">
+			<div class="form-value">
+				<form method="GET">
+					<h2 class="h2-lvl">Уровень сложности</h2>
+			<div class="field">
+				<label class="label-lvl">Стакан</label>
+				<select class="select1">
+				</select>
+			</div>
+			<div class="field">
+				<label class="label-lvl">Фигуры</label>
+				<input type="text" class="label-lvl2" required readonly="true">
+				<button class="btn-lvl2">Изменить</button>
+			</div>
+			<div class="field">
+				<label class="label-lvl">Скорость</label>
+				<select class="select2">
+				</select>
+			</div>
+			<div class="field">
+				<label class="label-lvl">Очки за ряд</label>
+				<input type="text" class="label-lvl2">
+			</div>
+			<div class="field">
+				<label class="label-lvl">Очки на след. уровень</label>
+				<input type="text" class="label-lvl2">
+			</div>
+			<script>
+							let l2 = '@String.Join(".",Model.gls_str)';
+							let sp = '@String.Join(";",Model.speeds)';
+
+							let lvl = l2.split('.');
+							let s = sp.split(';');
+							for (let i = 0; i < lvl.length; i++) {
+								document.querySelector('.select1').innerHTML += `<option class="option">${lvl[i]}</option>`;
+							}
+							for (let i = 0; i < s.length; i++) {
+								document.querySelector('.select2').innerHTML += `<option class="option">${s[i]}</option>`;
+							}
+			</script>
+				</form>
+		<button class="btn-lvl">Сохранить</button>
+			</div>
+		</div>
+	</section>
+</body>
