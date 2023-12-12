@@ -4,8 +4,24 @@
     ViewData["Title"] = "Игра";
 }
 <body class="body_game">
-    <canvas width="320" height="640" id="game" class="game"></canvas>
+ <label id="12"></label>
+    <canvas id="game" class="game"></canvas>
     <script>
+
+        const canvas = document.getElementById('game');
+        const context = canvas.getContext('2d');
+        const grid = 32;
+        const tetrominoSequence = [];
+        //-----
+
+        const wi = @Model.difficulty_level.Glass.Wigth();
+        const he = @Model.difficulty_level.Glass.Height();
+        canvas.width = wi * grid;
+        canvas.height = he * grid;
+        //-----
+
+
+
         // https://tetris.fandom.com/wiki/Tetris_Guideline
 
         // get a random integer between the range of [min,max]
@@ -17,15 +33,55 @@
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
+        function getFigure(str){
+            let fig = new Array();
+            const figure_with_col = str.split(';');
+            let col = Number(figure_with_col[1]);
+            let row = figure_with_col[0].length / col;
+            let fig_str = figure_with_col[0];
+
+            for (let r = 0; r < row; r++) {
+                let fig_dop = new Array();
+                for (let c = 0; c < col; c++){
+                    fig_dop[c] = fig_str[r*col+c];
+                }
+                fig[r] = fig_dop;
+            }
+            return fig;
+        }
+
+        const l2 = '@String.Join(",",Model.figures_mas)';
+        const figures = l2.split(',');
+
+        const l3 = '@String.Join(",",Model.figures_mas_with_col)';
+        const figures_with_col = l3.split(',');
+
+        
+
+        let figures_mas = new Array();
+
+        for(let k=0;k<figures_with_col.length;k++){
+            figures_mas[k] = getFigure(figures_with_col[k]);
+        }
+
+
+
+        let elem5 = document.getElementById('12');
+        elem5.innerHTML = figures_mas[0][0][0];
+
         // generate a new tetromino sequence
         // see https://tetris.fandom.com/wiki/Random_Generator
         function generateSequence() {
-            const sequence = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
+            //const sequence = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
+            let sequence2 = new Array();
+            for (let i = 0; i < figures_mas.length; i++) {
+                sequence2[i] = i;
+            }
 
-            while (sequence.length) {
-                const rand = getRandomInt(0, sequence.length - 1);
-                const name = sequence.splice(rand, 1)[0];
-                tetrominoSequence.push(name);
+            while (sequence2.length) {
+                const rand = getRandomInt(0, sequence2.length-1);
+                const num = sequence2.splice(rand, 1)[0];
+                tetrominoSequence.push(num);
             }
         }
 
@@ -36,13 +92,16 @@
             }
 
             const name = tetrominoSequence.pop();
-            const matrix = tetrominos[name];
+            const matrix = figures_mas[name];
 
             // I and O start centered, all others start in left-middle
             const col = playfield[0].length / 2 - Math.ceil(matrix[0].length / 2);
 
             // I starts on row 21 (-1), all others start on row 22 (-2)
             const row = name === 'I' ? -1 : -2;
+
+
+            
 
             return {
                 name: name,      // name of the piece (L, O, etc.)
@@ -135,20 +194,18 @@
             context.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2);
         }
 
-        const canvas = document.getElementById('game');
-        const context = canvas.getContext('2d');
-        const grid = 32;
-        const tetrominoSequence = [];
+        
+        
 
         // keep track of what is in every cell of the game using a 2d array
         // tetris playfield is 10x20, with a few rows offscreen
         const playfield = [];
 
         // populate the empty state
-        for (let row = -2; row < 20; row++) {
+        for (let row = -2; row < he; row++) {
             playfield[row] = [];
 
-            for (let col = 0; col < 10; col++) {
+            for (let col = 0; col < wi; col++) {
                 playfield[row][col] = 0;
             }
         }
@@ -203,6 +260,11 @@
             'J': 'blue',
             'L': 'orange'
         };
+        const colors2 = ['cyan', 'yellow', 'purple', 'green', 'midnightblue',
+        'red', 'blue', 'orange', 'indigo', 'darkslategray'
+        ];
+        
+
 
         let count = 0;
         let tetromino = getNextTetromino();
@@ -219,20 +281,20 @@
 
              /*добавленый*/
             context.fillStyle = 'black';
-            for (let row = 0; row < 10; row++) {
+            for (let row = 0; row < wi; row++) {
                 context.fillRect(row * grid-1, 0, 0.5, canvas.height);
             }
-            for (let col = 0; col < 20; col++) {
+            for (let col = 0; col < he; col++) {
                 context.fillRect(0, col * grid - 1, canvas.width, 0.5);
             }
             /*добавленый*/
 
             // draw the playfield
-            for (let row = 0; row < 20; row++) {
-                for (let col = 0; col < 10; col++) {
+            for (let row = 0; row < he; row++) {
+                for (let col = 0; col < wi; col++) {
                     if (playfield[row][col]) {
                         const name = playfield[row][col];
-                        context.fillStyle = colors[name];
+                        context.fillStyle = colors2[name];
 
                         // drawing 1 px smaller than the grid creates a grid effect
                         context.fillRect(col * grid, row * grid, grid - 1, grid - 1);
@@ -255,7 +317,7 @@
                     }
                 }
 
-                context.fillStyle = colors[tetromino.name];
+                context.fillStyle = colors2[tetromino.name];
 
                 for (let row = 0; row < tetromino.matrix.length; row++) {
                     for (let col = 0; col < tetromino.matrix[row].length; col++) {
