@@ -4,7 +4,7 @@ namespace tetris
 {
     public class DataBase
     {
-        SqlConnection con = new SqlConnection("Data source=.\\SQLEXPRESS;database=Tetris; Integrated security=true;");
+        SqlConnection con = new SqlConnection(@"Data Source=LAPTOP-LIPBI05D;Initial Catalog=Tetris;Integrated Security=True");
 
         public void openConnection()
         {

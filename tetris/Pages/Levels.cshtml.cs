@@ -14,10 +14,8 @@ namespace tetris.Pages
         public int k = 0;
 
         public List<String> lvls_str = new List<String>();
-
         public void OnGet()
         {
-
             string queryString = "SELECT * FROM [Level];";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
@@ -39,15 +37,16 @@ namespace tetris.Pages
             for (int i = 0; i < level_count; i++)
             {
                 queryString = $"SELECT SetOfShapes.Shape_Id FROM Level INNER JOIN SetOfShapes ON Level.Level_Id = SetOfShapes.Level_Id AND Level.Level_Id = {data1[i][0]}";
-                SqlDataReader reader2 = command.ExecuteReader();
+                SqlCommand command2 = new SqlCommand(queryString, database.getConnection());
+                SqlDataReader reader2 = command2.ExecuteReader();
                 String shapes = "";
                 while (reader2.Read())
                 {
                     shapes += reader2[0].ToString() + ", ";
                 }
-                shapes.Remove(shapes.Length - 2, 2);
-                data1[i][2] = shapes;
                 reader2.Close();
+                shapes = shapes.Remove(shapes.Length - 2);
+                data1[i][2] = shapes;
             }
             for (int i = 0; i < level_count; i++)
             {
