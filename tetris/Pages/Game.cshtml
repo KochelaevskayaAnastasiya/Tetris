@@ -124,7 +124,7 @@
         function isValidMove(matrix, cellRow, cellCol) {
             for (let row = 0; row < matrix.length; row++) {
                 for (let col = 0; col < matrix[row].length; col++) {
-                    if (matrix[row][col] && (
+                    if (matrix[row][col]=='1' && (
                         // outside the game bounds
                         cellCol + col < 0 ||
                         cellCol + col >= playfield[0].length ||
@@ -144,7 +144,7 @@
         function placeTetromino() {
             for (let row = 0; row < tetromino.matrix.length; row++) {
                 for (let col = 0; col < tetromino.matrix[row].length; col++) {
-                    if (tetromino.matrix[row][col]>0) {
+                    if (tetromino.matrix[row][col]=='1') {
 
                         // game over if piece has any part offscreen
                         if (tetromino.row + row < 0) {
@@ -318,12 +318,10 @@
 
                 context.fillStyle = colors2[tetromino.name-1];
 
-                let elem5 = document.getElementById('12');
 
                 for (let row = 0; row < tetromino.matrix.length; row++) {
                     for (let col = 0; col < tetromino.matrix[row].length; col++) {
                         if (tetromino.matrix[row][col]=='1') {
-                            elem5.innerHTML = tetromino.matrix;
                             // drawing 1 px smaller than the grid creates a grid effect
                             context.fillRect((tetromino.col + col) * grid, (tetromino.row + row) * grid, grid - 1, grid - 1);
                         }
