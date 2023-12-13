@@ -28,12 +28,12 @@
                                 document.querySelector('.content').innerHTML = `<table class="levels"></table>`;
                                 let row = document.createElement('tr');
                                 row.innerHTML = `
-                                                <td class="td1">Номер</td>
-                                                <td class="td1">Стакан</td>
-                                                <td class="td1">Набор фигур</td>
-                                                <td class="td1">Скорость</td>
-                                                <td class="td1">Очков за ряд</td>
-                                                <td class="td1">Очков на след.уровень</td>
+                                                <td class="td">Номер</td>
+                                                <td class="td">Стакан</td>
+                                                <td class="td">Набор фигур</td>
+                                                <td class="td">Скорость</td>
+                                                <td class="td">Очков за ряд</td>
+                                                <td class="td">Очков на след.уровень</td>
                                                 `;
                                 document.querySelector('.levels').appendChild(row);
                                 for (let i = 0; i < lvl_array.length; i++) {
@@ -47,11 +47,36 @@
                                     document.querySelector('.levels').appendChild(rw);
                                 }
                         </script>
-                        <a class="button-levels" asp-page="/NewLevel">Новый уровень сложности</a>
-                        <a class="button-levels" asp-page="/EditLevel">Редактировать уровень сложности</a>
                     </div>
+                </form>
+                <form method="POST" onsubmit="return fnctn( );">
+                        <a class="button-levels" asp-page="/NewLevel">Новый уровень сложности</a>
+                        <a type="submit" class="button-levels" name="btn" value= "Редактировать" asp-page="/EditLevel">Редактировать уровень сложности</a>
+                    <script>
+                        function fnctn() {
+                        let items=document.getElementsByClassName("active");
+                        let value = items[0].innerHTML;
+                        localStorage.setItem("value", value);
+                        return true;
+                        }
+                    </script>
                 </form>
             </div>
         </div>
     </section>
+    <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.levels tr').hover(function(){
+            $(this).addClass('hover');
+            }, function() {
+            $(this).removeClass('hover');
+            });
+
+            $('.levels tr').click(function(){
+            $('.levels tr').removeClass('active');
+            $(this).addClass('active');
+            });
+        });
+    </script>
 </body>

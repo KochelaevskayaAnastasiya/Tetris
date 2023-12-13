@@ -327,9 +327,67 @@ button {
     background-color: white;
     border: 3px solid black;
     margin-bottom: 5%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.levels th, .levels td {
+    border: 3px solid black;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    cursor: pointer;
 }
 
+.levels .active .td1:after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    width: 105%;
+    border-top: 3px solid #00008B;
+    border-bottom: 3px solid #00008B;
+}
+
+.levels .active .td1:first-child:after {
+    border-left: 3px solid #00008B;
+}
+
+.levels .active .td1:last-child:after {
+    border-right: 3px solid #00008B;
+    width: auto;
+}
+
+.levels .hover .td1:after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    width: 105%;
+    border-top: 3px solid #1E90FF;
+    border-bottom: 3px solid #1E90FF;
+}
+
+.levels .hover .td1:first-child:after {
+    border-left: 3px solid #1E90FF;
+}
+
+.levels .hover .td1:last-child:after {
+    border-right: 3px solid #1E90FF;
+    width: auto;
+}
+
+
 .td1 {
+    width: 9.6rem;
+    text-align: center;
+    border: 3px solid black;
+}
+.td {
     width: 9.6rem;
     text-align: center;
     border: 3px solid black;
@@ -386,9 +444,67 @@ button {
     background-color: white;
     border: 3px solid black;
     margin-bottom: 5%;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
+    .glasses th, .glasses td {
+        border: 3px solid black;
+        padding: 10px;
+        text-align: center;
+        vertical-align: middle;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .glasses .active .td2:after {
+        content: '';
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        width: 105%;
+        border-top: 3px solid #00008B;
+        border-bottom: 3px solid #00008B;
+    }
+
+    .glasses .active .td2:first-child:after {
+        border-left: 3px solid #00008B;
+    }
+
+    .glasses .active .td2:last-child:after {
+        border-right: 3px solid #00008B;
+        width: auto;
+    }
+
+    .glasses .hover .td2:after {
+        content: '';
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        width: 105%;
+        border-top: 3px solid #1E90FF;
+        border-bottom: 3px solid #1E90FF;
+    }
+
+    .glasses .hover .td2:first-child:after {
+        border-left: 3px solid #1E90FF;
+    }
+
+    .glasses .hover .td2:last-child:after {
+        border-right: 3px solid #1E90FF;
+        width: auto;
+    }
+
 .td2 {
+    width: 14.4rem;
+    text-align: center;
+    border: 3px solid black;
+}
+.td3 {
     width: 14.4rem;
     text-align: center;
     border: 3px solid black;

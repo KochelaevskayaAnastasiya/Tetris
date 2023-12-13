@@ -14,6 +14,8 @@ namespace tetris.Pages
         public int k = 0;
 
         public List<String> lvls_str = new List<String>();
+
+        private string value = "";
         public void OnGet()
         {
             string queryString = "SELECT * FROM [Level];";
@@ -58,6 +60,12 @@ namespace tetris.Pages
                 lvls_str.Add(str);
             }
             database.closeConnection();
+        }
+        [HttpPost]
+        public IActionResult OnPost()
+        {
+            value = Request.Form["value"];
+            return RedirectToPage("EditLevel");
         }
     }
 }

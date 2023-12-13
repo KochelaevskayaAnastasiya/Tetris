@@ -22,7 +22,7 @@ namespace tetris.Pages
 
         public void OnGet()
         {
-            string queryString = "SELECT Structure FROM [Figures];";
+            string queryString = "SELECT Structure FROM [Shape];";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
             database.openConnection();
@@ -80,7 +80,7 @@ namespace tetris.Pages
         }
         public int CountFiguBD()
         {
-            string queryString = "SELECT COUNT(*) FROM [Figures];";
+            string queryString = "SELECT COUNT(*) FROM [Shape];";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
             database.openConnection();
@@ -122,7 +122,7 @@ namespace tetris.Pages
                 for (int i = 0; i < coun; i++)
                 {
                     k = i + 1;
-                    string queryString = "UPDATE Figures SET Structure = '" + res[i] + "' WHERE ID_figure = '" + k + "';";
+                    string queryString = "UPDATE Shape SET Structure = '" + res[i] + "' WHERE Shape_Id = '" + k + "';";
                     database.openConnection();
                     SqlCommand command_insert = new SqlCommand(queryString, database.getConnection());
                     int number = command_insert.ExecuteNonQuery();
@@ -132,7 +132,7 @@ namespace tetris.Pages
 
                 for (int j = coun; j < res.Length; j++)
                 {
-                    string queryString = "INSERT INTO[Figures] VALUES('" + res[j] + "');";
+                    string queryString = "INSERT INTO[Shape] VALUES('" + res[j] + "');";
                     database.openConnection();
                     SqlCommand command_insert = new SqlCommand(queryString, database.getConnection());
                     int number = command_insert.ExecuteNonQuery();
@@ -142,7 +142,7 @@ namespace tetris.Pages
             }
             else
             {
-                string queryString2 = "DELETE FROM Figures;";
+                string queryString2 = "DELETE FROM Shape;";
                 database.openConnection();
                 SqlCommand command_insert2 = new SqlCommand(queryString2, database.getConnection());
                 int number2 = command_insert2.ExecuteNonQuery();
@@ -151,7 +151,7 @@ namespace tetris.Pages
 
                 for (int i = 0; i < res.Length; i++)
                 {
-                    string queryString = "INSERT INTO[Figures] VALUES('" + res[i] + "');";
+                    string queryString = "INSERT INTO[Shape] VALUES('" + res[i] + "');";
                     database.openConnection();
                     SqlCommand command_insert = new SqlCommand(queryString, database.getConnection());
                     int number = command_insert.ExecuteNonQuery();

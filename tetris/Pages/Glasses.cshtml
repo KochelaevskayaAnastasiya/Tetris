@@ -28,8 +28,8 @@
                                 document.querySelector('.content').innerHTML = `<table class="glasses"></table>`;
                                 let row = document.createElement('tr');
                                 row.innerHTML = `
-                                                <td class="td2">Номер</td>
-                                                <td class="td2">Размер</td>
+                                                <td class="td3">Номер</td>
+                                                <td class="td3">Размер</td>
                                                 `;
                                 document.querySelector('.glasses').appendChild(row);
                                 for (let i = 0; i < lvl_array.length; i++) {
@@ -46,4 +46,19 @@
             </div>
         </div>
     </section>
+    <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+$(document).ready(function(){
+    $('.glasses tr').hover(function(){
+        $(this).addClass('hover');
+    }, function() {
+        $(this).removeClass('hover');
+    });
+
+    $('.glasses tr').click(function(){
+        $('.glasses tr').removeClass('active');
+        $(this).addClass('active');
+    });
+});
+    </script>
 </body>
