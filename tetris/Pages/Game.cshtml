@@ -5,6 +5,7 @@
 }
 <body class="body_game">
  <label id="12"></label>
+ <label id="22"></label>
     <canvas id="game" class="game"></canvas>
     <script>
 
@@ -66,16 +67,13 @@
 
 
 
-        let elem5 = document.getElementById('12');
-        elem5.innerHTML = figures_mas[0][0][0];
-
         // generate a new tetromino sequence
         // see https://tetris.fandom.com/wiki/Random_Generator
         function generateSequence() {
             //const sequence = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
             let sequence2 = new Array();
             for (let i = 0; i < figures_mas.length; i++) {
-                sequence2[i] = i;
+                sequence2[i] = i+1;
             }
 
             while (sequence2.length) {
@@ -92,7 +90,7 @@
             }
 
             const name = tetrominoSequence.pop();
-            const matrix = figures_mas[name];
+            const matrix = figures_mas[name-1];
 
             // I and O start centered, all others start in left-middle
             const col = playfield[0].length / 2 - Math.ceil(matrix[0].length / 2);
@@ -146,7 +144,7 @@
         function placeTetromino() {
             for (let row = 0; row < tetromino.matrix.length; row++) {
                 for (let col = 0; col < tetromino.matrix[row].length; col++) {
-                    if (tetromino.matrix[row][col]) {
+                    if (tetromino.matrix[row][col]>0) {
 
                         // game over if piece has any part offscreen
                         if (tetromino.row + row < 0) {
@@ -289,12 +287,13 @@
             }
             /*добавленый*/
 
+
             // draw the playfield
             for (let row = 0; row < he; row++) {
                 for (let col = 0; col < wi; col++) {
-                    if (playfield[row][col]) {
+                    if (playfield[row][col]!='0') {
                         const name = playfield[row][col];
-                        context.fillStyle = colors2[name];
+                        context.fillStyle = colors2[name-1];
 
                         // drawing 1 px smaller than the grid creates a grid effect
                         context.fillRect(col * grid, row * grid, grid - 1, grid - 1);
@@ -317,11 +316,14 @@
                     }
                 }
 
-                context.fillStyle = colors2[tetromino.name];
+                context.fillStyle = colors2[tetromino.name-1];
+
+                let elem5 = document.getElementById('12');
 
                 for (let row = 0; row < tetromino.matrix.length; row++) {
                     for (let col = 0; col < tetromino.matrix[row].length; col++) {
-                        if (tetromino.matrix[row][col]) {
+                        if (tetromino.matrix[row][col]=='1') {
+                            elem5.innerHTML = tetromino.matrix;
                             // drawing 1 px smaller than the grid creates a grid effect
                             context.fillRect((tetromino.col + col) * grid, (tetromino.row + row) * grid, grid - 1, grid - 1);
                         }

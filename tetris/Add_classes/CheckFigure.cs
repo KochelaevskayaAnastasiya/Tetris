@@ -69,12 +69,17 @@ namespace tetris.Add_classes
                     s3 += f[k];
                     k += 4;
                 }
-                while (Convert.ToInt16(s3) == 0 && i + col * 3 <= f.Length)
+                while (Convert.ToInt16(s3) == 0)
                 {
-                    f = f.Remove(col * 3, 1);
-                    f = f.Remove(col * 2, 1);
-                    f = f.Remove(col, 1);
-                    f = f.Remove(0, 1);
+                    int y = 3;
+                    while (y * col >= f.Length)
+                    {
+                        y--;
+                    }
+                    for (int l = y; l >= 0; l--)
+                    {
+                        f = f.Remove(col * l, 1);
+                    }
                     i++;
                     k = 0;
                     s3 = "";
@@ -85,24 +90,30 @@ namespace tetris.Add_classes
                         k += col;
                     }
                 }
-                k = f.Length / col - 1;
+                k = col - 1;
                 s3 = "";
                 while (k < f.Length)
                 {
                     s3 += f[k];
-                    k += 4;
+                    k += col;
                 }
-                i = 3;
-                while (Convert.ToInt16(s3) == 0 && i + col * 3 <= f.Length && i >= 0)
+                i = col - 1;
+                while (Convert.ToInt16(s3) == 0 && i >= 0)
                 {
-                    f = f.Remove(i + col * 3, 1);
-                    f = f.Remove(i + col * 2, 1);
-                    f = f.Remove(i + col, 1);
-                    f = f.Remove(i + 0, 1);
+                    int z = 3;
+                    while (i + z * col >= f.Length)
+                    {
+                        z--;
+                    }
+                    for (int l = z; l >= 0; l--)
+                    {
+                        f = f.Remove(i + col * l, 1);
+                    }
                     i--;
-                    k = f.Length / col - 1;
                     s3 = "";
                     col--;
+                    k = col - 1;
+
                     while (k < f.Length)
                     {
                         s3 += f[k];
@@ -198,6 +209,40 @@ namespace tetris.Add_classes
             }
             if (k > 1) { return false; }
             else { return true; }
+        }
+        public static FigureDop Chen(FigureDop str)
+        {
+            int col = str.col;
+            int row = str.structure.Length / col;
+            string struc = str.structure;
+            FigureDop res = str;
+            if (col != row)
+            {
+                if (col > row)
+                {
+                    int k = col - row;
+                    for (int i = 0; i < k * col; i++)
+                    {
+                        struc += "0";
+                    }
+                    res = new FigureDop(struc, col);
+                }
+                else
+                {
+                    str = TurnRi(str);
+                    res = Chen(str);
+                }
+            }
+            return res;
+        }
+
+        public static FigureDop[] Chen_mas(FigureDop[] mas)
+        {
+            for (int i = 0; i < mas.Length; i++)
+            {
+                mas[i] = Chen(mas[i]);
+            }
+            return mas;
         }
     }
 }

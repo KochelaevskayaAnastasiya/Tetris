@@ -15,9 +15,9 @@ namespace tetris.Pages
         {
             List<Figure> figures = new List<Figure>();
             figures.Add(new Figure("1000000000000000"));
-            figures.Add(new Figure("0000000000001111"));
+            figures.Add(new Figure("0000000000111111"));
             figures.Add(new Figure("1000100010001100"));
-            figures.Add(new Figure("1000000000000000"));
+            figures.Add(new Figure("1100000000000000"));
 
             List<string> figures_str = new List<string>();
             foreach(Figure f in figures)
@@ -29,7 +29,7 @@ namespace tetris.Pages
 
             figures_mas = figures_str.ToArray();
 
-            FigureDop[] figureDops = CheckFigure.Delete_trush(figures_mas);
+            FigureDop[] figureDops = CheckFigure.Chen_mas(CheckFigure.Delete_trush(figures_mas));
             List<string> figures_str_with_col = new List<string>();
             foreach (FigureDop f in figureDops)
             {
