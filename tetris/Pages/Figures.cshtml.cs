@@ -51,33 +51,6 @@ namespace tetris.Pages
 
         }
 
-        public string[] CheckFigures(string[] fi)
-        {
-
-            /*for(int k=0;k< fig_str.Count; k++)
-            {
-                string queryString = "SELECT * FROM Figures WHERE Structure ='" + fi + "';";
-
-                SqlCommand command = new SqlCommand(queryString, database.getConnection());
-                database.openConnection();
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read())
-                {
-                    reader.Close();
-                    database.closeConnection();
-                }
-                else
-                {
-                    reader.Close();
-                    string sqlExpression = "INSERT INTO Users VALUES ('" + login + "', '" + password + "')";
-                    SqlCommand command_insert = new SqlCommand(sqlExpression, database.getConnection());
-                    int number = command_insert.ExecuteNonQuery();
-                    Console.WriteLine("Добавлен пользователь: {0}", number);
-                    database.closeConnection();
-                }
-            }*/
-            return fi;
-        }
         public int CountFiguBD()
         {
             string queryString = "SELECT COUNT(*) FROM [Shape];";
