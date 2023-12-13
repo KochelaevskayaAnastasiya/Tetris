@@ -1,5 +1,5 @@
-﻿@page
-@model tetris.Pages.NewLevelModel
+﻿@page "{id}"
+@model tetris.Pages.EditLevelModel
 @{
 	ViewData["Title"] = "Редактировать уровень сложности";	
 }
@@ -7,7 +7,7 @@
 	<section>
 		<div class="form-box-lvl">
 			<div class="form-value">
-				<form method="GET">
+				<form method="GET" name="EditLevelForm">
 					<h2 class="h2-lvl">Уровень сложности</h2>
 			<div class="field">
 				<label class="label-lvl">Стакан</label>
@@ -16,7 +16,7 @@
 			</div>
 			<div class="field">
 				<label class="label-lvl">Фигуры</label>
-				<input type="text" class="label-lvl2" required readonly="true">
+				<input type="text" class="label-lvl2" name ="shapes" required readonly="true">
 				<button class="btn-lvl2">Изменить</button>
 			</div>
 			<div class="field">
@@ -26,23 +26,46 @@
 			</div>
 			<div class="field">
 				<label class="label-lvl">Очки за ряд</label>
-				<input type="text" class="label-lvl2">
+				<input type="text" class="label-lvl2" name ="sc1">
 			</div>
 			<div class="field">
 				<label class="label-lvl">Очки на след. уровень</label>
-				<input type="text" class="label-lvl2">
+				<input type="text" class="label-lvl2" name ="sc2">
 			</div>
 			<script>
-							let l2 = '@String.Join(".",Model.gls_str)';
-							let sp = '@String.Join(";",Model.speeds)';
+							let k = 0;
+							let g2 = '@String.Join(".",Model.gls_str)';
+							let l2 = '@String.Join(".",Model.lvl_str)';
 
 							let lvl = l2.split('.');
+
+							let l = lvl[0].split(';');
+
+							document.EditLevelForm.shapes.value = l[2];
+							document.EditLevelForm.sc1.value = l[4];
+							document.EditLevelForm.sc2.value = l[5];
+							let sp = '@String.Join(";",Model.speeds)';
+
 							let s = sp.split(';');
-							for (let i = 0; i < lvl.length; i++) {
+							/*for (let i = 0; i < lvl.length; i++) {
 								document.querySelector('.select1').innerHTML += `<option class="option">${lvl[i]}</option>`;
-							}
+							}*/
 							for (let i = 0; i < s.length; i++) {
-								document.querySelector('.select2').innerHTML += `<option class="option">${s[i]}</option>`;
+								if (s[i] == l[3]){
+									document.querySelector('.select2').innerHTML += `<option class="option" selected>${s[i]}</option>`;
+								}
+								else{
+									document.querySelector('.select2').innerHTML += `<option class="option">${s[i]}</option>`;
+								}
+							}
+							let gl = g2.split('.');
+							for (let i = 0; i < gl.length; i++) {
+								if (gl[i] == l[1]){
+									document.querySelector('.select1').innerHTML += `<option class="option" selected>${gl[i]}</option>`;
+								}
+								else{
+									document.querySelector('.select1').innerHTML += `<option class="option">${gl[i]}</option>`;
+								}
 							}
 			</script>
 				</form>

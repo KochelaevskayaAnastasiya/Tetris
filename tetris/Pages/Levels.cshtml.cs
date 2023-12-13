@@ -16,6 +16,7 @@ namespace tetris.Pages
         public List<String> lvls_str = new List<String>();
 
         private string value = "";
+        public string id = "";
         public void OnGet()
         {
             string queryString = "SELECT * FROM [Level];";
@@ -66,10 +67,13 @@ namespace tetris.Pages
 
         [HttpPost]
         public IActionResult OnPost()
-        {
-            value = Request.Form["value"];
+        {   //string s1 = "<td class=\"td1\">";
+            string s2 = "</td>";
             string s = Request.Form["kkk"];
-            return RedirectToPage("EditLevel");
+            //int i1 = s.IndexOf(s1);
+            int i2 = s.IndexOf(s2);
+            id = s.Substring(16, i2 - 16);
+            return RedirectToPage("EditLevel", new {id = this.id });
         }
     }
 }

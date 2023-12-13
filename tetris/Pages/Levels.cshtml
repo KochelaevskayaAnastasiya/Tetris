@@ -56,10 +56,8 @@
                         <button class="button-levels" type="submit">Редактировать уровень сложности</button>
                     <script>
                         function fnctn() {
-                        let items=document.getElementsByClassName('active');
+                            let items=document.getElementsByClassName('active');
                             document.formLevelsPOST.kkk.value = items[0].innerHTML;
-                        let value = items[0].innerHTML;
-                        localStorage.setItem("value", value);
                         return true;
                         }
                     </script>
