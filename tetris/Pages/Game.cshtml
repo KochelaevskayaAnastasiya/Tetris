@@ -8,7 +8,11 @@
  <label id="22"></label>
     <canvas id="game" class="game"></canvas>
     <canvas id="nextFigure" class="nextFigure"></canvas>
+    
     <script>
+            //---------
+
+
 
         const canvas = document.getElementById('game');
         const context = canvas.getContext('2d');
@@ -21,6 +25,11 @@
         canvas.width = wi * grid;
         canvas.height = he * grid;
         //-----
+
+        const next_figure = document.getElementById('nextFigure');
+        const context_next_figure = next_figure.getContext('2d');
+        next_figure.width = 4 * grid;
+        next_figure.height = 4 * grid;
 
 
 
@@ -100,8 +109,6 @@
             const row = name === 'I' ? -1 : -2;
 
 
-            
-
             return {
                 name: name,      // name of the piece (L, O, etc.)
                 matrix: matrix,  // the current rotation matrix
@@ -173,7 +180,7 @@
                 }
             }
 
-            tetromino = getNextTetromino();
+            tetromino = next_tetromino;
         }
 
         // show the game over screen
@@ -208,58 +215,48 @@
                 playfield[row][col] = 0;
             }
         }
-
-        // how to draw each tetromino
-        // see https://tetris.fandom.com/wiki/SRS
-        const tetrominos = {
-            'I': [
-                [0, 0, 0, 0],
-                [1, 1, 1, 1],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0]
-            ],
-            'J': [
-                [1, 0, 0],
-                [1, 1, 1],
-                [0, 0, 0],
-            ],
-            'L': [
-                [0, 0, 1],
-                [1, 1, 1],
-                [0, 0, 0],
-            ],
-            'O': [
-                [1, 1],
-                [1, 1],
-            ],
-            'S': [
-                [0, 1, 1],
-                [1, 1, 0],
-                [0, 0, 0],
-            ],
-            'Z': [
-                [1, 1, 0],
-                [0, 1, 1],
-                [0, 0, 0],
-            ],
-            'T': [
-                [0, 1, 0],
-                [1, 1, 1],
-                [0, 0, 0],
-            ]
-        };
-
         
         const colors2 = ['cyan', 'yellow', 'purple', 'green', 'midnightblue',
         'red', 'blue', 'orange', 'indigo', 'darkslategray'
         ];
         
 
+        let next_tetromino = getNextTetromino();
 
         let count = 0;
-        let tetromino = getNextTetromino();
+        let tetromino = next_tetromino;
+        next_tetromino = getNextTetromino();
+        upgate_next_figure(next_tetromino);
         let rAF = null;  // keep track of the animation frame so we can cancel it
         let gameOver = false;
+
+        
+        function upgate_next_figure(tetromino) {
+            context_next_figure.clearRect(0, 0, next_figure.width, next_figure.height);
+            
+            /*добавленый*/
+            context_next_figure.fillStyle = 'black';
+            for (let row = 0; row < 4; row++) {
+                context_next_figure.fillRect(row * grid - 1, 0, 0.5, next_figure.height);
+            }
+            for (let col = 0; col < 4; col++) {
+                context_next_figure.fillRect(0, col * grid - 1, next_figure.width, 0.5);
+            }
+             
+
+            for (let row = 0; row < tetromino.matrix.length; row++) {
+                for (let col = 0; col < tetromino.matrix[row].length; col++) {
+                    if (tetromino.matrix[row][col] == '1') {
+                        const name = tetromino.name;
+                        context_next_figure.fillStyle = colors2[(name - 1) % 10];
+
+                        // drawing 1 px smaller than the grid creates a grid effect
+                        context_next_figure.fillRect(col * grid, row * grid, grid - 1, grid - 1);
+                    
+                    }
+                }
+            }
+        }
         
         
 
@@ -305,6 +302,8 @@
                     if (!isValidMove(tetromino.matrix, tetromino.row, tetromino.col)) {
                         tetromino.row--;
                         placeTetromino();
+                        next_tetromino = getNextTetromino();
+                        upgate_next_figure(next_tetromino);
                     }
                 }
 
@@ -353,6 +352,8 @@
                     tetromino.row = row - 1;
 
                     placeTetromino();
+                    next_tetromino = getNextTetromino();
+                    upgate_next_figure(next_tetromino);
                     return;
                 }
 

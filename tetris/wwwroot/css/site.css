@@ -206,6 +206,12 @@ button {
     justify-content: center
 }
 
+.nextFigure {
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: 0;
+}
+
 .form-box-menu {
     position: relative;
     width: 800px;
