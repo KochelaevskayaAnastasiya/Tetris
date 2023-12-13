@@ -249,16 +249,7 @@
             ]
         };
 
-        // color of each tetromino
-        const colors = {
-            'I': 'cyan',
-            'O': 'yellow',
-            'T': 'purple',
-            'S': 'green',
-            'Z': 'red',
-            'J': 'blue',
-            'L': 'orange'
-        };
+        
         const colors2 = ['cyan', 'yellow', 'purple', 'green', 'midnightblue',
         'red', 'blue', 'orange', 'indigo', 'darkslategray'
         ];
@@ -294,7 +285,7 @@
                 for (let col = 0; col < wi; col++) {
                     if (playfield[row][col]!='0') {
                         const name = playfield[row][col];
-                        context.fillStyle = colors2[name-1];
+                        context.fillStyle = colors2[(name-1)%10];
 
                         // drawing 1 px smaller than the grid creates a grid effect
                         context.fillRect(col * grid, row * grid, grid - 1, grid - 1);
@@ -317,7 +308,7 @@
                     }
                 }
 
-                context.fillStyle = colors2[tetromino.name-1];
+                context.fillStyle = colors2[(tetromino.name-1) % 10];
 
 
                 for (let row = 0; row < tetromino.matrix.length; row++) {
