@@ -106,11 +106,12 @@ namespace tetris.Pages
 
                 for (int j = coun; j < res.Length; j++)
                 {
-                    string queryString = "INSERT INTO[Shape] VALUES('" + res[j] + "');";
+                    k = j + 1;
+                    string queryString = "INSERT INTO[Shape] VALUES("+k+ ",'" + res[j] + "');";
                     database.openConnection();
                     SqlCommand command_insert = new SqlCommand(queryString, database.getConnection());
                     int number = command_insert.ExecuteNonQuery();
-                    Console.WriteLine("Добавлено: {0}", number);
+                    Console.WriteLine("Изменено: {0}", number);
                     database.closeConnection();
                 }
             }
@@ -125,7 +126,8 @@ namespace tetris.Pages
 
                 for (int i = 0; i < res.Length; i++)
                 {
-                    string queryString = "INSERT INTO[Shape] VALUES('" + res[i] + "');";
+                    k = i + 1;
+                    string queryString = "INSERT INTO[Shape] VALUES(" + k + ",'" + res[i] + "');";
                     database.openConnection();
                     SqlCommand command_insert = new SqlCommand(queryString, database.getConnection());
                     int number = command_insert.ExecuteNonQuery();
