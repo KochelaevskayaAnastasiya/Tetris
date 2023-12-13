@@ -68,6 +68,7 @@ namespace tetris.Pages
         public IActionResult OnPost()
         {
             value = Request.Form["value"];
+            string s = Request.Form["kkk"];
             return RedirectToPage("EditLevel");
         }
     }
