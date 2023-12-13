@@ -22,8 +22,7 @@ namespace tetris.Pages
 
         public void OnGet()
         {
-            //string queryString = "SELECT Structure FROM [Shape];";
-            string queryString = "SELECT Structure FROM [Figures];";
+            string queryString = "SELECT Structure FROM [Shape];";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
             database.openConnection();
