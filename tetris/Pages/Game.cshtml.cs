@@ -1,23 +1,44 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using tetris.Add_classes;
 
 namespace tetris.Pages
 {
     public class GameModel : PageModel
     {
+        private DataBase database = new DataBase();
+
         public Difficulty_level difficulty_level;
 
         public string[] figures_mas;
         public string[] figures_mas_with_col;
-        public void OnGet()
+
+        public List<Figure> GetFigures()
         {
             List<Figure> figures = new List<Figure>();
-            figures.Add(new Figure("1000000000000000"));
-            figures.Add(new Figure("0000000000111111"));
-            figures.Add(new Figure("1000100010001100"));
-            figures.Add(new Figure("1100000000000000"));
+
+
+            //string queryString = "SELECT Structure FROM [Shape];";
+            string queryString = "SELECT Structure FROM [Figures];";
+
+            SqlCommand command = new SqlCommand(queryString, database.getConnection());
+            database.openConnection();
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                figures.Add(new Figure(reader[0].ToString()));
+            }
+            reader.Close();
+            database.closeConnection();
+
+            return figures;
+        }
+        public void OnGet()
+        {
+            List<Figure> figures = GetFigures();
 
             List<string> figures_str = new List<string>();
             foreach(Figure f in figures)
