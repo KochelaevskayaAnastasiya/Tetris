@@ -20,8 +20,8 @@ namespace tetris.Pages
             List<Figure> figures = new List<Figure>();
 
 
-            //string queryString = "SELECT Structure FROM [Shape];";
-            string queryString = "SELECT Structure FROM [Figures];";
+            string queryString = "SELECT Structure FROM [Shape];";
+            //string queryString = "SELECT Structure FROM [Figures];";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
             database.openConnection();
