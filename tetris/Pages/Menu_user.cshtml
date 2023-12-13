@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{login}"
 @model tetris.Pages.Menu_userModel
 @{
     ViewData["Title"] = "Меню";
@@ -11,7 +11,7 @@
                 <form class="form" method="POST" onsubmit="">
                     <div class="img">
                         <img class="image" src="login.png">
-                        <p class="login">Логин</p>
+                        <p class="login">@RouteData.Values["login"]</p>
                     </div>
                     <h2 class="h2-menu">Тетрис</h2>
                     <div class="inputbox-menu">

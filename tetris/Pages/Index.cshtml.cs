@@ -38,7 +38,8 @@ namespace tetris.Pages
                 database.closeConnection();
                 if (login == "Admin")
                 { return RedirectToPage("Menu_admin"); }
-                else { return RedirectToPage("Menu_user"); }
+                else { 
+                    return RedirectToPage("Menu_user", new { login = this.login }); }
             }
             else
             {
