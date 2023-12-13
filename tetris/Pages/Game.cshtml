@@ -8,11 +8,36 @@
  <label id="22"></label>
     <canvas id="game" class="game"></canvas>
     <canvas id="nextFigure" class="nextFigure"></canvas>
-    
+    <label id ="timer"> 00:00</label>
+    <label id="point">0</label>
     <script>
+        let count_point = 0;
+        let point_for_line = @Model.difficulty_level.Points_row;
+        let count_pointer = document.getElementById('point');
+        //------
+        let timer = document.getElementById('timer');
+        let seconds = 0;
+        let minutes = 0;
+        let interval;
+
+        let start_time = true;
+
+        function updateTime() {
+            if (start_time) {
+            seconds++;
+            if (seconds === 60) {
+                minutes++;
+                seconds = 0;
+            }
+            if (minutes === 60) {
+                hours++;
+                minutes = 0;
+            }
+            timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        }
+        interval = setInterval(updateTime, 1000);
             //---------
-
-
 
         const canvas = document.getElementById('game');
         const context = canvas.getContext('2d');
@@ -156,6 +181,7 @@
 
                         // game over if piece has any part offscreen
                         if (tetromino.row + row < 0) {
+                            start_time = false;
                             return showGameOver();
                         }
 
@@ -167,6 +193,8 @@
             // check for line clears starting from the bottom and working our way up
             for (let row = playfield.length - 1; row >= 0;) {
                 if (playfield[row].every(cell => !!cell)) {
+                    count_point+=point_for_line;
+                    count_pointer.textContent = `${count_point.toString()}`;
 
                     // drop every row above this one
                     for (let r = row; r >= 0; r--) {
