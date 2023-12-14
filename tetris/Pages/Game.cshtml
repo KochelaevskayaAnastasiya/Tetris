@@ -7,7 +7,7 @@
     
     <div class="field_of_play">
         <div class="button_two">
-            <button onclick="Pause();">Пауза</button>
+            <button id="pause_button" onclick="Pause();">Пауза</button>
             <button onclick="Again();">Заново</button>
         </div>
         <div class="gg2">
@@ -42,6 +42,10 @@
 
         let level_pointer = document.getElementById('level');
         let lev = 1;
+
+        let pause_button = document.getElementById('pause_button');
+
+        
 
         let speed_level = @Model.difficulty_level.speed;
 
@@ -84,8 +88,21 @@
             //---------
         let isPause = false;
         function Pause() {
-            if (isPause == false) { isPause = true; clearInterval(interval); showPause();}
-            else { isPause = false; interval = setInterval(updateTime, 1000); rAF = requestAnimationFrame(loop); }
+            if (isPause == false)
+            { 
+                isPause = true; 
+                clearInterval(interval); 
+                showPause();
+                pause_button.textContent = `Продолжить`;
+            }
+            else 
+            { 
+                isPause = false; 
+                interval = setInterval(updateTime, 1000); 
+                rAF = requestAnimationFrame(loop); 
+                pause_button.textContent = `Пауза`;
+
+            }
 
         }
 
