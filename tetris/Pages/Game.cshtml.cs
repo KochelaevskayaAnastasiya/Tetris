@@ -109,7 +109,7 @@ namespace tetris.Pages
         public void OnGet()
         {
             
-            difficulty_level = GetDifficulty_Level(1);
+            difficulty_level = GetDifficulty_Level(3);
 
             List<Figure> figures = difficulty_level.figures;
 

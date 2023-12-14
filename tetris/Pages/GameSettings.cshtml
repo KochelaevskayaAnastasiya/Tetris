@@ -1,0 +1,46 @@
+﻿@page
+@model tetris.Pages.GameSettingsModel
+@{
+}
+<body>
+	<section>
+		<div class="form-box-sett">
+			<div class="form-value">
+				<form method="GET" name="EditLevelForm">
+					<h2 class="h2-sett">Настройка игры<h2>
+			<div class="field2">
+				<label class="label-sett" align="left">Способ подсчета статистики</label>
+				<p class = "p-sett" align="left"><input class="input-sett" name = "state" type="radio" value="time" align="left" checked/>На время</p>
+				<p class = "p-sett" align="left"><input class="input-sett"name = "state" type="radio" value="points" align="left"/>На очки</p>
+				<p class = "p-sett" align="left"><input class="input-sett" name = "state" type="radio" value="not" align="left"/>Нет</p>
+			</div>
+			<div class="field22" align="left">
+				<label class="label-sett" align="left">Уровень сложности</label>
+				<select class="select22" name="speed" id="select2" align="left">
+				</select>
+			</div>
+			<script>
+							let l2 = '@String.Join(".",Model.lvl_str)';
+
+							let lvl = l2.split('.');
+							for (let i = 0; i < lvl.length; i++) {
+								document.querySelector('.select22').innerHTML += `<option class="option">уровень ${lvl[i]}</option>`;
+							}
+			</script>
+				</form>
+				<form method="POST" onsubmit="fnctn( );" name="formGameSettingsPOST">
+					<input type="hidden" id="k1" name="k1" />
+					<input type="hidden" id="k2" name="k2" />
+						<button class="btn-sett" type="submit">Начать игру</button>
+					<script>
+						function fnctn() {
+							document.formGameSettingsPOST.k1.value = document.getElementsByClassName('input-sett').value;
+							document.formGameSettingsPOST.k2.value = document.getElementsByClassName("select22").value;
+						return true;
+						}
+					</script>
+				</form>
+			</div>
+		</div>
+	</section>
+</body>
