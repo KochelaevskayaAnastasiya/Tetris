@@ -4,19 +4,32 @@
     ViewData["Title"] = "Игра";
 }
 <body class="body_game">
- <label id="12"></label>
- <label id="22"></label>
-
-    <button onclick="Pause();">Пауза</button>
-    <button onclick="Again();">Заново</button>
-
-    <canvas id="game" class="game"></canvas>
-    <canvas id="nextFigure" class="nextFigure"></canvas>
-    <label id ="timer">00:00</label>
-    <label id="level">Уровень 1</label>
-    <label id="point2">Очки </label>
-    <label id="point">0</label>
-    <button onclick="LevelUp();">Увеличить уровень</button>
+    
+    <div class="field_of_play">
+        <div class="button_two">
+            <button onclick="Pause();">Пауза</button>
+            <button onclick="Again();">Заново</button>
+        </div>
+        <div class="gg2">
+        <div class="canvas_field">
+            <canvas id="game" class="game"></canvas>
+        </div>
+        <div class="right_field">
+            <div class="element"><canvas id="nextFigure" class="nextFigure"></canvas></div>
+            <div class="element">
+                    <label id="timer2">Время </label><label id="timer">00:00</label>
+                </div>
+            <div class="element"><label id="level">Уровень 1</label></div>
+            <div class="element">
+                                <label id="point2">Очки: </label>
+                    <label id="point">0</label>
+                </div>
+           <div class="element">
+                    <button onclick="LevelUp();">Увеличить уровень</button>
+                </div>
+        </div>
+        </div>
+    </div>
 
     <script>
         let frames = 35;
@@ -64,7 +77,7 @@
                 hours++;
                 minutes = 0;
             }
-            timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            timer.textContent = ` ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
         }
         interval = setInterval(updateTime, 1000);

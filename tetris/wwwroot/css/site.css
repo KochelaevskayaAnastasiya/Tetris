@@ -641,3 +641,40 @@ button:hover {
     cursor: default;
     border-width: 1px
 }
+
+/*Поле для игры*/
+
+
+.field_of_play {
+    display: flex;
+    justify-content: center;
+    display: inline-block;
+}
+
+.button_two {
+}
+
+.button2 {
+    float: right;
+    text-align: center;
+}
+
+.time {
+    text-align: center;
+}
+
+.canvas_field {
+    float: left;
+    width: 65%;
+    overflow: hidden;
+}
+
+.right_field {
+    overflow: hidden;
+    margin-left: 50px;
+}
+
+.element {
+    text-align: center;
+    margin: 10px;
+}
