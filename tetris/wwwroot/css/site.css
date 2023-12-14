@@ -400,10 +400,9 @@ button {
 }
 
 .button-levels {
-    display: inline-block;
-    left: 65%;
-    width: 20%;
-    height: 60px;
+    position: relative;
+    width: 30%;
+    height: 20%;
     border-radius: 40px;
     background-color: #fff;
     border: none;
@@ -413,9 +412,32 @@ button {
     font-weight: 600;
     text-align: center;
     text-decoration: none;
-    color:black;
-    padding-top:1%;
-    margin-left:21%;
+    color: black;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    margin-left: 18%;
+}
+.button-levels2 {
+    position: relative;
+    width: 30%;
+    height: 20%;
+    border-radius: 40px;
+    background-color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    padding-top: 1%;
+    padding-left: 0.5%;
+    padding-right: 0.5%;
+    padding-bottom: 1%;
+    margin-left: 15%;
 }
 
     .button-levels:hover {

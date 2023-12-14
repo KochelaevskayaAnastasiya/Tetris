@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
@@ -82,7 +83,7 @@ namespace tetris.Pages
 			}
 			database.closeConnection();
 			
-			string queryString5 = "SELECT * FROM [Glass];";
+			string queryString5 = $"SELECT * FROM [Glass];";
 
 			SqlCommand command5 = new SqlCommand(queryString5, database.getConnection());
 			database.openConnection();
@@ -92,8 +93,8 @@ namespace tetris.Pages
 			{
 				data5.Add(new string[2]);
 
-				data5[data1.Count - 1][0] = reader5[0].ToString();
-				data5[data1.Count - 1][1] = reader5[1].ToString() + "x" + reader5[2].ToString();
+				data5[data5.Count - 1][0] = reader5[0].ToString();
+				data5[data5.Count - 1][1] = reader5[1].ToString() + "x" + reader5[2].ToString();
 			}
 			reader5.Close();
 			glass_count = data5.Count;
@@ -104,6 +105,47 @@ namespace tetris.Pages
 				gls_str.Add(str);
 			}
 			database.closeConnection();
+		}
+		[HttpPost]
+		public IActionResult OnPost()
+		{
+			string glass = Request.Form["k1"];
+			string shapes = Request.Form["k2"];
+			string speed = Request.Form["k3"];
+			string sc1 = Request.Form["k4"];
+			string sc2 = Request.Form["k5"];
+			int i1, i2;
+			int spd;
+			int.TryParse(speed, out spd);
+			bool b = true;
+			if (!int.TryParse(sc2, out i2) || !int.TryParse(sc1, out i1) || shapes == "")
+			{
+				b = false;
+			}
+			if (b)
+			{
+				int.TryParse(sc2, out i2); int.TryParse(sc1, out i1);
+				if (i2 < 1 || i1 < 1)
+					b = false;
+			}
+			if (b)
+			{
+				string[] gl = glass.Split('x');
+				string query = $"SELECT Glass_Id FROM Glass WHERE Length = {Convert.ToInt32(gl[0])} AND Width = {Convert.ToInt32(gl[1])}";
+				SqlCommand command = new SqlCommand(query, database.getConnection());
+				database.openConnection();
+				string GlassId = command.ExecuteScalar().ToString();
+				int.TryParse(sc2, out i2); int.TryParse(sc1, out i1);
+				string queryString = $"UPDATE Level SET Glass_Id = {Convert.ToInt32(GlassId)}, Speed = {spd}, PointsForRow = {i1}, PointsToNextLevel = {i2} WHERE Level_Id = {Convert.ToInt16(RouteData.Values["id"].ToString())}";
+				SqlCommand command2 = new SqlCommand(queryString, database.getConnection());
+				command2.ExecuteNonQuery();
+				database.closeConnection();
+				return RedirectToPage("Levels");
+			}
+			else
+			{
+				return RedirectToPage("EditLevel", new { id = RouteData.Values["id"].ToString() });
+			}
 		}
 	}
 }

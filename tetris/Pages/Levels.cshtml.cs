@@ -72,8 +72,15 @@ namespace tetris.Pages
             string s = Request.Form["kkk"];
             //int i1 = s.IndexOf(s1);
             int i2 = s.IndexOf(s2);
-            id = s.Substring(16, i2 - 16);
-            return RedirectToPage("EditLevel", new {id = this.id });
+            if (i2 == -1)
+            {
+                return RedirectToPage("Levels");
+            }
+            else
+            {
+				id = s.Substring(16, i2 - 16);
+				return RedirectToPage("EditLevel", new { id = this.id });
+            }
         }
     }
 }

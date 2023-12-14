@@ -11,26 +11,26 @@
 					<h2 class="h2-lvl">Уровень сложности</h2>
 			<div class="field">
 				<label class="label-lvl">Стакан</label>
-				<select class="select1">
+				<select class="select1" name="glass" id="select1">
 				</select>
 			</div>
 			<div class="field">
 				<label class="label-lvl">Фигуры</label>
-				<input type="text" class="label-lvl2" name ="shapes" required readonly="true">
+				<input type="text" class="label-lvl2" name ="shapes" id="inpt1" required readonly="true">
 				<button class="btn-lvl2">Изменить</button>
 			</div>
 			<div class="field">
 				<label class="label-lvl">Скорость</label>
-				<select class="select2">
+				<select class="select2" name="speed" id="select2">
 				</select>
 			</div>
 			<div class="field">
 				<label class="label-lvl">Очки за ряд</label>
-				<input type="text" class="label-lvl2" name ="sc1">
+				<input type="text" class="label-lvl2" name ="sc1" id="inpt2">
 			</div>
 			<div class="field">
 				<label class="label-lvl">Очки на след. уровень</label>
-				<input type="text" class="label-lvl2" name ="sc2">
+				<input type="text" class="label-lvl2" name ="sc2" id="inpt3">
 			</div>
 			<script>
 							let k = 0;
@@ -67,9 +67,27 @@
 									document.querySelector('.select1').innerHTML += `<option class="option">${gl[i]}</option>`;
 								}
 							}
+							document.formEditLevelPOST.kkkk.value = l[1];
 			</script>
 				</form>
-		<button class="btn-lvl">Сохранить</button>
+				<form method="POST" onsubmit="fnctn( );" name="formEditLevelPOST">
+					<input type="hidden" id="k1" name="k1" />
+					<input type="hidden" id="k2" name="k2" />
+					<input type="hidden" id="k3" name="k3" />
+					<input type="hidden" id="k4" name="k4" />
+					<input type="hidden" id="k5" name="k5" />
+						<button class="btn-lvl" type="submit">Сохранить</button>
+					<script>
+						function fnctn() {
+							document.formEditLevelPOST.k1.value = document.getElementById("select1").value;
+							document.formEditLevelPOST.k2.value = document.getElementById("inpt1").value;
+							document.formEditLevelPOST.k3.value = document.getElementById("select2").value;
+							document.formEditLevelPOST.k4.value = document.getElementById("inpt2").value;
+							document.formEditLevelPOST.k5.value = document.getElementById("inpt3").value;
+						return true;
+						}
+					</script>
+				</form>
 			</div>
 		</div>
 	</section>
