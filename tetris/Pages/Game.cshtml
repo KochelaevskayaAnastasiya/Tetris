@@ -6,11 +6,17 @@
 <body class="body_game">
  <label id="12"></label>
  <label id="22"></label>
+
+    <button onclick="Pause();">Пауза</button>
+    <button onclick="Again();">Заново</button>
+
     <canvas id="game" class="game"></canvas>
     <canvas id="nextFigure" class="nextFigure"></canvas>
     <label id ="timer"> 00:00</label>
     <label id="point">0</label>
     <script>
+       
+
         let count_point = 0;
         let point_for_line = @Model.difficulty_level.Points_row;
         let count_pointer = document.getElementById('point');
@@ -38,6 +44,15 @@
         }
         interval = setInterval(updateTime, 1000);
             //---------
+        let isPause = false;
+        function Pause() {
+            if (isPause == false) { isPause = true; clearInterval(interval); showPause();}
+            else { isPause = false; interval = setInterval(updateTime, 1000); rAF = requestAnimationFrame(loop); }
+
+        }
+
+        
+            //---------
 
         const canvas = document.getElementById('game');
         const context = canvas.getContext('2d');
@@ -45,11 +60,14 @@
         const tetrominoSequence = [];
         //-----
 
+        
+
         const wi = @Model.difficulty_level.Glass.Wigth();
         const he = @Model.difficulty_level.Glass.Height();
         canvas.width = wi * grid;
         canvas.height = he * grid;
         //-----
+        
 
         const next_figure = document.getElementById('nextFigure');
         const context_next_figure = next_figure.getContext('2d');
@@ -228,6 +246,22 @@
             context.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2);
         }
 
+        // show the game over screen
+        function showPause() {
+            cancelAnimationFrame(rAF);
+
+            context.fillStyle = 'black';
+            context.globalAlpha = 0.75;
+            context.fillRect(0, canvas.height / 2 - 30, canvas.width, 60);
+
+            context.globalAlpha = 1;
+            context.fillStyle = 'white';
+            context.font = '36px monospace';
+            context.textAlign = 'center';
+            context.textBaseline = 'middle';
+            context.fillText('Пауза', canvas.width / 2, canvas.height / 2);
+        }
+
         
         
 
@@ -243,6 +277,8 @@
                 playfield[row][col] = 0;
             }
         }
+
+        
         
         const colors2 = ['cyan', 'yellow', 'purple', 'green', 'midnightblue',
         'red', 'blue', 'orange', 'indigo', 'darkslategray'
@@ -257,6 +293,25 @@
         upgate_next_figure(next_tetromino);
         let rAF = null;  // keep track of the animation frame so we can cancel it
         let gameOver = false;
+
+        function Again() {
+            seconds = 0;
+            minutes = 0;
+            count_point = 0;
+            count_pointer.textContent = `${count_point.toString()}`;
+            for (let row = -2; row < he; row++) {
+                playfield[row] = [];
+
+                for (let col = 0; col < wi; col++) {
+                    playfield[row][col] = 0;
+                }
+            }
+            next_tetromino = getNextTetromino();
+            tetromino = next_tetromino;
+            next_tetromino = getNextTetromino();
+            upgate_next_figure(next_tetromino);
+            rAF = requestAnimationFrame(loop);
+        }
 
         
         function upgate_next_figure(tetromino) {
@@ -291,6 +346,7 @@
         // game loop
         function loop() {
             rAF = requestAnimationFrame(loop);
+            if (isPause == false){
             context.clearRect(0, 0, canvas.width, canvas.height);
 
 
@@ -346,6 +402,7 @@
                         }
                     }
                 }
+            }
             }
         }
 
