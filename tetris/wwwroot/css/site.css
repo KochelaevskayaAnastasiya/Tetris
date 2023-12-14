@@ -648,10 +648,12 @@ button:hover {
 .field_of_play {
     display: flex;
     justify-content: center;
-    display: inline-block;
+    margin: 0 auto;
 }
 
 .button_two {
+    overflow: hidden;
+    display: inline-block;
 }
 
 .button2 {
