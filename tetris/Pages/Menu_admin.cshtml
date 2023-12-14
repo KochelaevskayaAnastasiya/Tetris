@@ -23,8 +23,30 @@
 
                         <button class="button-menu">О системе</button>
 
-                        <button class="button-menu">О разработчиках</button>
+                        <button class="button-menu" onclick="openModal({ url: '/Developers'})" 
+                            data-toggle="ajax-modal" data-target="Modal">О разработчиках</button>
                     </div>
+                    <script>
+                        function openModal(parameters){
+                            const url = parameters.url;
+                            const modal = $('#modal');
+
+                            $.ajax({
+                                type: 'GET',
+                                url: url,
+                                success: function(response){
+                                    modal.find(".modal-body").html(response);
+                                    modal.modal('show')
+                                },
+                                failure: function(){
+                                    modal.modal('hide')
+                                },
+                                erroe: function(response){
+                                    alert(response.responseText);
+                                }
+                            });
+                        };
+                    </script>
                 </form>
             </div>
         </div>
