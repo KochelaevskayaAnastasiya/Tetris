@@ -68,6 +68,7 @@
         
 
         let speed_level = @Model.difficulty_level.speed;
+        frames-=speed_level;
 
         function LevelUp(){
 
@@ -383,8 +384,8 @@
         function Again() {
             lev = 1;
                     level_pointer.textContent = `Уровень ${lev.toString()}`;
-                    speed_level = 1;
-                    frames = 35;
+            speed_level = @Model.difficulty_level.speed;
+            frames = 35 - speed_level;
             gameOver = false;
             seconds = 0;
             minutes = 0;
