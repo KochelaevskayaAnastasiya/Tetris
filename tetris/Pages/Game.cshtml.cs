@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Reflection.PortableExecutable;
 using tetris.Add_classes;
 
 namespace tetris.Pages
@@ -15,38 +16,108 @@ namespace tetris.Pages
         public string[] figures_mas;
         public string[] figures_mas_with_col;
 
-        public List<Figure> GetFigures()
+        public Figure GetFigure(int id_figure)
+        {
+            string queryString = "SELECT Structure FROM [Shape] WHERE [Shape_Id] ="+id_figure+";";
+
+            SqlCommand command = new SqlCommand(queryString, database.getConnection());
+            database.openConnection();
+            SqlDataReader reader = command.ExecuteReader();
+            Figure figure = null;
+            while (reader.Read())
+            {
+                figure = new Figure(reader[0].ToString());
+            }
+            reader.Close();
+            database.closeConnection();
+
+            return figure;
+        }
+
+        public List<Figure> GetFigures(int id_level)
         {
             List<Figure> figures = new List<Figure>();
 
+            string queryString = "SELECT [Shape_Id] FROM [SetOfShapes] WHERE [Level_Id] = " + id_level + ";";
+            SqlCommand command = new SqlCommand(queryString, database.getConnection());
+            database.openConnection();
+            SqlDataReader reader = command.ExecuteReader();
 
-            string queryString = "SELECT Structure FROM [Shape];";
-            //string queryString = "SELECT Structure FROM [Figures];";
+            List<string> data = new List<string>();
+
+            while (reader.Read())
+            {
+                data.Add(reader[0].ToString());
+            }
+            reader.Close();
+            database.closeConnection();
+            for (int i = 0; i < data.Count; i++)
+            {
+                Figure figure = GetFigure(Int32.Parse(data[i].ToString()));
+                figures.Add(figure);
+            }
+            
+            return figures;
+        }
+        public Glass GetGlass(int id)
+        {
+            string queryString = "SELECT [Length],[Width] FROM [Glass] WHERE [Glass_Id] = " + id + ";";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
             database.openConnection();
             SqlDataReader reader = command.ExecuteReader();
 
+            string[] data = new string[2];
+
             while (reader.Read())
             {
-                figures.Add(new Figure(reader[0].ToString()));
+
+                data[0] = reader[0].ToString();
+                data[1] = reader[1].ToString();
+            }
+            reader.Close();
+            database.closeConnection();
+            Glass glass = new Glass(Int32.Parse(data[1]), Int32.Parse(data[0]));
+            return glass;
+        }
+        
+        public Difficulty_level GetDifficulty_Level(int id)
+        {
+
+            string queryString = "SELECT [Glass_Id],[Speed] ,[PointsForRow],[PointsToNextLevel] FROM [Level] WHERE Level_Id = " + id + ";";
+
+            SqlCommand command = new SqlCommand(queryString, database.getConnection());
+            database.openConnection();
+            SqlDataReader reader = command.ExecuteReader();
+
+            string[] data = new string[4];
+
+            while (reader.Read())
+            {
+
+                data[0] = reader[0].ToString();
+                data[1] = reader[1].ToString();
+                data[2] = reader[2].ToString();
+                data[3] = reader[3].ToString();
             }
             reader.Close();
             database.closeConnection();
 
-            return figures;
+            Difficulty_level difficulty_Level = new Difficulty_level(GetGlass(Int32.Parse(data[0])), GetFigures(id), Int32.Parse(data[1]), Int32.Parse(data[2]), Int32.Parse(data[3]));
+            return difficulty_Level;
         }
         public void OnGet()
         {
-            List<Figure> figures = GetFigures();
+            
+            difficulty_level = GetDifficulty_Level(1);
+
+            List<Figure> figures = difficulty_level.figures;
 
             List<string> figures_str = new List<string>();
-            foreach(Figure f in figures)
+            foreach (Figure f in figures)
             {
                 figures_str.Add(f.Structure);
             }
-
-            difficulty_level = new Difficulty_level(new Glass(10, 20), figures, 1, 1, 10);
 
             figures_mas = figures_str.ToArray();
 
@@ -54,7 +125,7 @@ namespace tetris.Pages
             List<string> figures_str_with_col = new List<string>();
             foreach (FigureDop f in figureDops)
             {
-                figures_str_with_col.Add(f.structure+";"+f.col);
+                figures_str_with_col.Add(f.structure + ";" + f.col);
             }
             figures_mas_with_col = figures_str_with_col.ToArray();
 

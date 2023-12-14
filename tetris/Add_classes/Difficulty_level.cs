@@ -2,11 +2,11 @@
 {
     public class Difficulty_level
     {
-        private Glass glass;
-        private List<Figure> figures;
-        private double speed;
-        private int points_row;
-        private int points_next_level;
+        public Glass glass;
+        public List<Figure> figures;
+        public double speed;
+        public int points_row;
+        public int points_next_level;
 
         public Difficulty_level(Glass glass, List<Figure> figures, double speed, int points_row, int points_next_level)
         {
