@@ -16,7 +16,7 @@ namespace tetris.Pages
         public string[] figures_mas;
         public string[] figures_mas_with_col;
 
-        public string point_mode = "";
+        public int point_mode;
         public Figure GetFigure(int id_figure)
         {
             string queryString = "SELECT Structure FROM [Shape] WHERE [Shape_Id] ="+id_figure+";";
@@ -109,7 +109,22 @@ namespace tetris.Pages
         }
         public void OnGet()
         {
-            //point_mode = RouteData.Values["state"].ToString();
+            string point_mode_str = RouteData.Values["state"].ToString();
+            if (point_mode_str == "not")
+            {
+                point_mode = 0;
+            }
+            else
+            {
+                if (point_mode_str == "time")
+                {
+                    point_mode = 1;
+                }
+                else
+                {
+                    point_mode = 2;
+                }
+            }
             
             difficulty_level = GetDifficulty_Level(Convert.ToInt16(RouteData.Values["id"]));
 
