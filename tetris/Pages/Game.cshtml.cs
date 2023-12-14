@@ -109,7 +109,7 @@ namespace tetris.Pages
         public void OnGet()
         {
             
-            difficulty_level = GetDifficulty_Level(3);
+            difficulty_level = GetDifficulty_Level(Convert.ToInt16(RouteData.Values["id"]));
 
             List<Figure> figures = difficulty_level.figures;
 

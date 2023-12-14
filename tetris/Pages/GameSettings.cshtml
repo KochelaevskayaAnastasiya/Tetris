@@ -11,12 +11,12 @@
 			<div class="field2">
 				<label class="label-sett" align="left">Способ подсчета статистики</label>
 				<p class = "p-sett" align="left"><input class="input-sett" name = "state" type="radio" value="time" align="left" checked/>На время</p>
-				<p class = "p-sett" align="left"><input class="input-sett"name = "state" type="radio" value="points" align="left"/>На очки</p>
+				<p class = "p-sett" align="left"><input class="input-sett" name = "state" type="radio" value="points" align="left"/>На очки</p>
 				<p class = "p-sett" align="left"><input class="input-sett" name = "state" type="radio" value="not" align="left"/>Нет</p>
 			</div>
 			<div class="field22" align="left">
 				<label class="label-sett" align="left">Уровень сложности</label>
-				<select class="select22" name="speed" id="select2" align="left">
+				<select class="select22" name="speed" id="select22" align="left">
 				</select>
 			</div>
 			<script>
@@ -34,8 +34,8 @@
 						<button class="btn-sett" type="submit">Начать игру</button>
 					<script>
 						function fnctn() {
-							document.formGameSettingsPOST.k1.value = document.getElementsByClassName('input-sett').value;
-							document.formGameSettingsPOST.k2.value = document.getElementsByClassName("select22").value;
+							document.formGameSettingsPOST.k1.value = document.querySelector('input[name="state"]:checked').value;
+							document.formGameSettingsPOST.k2.value = document.getElementById("select22").value;
 						return true;
 						}
 					</script>
