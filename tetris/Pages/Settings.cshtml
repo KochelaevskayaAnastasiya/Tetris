@@ -4,12 +4,26 @@
     ViewData["Title"] = "Настройки";
 }
 <body>
-    <section>
-        <div class="form-box">
-            <div class="form-value">
-                <a asp-page="/Game">Играть</a>
+	<section>
+		<div class="form-box-sett">
+			<div class="form-value">
+				<form method="GET" name="SettingsForm">
+					<h2 class="h2-sett">Настройки<h2>
+			<div class="field2">
+				<p class = "p-sett" align="left">На время<input class="input-sett" name = "state" type="radio" value="time" align="left" checked/></p>
+				<p class = "p-sett" align="left">На очки<input class="input-sett" name = "state" type="radio" value="points" align="left"/></p>
+				<p class = "p-sett" align="left">Нет<input class="input-sett" name = "state" type="radio" value="not" align="left"/></p>
+			</div>
+			<div class="field22" align="left">
+				<label class="label-sett" align="left">Уровень сложности</label>
+				<select class="select22" name="speed" id="select22" align="left">
+				</select>
+			</div>
+			<script>
 
-            </div>
-        </div>
-    </section>
+			</script>
+				</form>
+			</div>
+		</div>
+	</section>
 </body>
