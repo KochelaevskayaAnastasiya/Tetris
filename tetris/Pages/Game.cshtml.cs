@@ -109,22 +109,7 @@ namespace tetris.Pages
         }
         public void OnGet()
         {
-            string point_mode_str = RouteData.Values["state"].ToString();
-            if (point_mode_str == "not")
-            {
-                point_mode = 0;
-            }
-            else
-            {
-                if (point_mode_str == "time")
-                {
-                    point_mode = 1;
-                }
-                else
-                {
-                    point_mode = 2;
-                }
-            }
+            point_mode = RouteData.Values["state"].ToString();
             
             difficulty_level = GetDifficulty_Level(Convert.ToInt16(RouteData.Values["id"]));
 

@@ -34,25 +34,7 @@
 
     <script>
         let frames = 35;
-
-        let mode = @Model.point_mode;
-        if (mode == 0) {
-            document.getElementById('point2').style.visibility = "hidden";
-            document.getElementById('point').style.visibility = "hidden";
-            document.getElementById('timer2').style.visibility = "hidden";
-            document.getElementById('timer').style.visibility = "hidden";
-        }
-        else {
-            if (mode === 1) {
-                document.getElementById('point2').style.visibility = "hidden";
-                document.getElementById('point').style.visibility = "hidden";
-            }
-            else {
-                document.getElementById('timer2').style.visibility = "hidden";
-                document.getElementById('timer').style.visibility = "hidden";
-            }
-        }
-
+        let point_mode = @RouteData.Values["state"];
 
         let count_point = 0;
         let point_for_line = @Model.difficulty_level.Points_row;
