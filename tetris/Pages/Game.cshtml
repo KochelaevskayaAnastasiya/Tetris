@@ -12,14 +12,39 @@
 
     <canvas id="game" class="game"></canvas>
     <canvas id="nextFigure" class="nextFigure"></canvas>
-    <label id ="timer"> 00:00</label>
+    <label id ="timer">00:00</label>
+    <label id="level">Уровень 1</label>
+    <label id="point2">Очки </label>
     <label id="point">0</label>
+    <button onclick="LevelUp();">Увеличить уровень</button>
+
     <script>
-       
+        let frames = 35;
 
         let count_point = 0;
         let point_for_line = @Model.difficulty_level.Points_row;
         let count_pointer = document.getElementById('point');
+        let point_next_level = @Model.difficulty_level.points_next_level;
+        let point_next_level_zero = @Model.difficulty_level.points_next_level;
+
+        let level_pointer = document.getElementById('level');
+        let lev = 1;
+
+        let speed_level = @Model.difficulty_level.speed;
+
+        function LevelUp(){
+
+            if (frames > 1) {
+                    lev++;
+                    level_pointer.textContent = `Уровень ${lev.toString()}`;
+                    speed_level++;
+                    frames -= 1;
+                
+            } else {
+                level_pointer.textContent = `Уровень максимальный`;
+            }
+        }
+
         //------
         let timer = document.getElementById('timer');
         let seconds = 0;
@@ -212,6 +237,17 @@
             for (let row = playfield.length - 1; row >= 0;) {
                 if (playfield[row].every(cell => !!cell)) {
                     count_point+=point_for_line;
+                    if(frames>1){
+                    if (count_point>=point_next_level){
+                        point_next_level += point_next_level_zero;
+                        lev++;
+                        level_pointer.textContent = `Уровень ${lev.toString()}`;
+                        speed_level++;
+                        frames-=1;
+                    }
+                    } else {
+                        level_pointer.textContent = `Уровень максимальный`;
+                    }
                     count_pointer.textContent = `${count_point.toString()}`;
 
                     // drop every row above this one
@@ -295,6 +331,11 @@
         let gameOver = false;
 
         function Again() {
+            lev = 1;
+                    level_pointer.textContent = `Уровень ${lev.toString()}`;
+                    speed_level = 1;
+                    frames = 35;
+            gameOver = false;
             seconds = 0;
             minutes = 0;
             count_point = 0;
@@ -378,7 +419,7 @@
             if (tetromino) {
 
                 // tetromino falls every 35 frames
-                if (++count > 35) {
+                    if (++count > frames) {
                     tetromino.row++;
                     count = 0;
 
