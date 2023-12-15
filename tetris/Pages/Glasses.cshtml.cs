@@ -45,7 +45,7 @@ namespace tetris.Pages
         }
         public PartialViewResult OnGetViewEditGlass()
         {
-            // this handler returns _ContactModalPartial
+            // this handler returns _ContactModalPartial 
             return new PartialViewResult
             {
                 ViewName = "_ViewEditGlass",

@@ -5,6 +5,7 @@
 }
 <body>
     <section>
+        
         <div class="form-box-glass">
             <div class="form-value">
                 <h2 class="h2-glass">Стаканы</h2>
@@ -39,8 +40,9 @@
                                     document.querySelector('.glasses').appendChild(rw);
                                 }
                         </script>
-                        <button class="button-glass" data-toggle="ajax-modal" data-url="@Url.Page("Glasses", "ViewEditGlass")">Добавить стакан</button>
-                        <button class="button-glass" data-toggle="ajax-modal" data-url="@Url.Page("Glasses", "ViewEditGlass")">Редактировать стакан</button>
+                        <div id="modal-placeholder"></div>
+                        <button type ="button" class="button-glass" data-toggle="ajax-modal" data-url="@Url.Page("Glasses", "ViewEditGlass")">Добавить стакан</button>
+                        <button type="button" class="button-glass" data-toggle="ajax-modal" data-url="@Url.Page("Glasses", "ViewEditGlass")">Редактировать стакан</button>
                     </div>
                 </form>
             </div>
