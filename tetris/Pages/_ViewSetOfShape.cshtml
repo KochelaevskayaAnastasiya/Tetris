@@ -13,14 +13,11 @@
                 <div class="div_figures" id="div_figures">
                     
                 </div>
-                <label id="22"></label>
-                <label id="23"></label>
                 
                 <script>
                     
                     
                     let level_id_mode = id_level;
-                    document.getElementById('div_figures').innerHTML = level_id_mode;
 
                     const l3 = '@String.Join(",",Model.figu)';
                     const figures = l3.split(',');
@@ -43,45 +40,8 @@
          
                     let canvases = [];
                     let contexts = [];
-                    for (let rr = 0; rr < figures.length; rr++) {
-                        let rrr = rr + 1;
-                        document.getElementById('div_figures').innerHTML += getElementFigureAndCheck(rrr);
-                    }
-                    let name_c = '';
-
-                    for (let cc2 = 0; cc2 < figures.length; cc2++) {
-                        let ccc2 = cc2 + 1;
-                        name_c = "figureCheck" + ccc2;
-                        canvases[cc2] = document.getElementById(name_c);
-                        document.getElementById('22').innerHTML = 'e;fc';
-
-                        contexts[cc2] = canvas2.getContext("2d");
-
-                    }
-                    for (let ee = 0; ee < figures.length; ee++) {
-                        let fugure_level = canvases[ee];
-                        let context_fugure_level = contexts[ee];
-                        fugure_level.width = 4 * grid;
-                        fugure_level.height = 4 * grid;
-
-                        for (let row = 0; row < 4; row++) {
-                            for (let col = 0; col < 4; col++) {
-                                if (figures[row * 4 + col] == '1') {
-                                    context_fugure_level.fillRect(col * grid, row * grid, grid - 1, grid - 1);
-                                }
-                                else {
-                                    context_fugure_level.lineWidth = 0.5;
-                                    context_fugure_level.strokeRect(col * grid, row * grid, grid - 1, grid - 1);
-                                }
-                            }
-                        }
-                    }
                     
-
-                    
-                    
-
-                    document.getElementById('22').innerHTML = figu;
+                    makeCanvasesFilledWithGrass();
                     
                     function fingFugureInSet(number) {
                         for (let h = 0; h < figu.length; h++) {
@@ -90,23 +50,13 @@
                         return false;
                     }
 
-                    function getElementFigureAndCheck(number) {
-                        let command = '<div id="divFigu' + number + '" class="div-figure"><canvas id="figureCheck' + number + '" class="figureCheck"></canvas>';
-                        command += '<input type="checkbox" id="checkbox_figures' + number + '" class="checkbox_figures" name="checkbox_figures' + number + '"';
-                        
-                        if (fingFugureInSet(number)) {
-                            command += ' checked ';
-                        }
-                        command += '/></div>';
-                        return command;
-                    }
 
                     function makeCanvasesFilledWithGrass() {
 
                         // get the div that we will fill with 25 canvases
                         let container = document.getElementById('div_figures');
 
-                        for (let i = 0; i < 25; i++) {
+                        for (let i = 0; i < figures.length; i++) {
                             let ii = i + 1;
                             let div = document.createElement("div");
                             div.id = 'divFigu' + ii;
@@ -122,7 +72,7 @@
 
                             for (let row = 0; row < 4; row++) {
                                 for (let col = 0; col < 4; col++) {
-                                    if (figures[row * 4 + col] == '1') {
+                                    if (figures[i][row * 4 + col] == '1') {
                                         ctx.fillRect(col * grid, row * grid, grid - 1, grid - 1);
                                     }
                                     else {
@@ -133,12 +83,20 @@
                             }
                             // add this new canvas to the web page
                             div.appendChild(canvas);
+                            let check = document.createElement('input');
+                            check.type = 'checkbox';
+                            check.id = 'figureCheckBox' + ii;
+                            if (fingFugureInSet(ii)){
+                                check.checked = true;
+                                                }
+                            else { check.checked = false; }
+                            div.appendChild(check);
+                            container.appendChild(div);
                             // add this new canvas to the canvases array
                             canvases[i] = canvas;
                             // add the context for this new canvas to the contexts array
                             contexts[i] = ctx;
                         }
-
                     }
                     
                 </script>
