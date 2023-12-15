@@ -228,12 +228,15 @@
             // I starts on row 21 (-1), all others start on row 22 (-2)
             const row = name === 'I' ? -1 : -2;
 
+            const colorr = getRandomInt(0, 9) + 1;
+
 
             return {
                 name: name,      // name of the piece (L, O, etc.)
                 matrix: matrix,  // the current rotation matrix
                 row: row,        // current row (starts offscreen)
-                col: col         // current col
+                col: col,         // current col
+                colorr:colorr
             };
         }
 
@@ -280,7 +283,7 @@
                             return showGameOver();
                         }
 
-                        playfield[tetromino.row + row][tetromino.col + col] = tetromino.name;
+                        playfield[tetromino.row + row][tetromino.col + col] = tetromino.colorr;
                     }
                 }
             }
@@ -424,7 +427,7 @@
                 for (let col = 0; col < tetromino.matrix[row].length; col++) {
                     if (tetromino.matrix[row][col] == '1') {
                         const name = tetromino.name;
-                        context_next_figure.fillStyle = colors2[(name - 1) % 10];
+                        context_next_figure.fillStyle = colors2[tetromino.colorr-1];
 
                         // drawing 1 px smaller than the grid creates a grid effect
                         context_next_figure.fillRect(col * grid, row * grid, grid - 1, grid - 1);
@@ -459,7 +462,7 @@
                 for (let col = 0; col < wi; col++) {
                     if (playfield[row][col]!='0') {
                         const name = playfield[row][col];
-                        context.fillStyle = colors2[(name-1)%10];
+                            context.fillStyle = colors2[name-1];
 
                         // drawing 1 px smaller than the grid creates a grid effect
                         context.fillRect(col * grid, row * grid, grid - 1, grid - 1);
@@ -484,7 +487,7 @@
                     }
                 }
 
-                context.fillStyle = colors2[(tetromino.name-1) % 10];
+                    context.fillStyle = colors2[tetromino.colorr-1];
 
 
                 for (let row = 0; row < tetromino.matrix.length; row++) {
