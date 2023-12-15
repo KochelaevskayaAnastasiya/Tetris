@@ -67,7 +67,6 @@ $(document).ready(function () {
     $("#txtConfirmPassword").keyup(checkPasswordMatch);
 });
 
-
 $(function () {
     var placeholderElement = $('#modal-placeholder');
     $('button[data-toggle="ajax-modal"]').click(function (event) {
@@ -78,3 +77,4 @@ $(function () {
         });
     });
 });
+

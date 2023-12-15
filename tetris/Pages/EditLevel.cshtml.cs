@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Data.SqlClient;
 
 namespace tetris.Pages
@@ -106,7 +107,18 @@ namespace tetris.Pages
 			}
 			database.closeConnection();
 		}
-		[HttpPost]
+        public PartialViewResult OnGetViewSetOfShape()
+        {
+            // this handler returns _ContactModalPartial
+            return new PartialViewResult
+            {
+                ViewName = "_ViewSetOfShape",
+                ViewData = new ViewDataDictionary<SetOfShapes>(ViewData, new SetOfShapes { })
+
+            };
+        }
+
+        [HttpPost]
 		public IActionResult OnPost()
 		{
 			string glass = Request.Form["k1"];

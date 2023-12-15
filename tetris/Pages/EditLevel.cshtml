@@ -5,6 +5,7 @@
 }
 <body>
 	<section>
+		<div id="modal-placeholder"></div>
 		<div class="form-box-lvl">
 			<div class="form-value">
 				<form method="GET" name="EditLevelForm">
@@ -17,7 +18,9 @@
 			<div class="field">
 				<label class="label-lvl">Фигуры</label>
 				<input type="text" class="label-lvl2" name ="shapes" id="inpt1" required readonly="true">
-				<button class="btn-lvl2">Изменить</button>
+				<button type="button" class="button-menu" data-toggle="ajax-modal" data-url="@Url.Page("EditLevel", "ViewSetOfShape")">
+                            Изменить
+                        </button>
 			</div>
 			<div class="field">
 				<label class="label-lvl">Скорость</label>
