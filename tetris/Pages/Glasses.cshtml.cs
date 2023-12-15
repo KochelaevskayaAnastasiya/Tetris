@@ -17,6 +17,8 @@ namespace tetris.Pages
         public List<String> glasses_str = new List<String>();
 
         private readonly static List<EditGlass> Glasses = new List<EditGlass>();
+
+        public string id = "";
         public void OnGet()
         {
             string queryString = "SELECT * FROM [Glass];";
@@ -44,6 +46,21 @@ namespace tetris.Pages
                 glasses_str.Add(str);
             }
             database.closeConnection();
+        }
+
+        [HttpPost]
+        public void OnPost()
+        {   //string s1 = "<td class=\"td1\">";
+            string s2 = "</td>";
+            string s = Request.Form["kkk"];
+            //int i1 = s.IndexOf(s1);
+            int i2 = s.IndexOf(s2);
+            if (i2 == -1)
+                id = "-1";
+            else if (s == null)
+                id = "0";
+            else
+                id = s.Substring(16, i2 - 16);
         }
         public PartialViewResult OnGetViewEditGlass()
         {

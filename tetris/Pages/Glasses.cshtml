@@ -40,9 +40,20 @@
                                     document.querySelector('.glasses').appendChild(rw);
                                 }
                         </script>
-                        <button type ="button" class="button-glass" data-toggle="ajax-modal" data-url="@Url.Page("Glasses", "ViewEditGlass")">Добавить стакан</button>
-                        <button type="button" class="button-glass" data-toggle="ajax-modal" data-url="@Url.Page("Glasses", "ViewEditGlass")">Редактировать стакан</button>
+                        <button id = "btn-modal-1" type ="button" class="button-glass" glass-id="@Model.id" data-toggle="ajax-modal" data-url="@Url.Page("Glasses", "ViewEditGlass")">Добавить стакан</button>
+                       
                     </div>
+                </form>
+                <form method="POST" onsubmit="fnctn( );" name="formGlassesPOST">
+                    <input type="hidden" id="kkk" name="kkk" />
+                     <button id = "btn-modal-2" type="submit" class="button-glass" glass-id="@Model.id" data-toggle="ajax-modal" data-url="@Url.Page("Glasses", "ViewEditGlass")">Редактировать стакан</button>
+                    <script>
+                        function fnctn() {
+                            let items=document.getElementsByClassName('active');
+                            document.formLevelsPOST.kkk.value = items[0].innerHTML;
+                        return true;
+                        }
+                    </script>
                 </form>
             </div>
         </div>

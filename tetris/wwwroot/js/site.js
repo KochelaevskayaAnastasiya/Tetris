@@ -69,7 +69,7 @@ $(document).ready(function () {
 
 $(function () {
     var placeholderElement = $('#modal-placeholder');
-    $('button[data-toggle="ajax-modal"]').click(function (event) {
+    $('submit[data-toggle="ajax-modal"]').click(function (event) {
         var url = $(this).data('url');
         $.get(url).done(function (data) {
             placeholderElement.html(data);
@@ -112,4 +112,11 @@ let id_level = 0;
 
 $("#button_chen").on("click", function () {
     id_level = $(this).attr('level-id');
+});
+
+let id_glass = 0;
+
+
+$("#btn-modal-2").on("click", function () {
+    id_glass = $(this).attr('glass-id');
 });
