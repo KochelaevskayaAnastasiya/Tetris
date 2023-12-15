@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Data.SqlClient;
 using tetris.Add_classes;
 
@@ -41,6 +42,16 @@ namespace tetris.Pages
                 glasses_str.Add(str);
             }
             database.closeConnection();
+        }
+        public PartialViewResult OnGetViewEditGlass()
+        {
+            // this handler returns _ContactModalPartial
+            return new PartialViewResult
+            {
+                ViewName = "_ViewEditGlass",
+                ViewData = new ViewDataDictionary<EditGlass>(ViewData, new EditGlass { })
+
+            };
         }
     }
 }
