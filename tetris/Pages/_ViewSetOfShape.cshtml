@@ -39,26 +39,39 @@
                         }
                     }
                     const grid = 32;
+                    let str_name;
+                    let fugure_level;
+                    let context_fugure_level;
+
+                    function drow_figure(fig, context) // no ';' here
+                    {
+                        for (let row = 0; row < 4; row++) {
+                            for (let col = 0; col < 4; col++) {
+                                if (fig[row * 4 + col] == '1') {
+                                    context.fillRect(col * grid, row * grid, grid - 1, grid - 1);
+                                }
+                                else {
+                                    context.lineWidth = 0.5;
+                                    context.strokeRect(col * grid, row * grid, grid - 1, grid - 1);
+                                }
+                            }
+                        }
+
+                    }
+
                     for (let rr = 0; rr < figures.length; rr++) {
                         let rrr = rr+1;
+                        
                         document.getElementById('12').innerHTML += getElementFigureAndCheck(rrr);
 
-                        let str_name = 'figureCheck' + rrr;
-                        const fugure_level = document.getElementById(str_name);
-                        const context_fugure_level = fugure_level.getContext('2d');
+                        str_name = 'figureCheck' + rrr;
+                        fugure_level = document.getElementById(str_name);
+                        context_fugure_level = fugure_level.getContext('2d');
                         fugure_level.width = 4 * grid;
                         fugure_level.height = 4 * grid;
 
-                        context_fugure_level.clearRect(0, 0, fugure_level.width, fugure_level.height);
+                        drow_figure(figures[rr], context_fugure_level);
 
-                        /*добавленый*/
-                        context_fugure_level.fillStyle = 'black';
-                        for (let row = 0; row < 4; row++) {
-                            context_fugure_level.fillRect(row * grid - 1, 0, 0.5, fugure_level.height);
-                        }
-                        for (let col = 0; col < 4; col++) {
-                            context_fugure_level.fillRect(0, col * grid - 1, fugure_level.width, 0.5);
-                        }
                     }
                     
 
