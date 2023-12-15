@@ -15,6 +15,8 @@ namespace tetris.Pages
         public int k = 0;
 
         public List<String> glasses_str = new List<String>();
+
+        private readonly static List<EditGlass> Glasses = new List<EditGlass>();
         public void OnGet()
         {
             string queryString = "SELECT * FROM [Glass];";
@@ -51,6 +53,20 @@ namespace tetris.Pages
                 ViewName = "_ViewEditGlass",
                 ViewData = new ViewDataDictionary<EditGlass>(ViewData, new EditGlass { })
 
+            };
+        }
+
+        public PartialViewResult OnPostViewEditGlass(EditGlass model)
+        {
+            if (ModelState.IsValid)
+            {
+                Glasses.Add(model);
+            }
+
+            return new PartialViewResult
+            {
+                ViewName = "_ViewEditGlass",
+                ViewData = new ViewDataDictionary<EditGlass>(ViewData, model)
             };
         }
     }

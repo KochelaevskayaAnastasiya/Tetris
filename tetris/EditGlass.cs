@@ -1,7 +1,14 @@
-﻿namespace tetris
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace tetris
 {
 	public class EditGlass
 	{
-		public string h2 = "Стакан";
-	}
+        [Required]
+        public string Height { get; set; }
+
+        [Required]
+        public string Width { get; set; }
+
+    }
 }

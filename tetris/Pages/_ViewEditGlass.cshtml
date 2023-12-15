@@ -4,13 +4,28 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" id="EditGlassLabel">Стакан</h2>
+                <h2 class="modal-title-glass" id="EditGlassLabel" align="center">Стакан</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <label>@Model.h2</label>
+                <form asp-page-handler="ViewEditGlass">
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <div class="form-group">
+                        <label asp-for="Height">Высота</label>
+                        <input asp-for="Height" class="form-control" />
+                        <span asp-validation-for="Height" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Width">Ширина</label>
+                        <input asp-for="Width" class="form-control" />
+                        <span asp-validation-for="Width" class="text-danger"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-save="modal">Сохранить</button>
             </div>
         </div>
     </div>
