@@ -39,8 +39,6 @@ namespace tetris.Pages
             level_count = data1.Count;
             for (int i = 0; i < level_count; i++)
             {
-                //queryString = $"SELECT SetOfShapes.ID_figure FROM Level INNER JOIN SetOfShapes ON Level.Level_Id = SetOfShapes.Level_Id AND Level.Level_Id = {data1[i][0]}";
-
                 queryString = $"SELECT SetOfShapes.Shape_Id FROM Level INNER JOIN SetOfShapes ON Level.Level_Id = SetOfShapes.Level_Id AND Level.Level_Id = {data1[i][0]}";
                 SqlCommand command2 = new SqlCommand(queryString, database.getConnection());
                 SqlDataReader reader2 = command2.ExecuteReader();

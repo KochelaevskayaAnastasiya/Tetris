@@ -69,6 +69,16 @@ namespace tetris.Pages
             return l;
         }
 
+        public void DeleteSet(int k)
+        {
+            string queryString2 = "DELETE FROM SetOfShapes WHERE Shape_Id = "+k+";";
+            database.openConnection();
+            SqlCommand command_insert2 = new SqlCommand(queryString2, database.getConnection());
+            int number2 = command_insert2.ExecuteNonQuery();
+            Console.WriteLine("Удалено: {0} связей с уровнями", number2);
+            database.closeConnection();
+        }
+
         [HttpPost]
         public IActionResult OnPost()
         {
@@ -111,27 +121,32 @@ namespace tetris.Pages
                     database.openConnection();
                     SqlCommand command_insert = new SqlCommand(queryString, database.getConnection());
                     int number = command_insert.ExecuteNonQuery();
-                    Console.WriteLine("Изменено: {0}", number);
+                    Console.WriteLine("Вставлено: {0}", number);
                     database.closeConnection();
                 }
             }
             else
             {
-                string queryString2 = "DELETE FROM Shape;";
-                database.openConnection();
-                SqlCommand command_insert2 = new SqlCommand(queryString2, database.getConnection());
-                int number2 = command_insert2.ExecuteNonQuery();
-                Console.WriteLine("Изменено: {0}", number2);
-                database.closeConnection();
-
                 for (int i = 0; i < res.Length; i++)
                 {
                     k = i + 1;
-                    string queryString = "INSERT INTO[Shape] VALUES(" + k + ",'" + res[i] + "');";
+                    string queryString = "UPDATE Shape SET Structure = '" + res[i] + "' WHERE Shape_Id = '" + k + "';";
                     database.openConnection();
                     SqlCommand command_insert = new SqlCommand(queryString, database.getConnection());
                     int number = command_insert.ExecuteNonQuery();
-                    Console.WriteLine("Добавлено: {0}", number);
+                    Console.WriteLine("Изменено: {0}", number);
+                    database.closeConnection();
+                }
+
+                for (int j = res.Length; j < coun; j++)
+                {
+                    k = j + 1;
+                    DeleteSet(k);
+                    string queryString3 = "  DELETE FROM Shape WHERE  Shape_Id = "+k+";";
+                    database.openConnection();
+                    SqlCommand command_insert3 = new SqlCommand(queryString3, database.getConnection());
+                    int number3 = command_insert3.ExecuteNonQuery();
+                    Console.WriteLine("Изменено: {0}", number3);
                     database.closeConnection();
                 }
             }
