@@ -7,6 +7,7 @@
 <body>
     <h1>Фигуры</h1>
     <form method="POST" onsubmit="DoSubmit();" name="formFigures">
+        <label id="number_figu"></label>
         <div class="block_1">
             <input onclick="buttonBack()" type="button" value="Назад" id="myButton0">
             <div class="figure">
@@ -14,6 +15,7 @@
                 <input type="hidden" id="kkk" name="kkk"/>
                 <script>
                     let k = 0;
+                    
                     const canvas = document.getElementById('figure');
                     const context = canvas.getContext('2d');
                     const grid = 32;
@@ -25,7 +27,8 @@
                     let figu = l2.split(',');
 
                     drow_figure_chac(figu[k]);
-
+                    let kk=k+1;
+                    document.getElementById('number_figu').innerHTML = "#" + kk + "/" + figu.length;
                     function drow_figure_chac(fig)
                     {
                         context.clearRect(0, 0, canvas.width, canvas.height);
@@ -62,10 +65,16 @@
                     function buttonFor3()
                     {
                         k++;
+                        kk = k+1;
                         drow_figure_chac(figu[k]);
+                        document.getElementById('number_figu').innerHTML = "#" + kk + "/" + figu.length;
+
                     }
                     function buttonBack(){
                         k--;
+                        kk = k+1;
+                        document.getElementById('number_figu').innerHTML = "#" + kk + "/" + figu.length;
+
                         if(k==-1) k=figu.length;
                         drow_figure_chac(figu[k]);
                     }

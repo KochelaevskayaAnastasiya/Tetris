@@ -537,6 +537,20 @@
 
                 tetromino.row = row;
             }
+
+            // down arrow key (drop)
+            if (e.keyCode === 32) {
+                let row = tetromino.row + 1;
+                while (isValidMove(tetromino.matrix, row, tetromino.col)) {
+                    row = row + 1;
+                }
+                tetromino.row = row - 1;
+
+                    placeTetromino();
+                    next_tetromino = getNextTetromino();
+                    upgate_next_figure(next_tetromino);
+                    return;
+            }
         });
 
         // start the game
