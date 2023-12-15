@@ -10,5 +10,10 @@ namespace tetris
         [Required]
         public string Width { get; set; }
 
+        public EditGlass()
+        {
+             
+        }
+
     }
 }

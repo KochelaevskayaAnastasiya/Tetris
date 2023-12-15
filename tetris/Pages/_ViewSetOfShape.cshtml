@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="div_figures" id="12">
+                <div class="div_figures" id="div_figures">
                     
                 </div>
                 <label id="22"></label>
@@ -20,7 +20,7 @@
                     
                     
                     let level_id_mode = id_level;
-                    document.getElementById('12').innerHTML = level_id_mode;
+                    document.getElementById('div_figures').innerHTML = level_id_mode;
 
                     const l3 = '@String.Join(",",Model.figu)';
                     const figures = l3.split(',');
@@ -39,40 +39,46 @@
                         }
                     }
                     const grid = 32;
-                    let str_name;
-                    let fugure_level;
-                    let context_fugure_level;
 
-                    function drow_figure(fig, context) // no ';' here
-                    {
-                        for (let row = 0; row < 4; row++) {
-                            for (let col = 0; col < 4; col++) {
-                                if (fig[row * 4 + col] == '1') {
-                                    context.fillRect(col * grid, row * grid, grid - 1, grid - 1);
-                                }
-                                else {
-                                    context.lineWidth = 0.5;
-                                    context.strokeRect(col * grid, row * grid, grid - 1, grid - 1);
-                                }
-                            }
-                        }
+         
+                    let canvases = [];
+                    let contexts = [];
+                    for (let rr = 0; rr < figures.length; rr++) {
+                        let rrr = rr + 1;
+                        document.getElementById('div_figures').innerHTML += getElementFigureAndCheck(rrr);
+                    }
+                    let name_c = '';
+
+                    for (let cc2 = 0; cc2 < figures.length; cc2++) {
+                        let ccc2 = cc2 + 1;
+                        name_c = "figureCheck" + ccc2;
+                        canvases[cc2] = document.getElementById(name_c);
+                        document.getElementById('22').innerHTML = 'e;fc';
+
+                        contexts[cc2] = canvas2.getContext("2d");
 
                     }
-
-                    for (let rr = 0; rr < figures.length; rr++) {
-                        let rrr = rr+1;
-                        
-                        document.getElementById('12').innerHTML += getElementFigureAndCheck(rrr);
-
-                        str_name = 'figureCheck' + rrr;
-                        fugure_level = document.getElementById(str_name);
-                        context_fugure_level = fugure_level.getContext('2d');
+                    for (let ee = 0; ee < figures.length; ee++) {
+                        let fugure_level = canvases[ee];
+                        let context_fugure_level = contexts[ee];
                         fugure_level.width = 4 * grid;
                         fugure_level.height = 4 * grid;
 
-                        drow_figure(figures[rr], context_fugure_level);
-
+                        for (let row = 0; row < 4; row++) {
+                            for (let col = 0; col < 4; col++) {
+                                if (figures[row * 4 + col] == '1') {
+                                    context_fugure_level.fillRect(col * grid, row * grid, grid - 1, grid - 1);
+                                }
+                                else {
+                                    context_fugure_level.lineWidth = 0.5;
+                                    context_fugure_level.strokeRect(col * grid, row * grid, grid - 1, grid - 1);
+                                }
+                            }
+                        }
                     }
+                    
+
+                    
                     
 
                     document.getElementById('22').innerHTML = figu;
@@ -94,6 +100,47 @@
                         command += '/></div>';
                         return command;
                     }
+
+                    function makeCanvasesFilledWithGrass() {
+
+                        // get the div that we will fill with 25 canvases
+                        let container = document.getElementById('div_figures');
+
+                        for (let i = 0; i < 25; i++) {
+                            let ii = i + 1;
+                            let div = document.createElement("div");
+                            div.id = 'divFigu' + ii;
+                            // create a new html canvas element
+                            let canvas = document.createElement("canvas");
+                            // assign the new canvas an id, width and height
+                            canvas.id = 'figureCheck' + ii;
+                            canvas.width = grid * 4;
+                            canvas.height = grid * 4;
+                            // get the context for this new canvas
+                            let ctx = canvas.getContext("2d");
+                            // draw the grass image in the new canvas
+
+                            for (let row = 0; row < 4; row++) {
+                                for (let col = 0; col < 4; col++) {
+                                    if (figures[row * 4 + col] == '1') {
+                                        ctx.fillRect(col * grid, row * grid, grid - 1, grid - 1);
+                                    }
+                                    else {
+                                        ctx.lineWidth = 0.5;
+                                        ctx.strokeRect(col * grid, row * grid, grid - 1, grid - 1);
+                                    }
+                                }
+                            }
+                            // add this new canvas to the web page
+                            div.appendChild(canvas);
+                            // add this new canvas to the canvases array
+                            canvases[i] = canvas;
+                            // add the context for this new canvas to the contexts array
+                            contexts[i] = ctx;
+                        }
+
+                    }
+                    
                 </script>
             </div>
         </div>
