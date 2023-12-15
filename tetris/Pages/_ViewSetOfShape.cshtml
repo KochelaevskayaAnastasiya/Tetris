@@ -4,7 +4,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addContactLabel">О разработчиках</h5>
+                <h5 class="modal-title" id="addContactLabel">Выберите фигуры</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -13,10 +13,74 @@
                 <div class="div_figures" id="12">
                     
                 </div>
-                <label>@Model.str</label>
+                <label id="22"></label>
+                <label id="23"></label>
+                
                 <script>
-                    document.getElementById('12').innerHTML = '<label>1212</label>';
                     
+                    
+                    let level_id_mode = id_level;
+                    document.getElementById('12').innerHTML = level_id_mode;
+
+                    const l3 = '@String.Join(",",Model.figu)';
+                    const figures = l3.split(',');
+
+                    const l4 = '@String.Join(";",Model.setFiguLevel)';
+                    const setFiguLevel = l4.split(';');
+
+                    let figu = new Array();
+                    let figu_k = 0;
+
+                    for(let i = 0; i<setFiguLevel.length;i++){
+                        const dop2 = setFiguLevel[i].split(',');
+                        if (dop2[0] == level_id_mode) {
+                            figu[figu_k] = Number(dop2[1]);
+                            figu_k++;
+                        }
+                    }
+                    const grid = 32;
+                    for (let rr = 0; rr < figures.length; rr++) {
+                        let rrr = rr+1;
+                        document.getElementById('12').innerHTML += getElementFigureAndCheck(rrr);
+
+                        let str_name = 'figureCheck' + rrr;
+                        const fugure_level = document.getElementById(str_name);
+                        const context_fugure_level = fugure_level.getContext('2d');
+                        fugure_level.width = 4 * grid;
+                        fugure_level.height = 4 * grid;
+
+                        context_fugure_level.clearRect(0, 0, fugure_level.width, fugure_level.height);
+
+                        /*добавленый*/
+                        context_fugure_level.fillStyle = 'black';
+                        for (let row = 0; row < 4; row++) {
+                            context_fugure_level.fillRect(row * grid - 1, 0, 0.5, fugure_level.height);
+                        }
+                        for (let col = 0; col < 4; col++) {
+                            context_fugure_level.fillRect(0, col * grid - 1, fugure_level.width, 0.5);
+                        }
+                    }
+                    
+
+                    document.getElementById('22').innerHTML = figu;
+                    
+                    function fingFugureInSet(number) {
+                        for (let h = 0; h < figu.length; h++) {
+                            if (number == figu[h]) { return true;}
+                        }
+                        return false;
+                    }
+
+                    function getElementFigureAndCheck(number) {
+                        let command = '<div id="divFigu' + number + '" class="div-figure"><canvas id="figureCheck' + number + '" class="figureCheck"></canvas>';
+                        command += '<input type="checkbox" id="checkbox_figures' + number + '" class="checkbox_figures" name="checkbox_figures' + number + '"';
+                        
+                        if (fingFugureInSet(number)) {
+                            command += ' checked ';
+                        }
+                        command += '/></div>';
+                        return command;
+                    }
                 </script>
             </div>
         </div>

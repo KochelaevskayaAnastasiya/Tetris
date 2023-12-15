@@ -107,3 +107,9 @@ $(function () {
     });
 });
 
+let id_level = 0;
+
+
+$("#button_chen").on("click", function () {
+    id_level = $(this).attr('level-id');
+});
