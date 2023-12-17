@@ -3,17 +3,25 @@
 @{
     ViewData["Title"] = "Фигуры";
     var someint = 0;
+
 }
 <body>
     <h1>Фигуры</h1>
     <form method="POST" onsubmit="DoSubmit();" name="formFigures">
         <label id="number_figu"></label>
+        <label id="number_figu2"></label>
         <div class="block_1">
             <input onclick="buttonBack()" type="button" value="Назад" id="myButton0">
             <div class="figure">
                 <canvas width="128" height="128" id="figure" class="figure"></canvas>
                 <input type="hidden" id="kkk" name="kkk"/>
-                <script>
+                
+                <script charset="utf-8">
+                    let text_alert = `@Model.alert_text`;
+                    document.getElementById('number_figu2').style.display = 'none';
+                    document.getElementById('number_figu2').innerHTML = text_alert;
+                    text_alert = document.getElementById('number_figu2').textContent;
+                    if (text_alert.length != 0) { alert(`Внимание! ${text_alert}`); }
                     let k = 0;
                     
                     const canvas = document.getElementById('figure');

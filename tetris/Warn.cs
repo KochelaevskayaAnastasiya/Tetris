@@ -10,9 +10,5 @@ namespace tetris
         {
             messege=warn;
         }
-        public HtmlString CreateList()
-        {
-            return new HtmlString(messege);
-        }
     }
 }

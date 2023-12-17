@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 using tetris.Add_classes;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -19,9 +20,11 @@ namespace tetris.Pages
 
         public List<List<int>> fig = new List<List<int>>();
         public List<String> fig_str = new List<String>();
-
-        public void OnGet()
+        
+        public string alert_text = "";
+        public void OnGet(string alert_text_str)
         {
+            alert_text = alert_text_str;
             string queryString = "SELECT Structure FROM [Shape];";
             //string queryString = "SELECT Structure FROM [Figures];";
 
@@ -150,9 +153,23 @@ namespace tetris.Pages
                     database.closeConnection();
                 }
             }
+            alert_text = "";
 
+            if (noIntegrity!=0 || noUnick != 0)
+            {
+                alert_text = "Некоторые фигуры были удалены:\n";
+                if (noIntegrity != 0)
+                {
+                    alert_text += "Не целостны: " + noIntegrity;
+                }
+                if (noUnick != 0)
+                {
+                    alert_text += "\nНе уникальны: " + noUnick;
+                }
+            }
             Console.WriteLine("Не целостны:"+ noIntegrity+"\nНе уникальны:"+ noUnick);
-            return RedirectToPage("Figures");
+
+            return RedirectToPage("Figures", new { alert_text_str = alert_text });
         }
     }
 }
