@@ -196,7 +196,7 @@ namespace tetris.Pages
 
         public void SetRecordsBDPoint(int[] record, int id)
         {
-            string queryString = "DELETE FROM [StatisticsPoints];";
+            string queryString = "DELETE FROM [StatisticsPoints] WHERE [ID_user]=" + id + ";";
             database.openConnection();
             SqlCommand command_insert2 = new SqlCommand(queryString, database.getConnection());
             int number2 = command_insert2.ExecuteNonQuery();
@@ -215,7 +215,7 @@ namespace tetris.Pages
 
         public void SetRecordsBDTime(int[] record, int id)
         {
-            string queryString = "DELETE FROM [StatisticsTime];";
+            string queryString = "DELETE FROM [StatisticsTime] WHERE [ID_user]=" + id + ";";
             database.openConnection();
             SqlCommand command_insert2 = new SqlCommand(queryString, database.getConnection());
             int number2 = command_insert2.ExecuteNonQuery();
