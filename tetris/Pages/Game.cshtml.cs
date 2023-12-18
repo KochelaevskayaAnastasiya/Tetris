@@ -155,6 +155,10 @@ namespace tetris.Pages
         public IActionResult OnPost()
         {
             string s = Request.Form["records"];
+            if (s != null)
+            {
+                string[] records = s.Split('\n');
+            }
             return RedirectToPage("Game");
 
 
