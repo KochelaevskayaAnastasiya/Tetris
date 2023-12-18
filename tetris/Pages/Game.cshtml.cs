@@ -7,6 +7,7 @@ using System.Reflection.PortableExecutable;
 using tetris.Add_classes;
 using System.Web.Services;
 using static System.Net.Mime.MediaTypeNames;
+using System.Data.SqlTypes;
 
 namespace tetris.Pages
 {
@@ -150,8 +151,108 @@ namespace tetris.Pages
             figures_mas_with_col = figures_str_with_col.ToArray();
 
         }
-        
+        public int[] GetRecordsBDTime(int id)
+        {
+            List<int> records = new List<int>();
+            string queryString = "SELECT [Points] FROM [StatisticsTime] WHERE [ID_user]=" + id+";";
 
+            SqlCommand command = new SqlCommand(queryString, database.getConnection());
+            database.openConnection();
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                string data = reader[0].ToString();
+                string[] strings = data.Split(':');
+                int k = Int32.Parse(strings[0]);
+                int k2 = Int32.Parse(strings[1]);
+                records.Add(k * 60 + k2);
+            }
+            reader.Close();
+            database.closeConnection();
+
+            return records.ToArray();
+        }
+
+        public int[] GetRecordsBDPoint(int id)
+        {
+            List<int> records = new List<int>();
+            string queryString = "SELECT [Points] FROM [StatisticsPoints] WHERE [ID_user]=" + id + ";";
+
+            SqlCommand command = new SqlCommand(queryString, database.getConnection());
+            database.openConnection();
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                string data = reader[0].ToString();
+                records.Add(Int32.Parse(data));
+            }
+            reader.Close();
+            database.closeConnection();
+
+            return records.ToArray();
+        }
+
+        public void SetRecordsBDPoint(int[] record, int id)
+        {
+            string queryString = "DELETE FROM [StatisticsPoints];";
+            database.openConnection();
+            SqlCommand command_insert2 = new SqlCommand(queryString, database.getConnection());
+            int number2 = command_insert2.ExecuteNonQuery();
+            Console.WriteLine("delete: {0}", number2);
+            database.closeConnection();
+
+            for (int i = 0; i < record.Length; i++) {
+                string queryString2 = "INSERT INTO StatisticsPoints VALUES (" + id + ", " + record[i] +");";
+                database.openConnection();
+                SqlCommand command_insert = new SqlCommand(queryString2, database.getConnection());
+                int number = command_insert.ExecuteNonQuery();
+                Console.WriteLine("Вставлено: {0}", number);
+                database.closeConnection();
+            }
+        }
+
+        public void SetRecordsBDTime(int[] record, int id)
+        {
+            string queryString = "DELETE FROM [StatisticsTime];";
+            database.openConnection();
+            SqlCommand command_insert2 = new SqlCommand(queryString, database.getConnection());
+            int number2 = command_insert2.ExecuteNonQuery();
+            Console.WriteLine("delete: {0}", number2);
+            database.closeConnection();
+
+            for (int i = 0; i < record.Length; i++)
+            {
+                int k = record[i]/60;
+                int k2 = record[i]%60;
+                string s = k + ":" + k2;
+                string queryString2 = "INSERT INTO StatisticsTime VALUES (" + id + ", " + s + ");";
+                database.openConnection();
+                SqlCommand command_insert = new SqlCommand(queryString2, database.getConnection());
+                int number = command_insert.ExecuteNonQuery();
+                Console.WriteLine("Вставлено: {0}", number);
+                database.closeConnection();
+            }
+        }
+
+        public int GetIdOnLogin(string login)
+        {
+            string queryString = "SELECT [ID_user] FROM [Users] WHERE [Login] = '"+ login+ "';";
+
+            SqlCommand command = new SqlCommand(queryString, database.getConnection());
+            database.openConnection();
+            SqlDataReader reader = command.ExecuteReader();
+            string data = null;
+            while (reader.Read())
+            {
+                data = reader[0].ToString();
+            }
+            reader.Close();
+            database.closeConnection();
+
+            return Int32.Parse(data);
+        }
         [HttpPost]
         public IActionResult OnPost()
         {
@@ -159,16 +260,75 @@ namespace tetris.Pages
             s = s.Replace("\r", "");
             s = s.Replace("\t", "");
             string login = RouteData.Values["login"].ToString();
+            int id = GetIdOnLogin(login);
 
-
+            List<int> rec = new List<int>();
             if (s != null)
             {
                 string[] records = s.Split('\n');
+                if (records[0].IndexOf(":")==-1)
+                {
+                    //point
+                    int[] records1 = GetRecordsBDPoint(id);
+                    SortedSet<int> ints = new SortedSet<int>();
+                    for (int i=0;i< records1.Length; i++)
+                    {
+                        ints.Add(records1[i]);
+                    }
 
+                    for (int i = 0; i < records.Length; i++)
+                    {
+                        ints.Add(Int32.Parse(records[i]));
+                    }
+                    int[] intArray;
+                    if (ints.Count <= 10)
+                    {
+                        intArray = new int[ints.Count];
+                        ints.CopyTo(intArray);
+                    }
+                    else
+                    {
+                        intArray = new int[10];
+                        ints.CopyTo(intArray, ints.Count-10);
+                    }
+                    SetRecordsBDPoint(intArray, id);
+
+                }
+                else
+                {
+                    //time
+                    int[] records2 = GetRecordsBDTime(id);
+
+                    SortedSet<int> ints = new SortedSet<int>();
+                    
+                    for (int i=0; i < records.Length; i++)
+                    {
+                        string[] strings = records[i].Split(':');
+                        int k = Int32.Parse(strings[0]);
+                        int k2 = Int32.Parse(strings[1]);
+                        ints.Add(k * 60 + k2);
+                    }
+
+                    for (int i = 0; i < records2.Length; i++)
+                    {
+                        ints.Add(records2[i]);
+                    }
+
+                    int[] intArray;
+                    if (ints.Count <= 10)
+                    {
+                        intArray = new int[ints.Count];
+                        ints.CopyTo(intArray);
+                    }
+                    else
+                    {
+                        intArray = new int[10];
+                        ints.CopyTo(intArray, ints.Count - 10);
+                    }
+                    SetRecordsBDTime(intArray, id);
+                }
             }
             return RedirectToPage("Game");
-
-
         }
     }
 }
