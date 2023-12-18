@@ -19,27 +19,30 @@ namespace tetris.Pages
         public string id = "";
         public void OnGet()
         {
-            string queryString = "SELECT * FROM [Level];";
+            string queryString = "SELECT * FROM [Level] ORDER BY Speed;";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
             database.openConnection();
             SqlDataReader reader = command.ExecuteReader();
             List<string[]> data1 = new List<string[]>();
+            int jj = 1;
             while (reader.Read())
             {
-                data1.Add(new string[6]);
+                data1.Add(new string[7]);
 
-                data1[data1.Count - 1][0] = reader[0].ToString();
+                data1[data1.Count - 1][6] = reader[0].ToString();
+                data1[data1.Count - 1][0] = jj.ToString();
                 data1[data1.Count - 1][1] = reader[1].ToString();
                 data1[data1.Count - 1][3] = reader[2].ToString();
                 data1[data1.Count - 1][4] = reader[3].ToString();
                 data1[data1.Count - 1][5] = reader[4].ToString();
+                jj++;
             }
             reader.Close();
             level_count = data1.Count;
             for (int i = 0; i < level_count; i++)
             {
-                queryString = $"SELECT SetOfShapes.Shape_Id FROM Level INNER JOIN SetOfShapes ON Level.Level_Id = SetOfShapes.Level_Id AND Level.Level_Id = {data1[i][0]}";
+                queryString = $"SELECT SetOfShapes.Shape_Id FROM Level INNER JOIN SetOfShapes ON Level.Level_Id = SetOfShapes.Level_Id AND Level.Level_Id = {data1[i][6]}";
                 SqlCommand command2 = new SqlCommand(queryString, database.getConnection());
                 SqlDataReader reader2 = command2.ExecuteReader();
                 String shapes = "";
@@ -54,7 +57,7 @@ namespace tetris.Pages
             for (int i = 0; i < level_count; i++)
             {
                 string str = "";
-                for (int j = 0; j < 6; j++)
+                for (int j = 0; j < 7; j++)
                 {
                     str += data1[i][j] + ";";
                 }
@@ -76,8 +79,23 @@ namespace tetris.Pages
             }
             else
             {
-				id = s.Substring(16, i2 - 16);
-				return RedirectToPage("EditLevel", new { id = this.id });
+				string id2 = s.Substring(16, i2 - 16);
+
+                string queryString = "SELECT Level_Id FROM [Level] ORDER BY Speed;";
+                SqlCommand command = new SqlCommand(queryString, database.getConnection());
+                database.openConnection();
+                SqlDataReader reader = command.ExecuteReader();
+                int jj = 1;
+                while (jj != Convert.ToInt16(id2))
+                {
+                    reader.Read();
+                    jj++;
+                }
+                reader.Read();
+                id = reader[0].ToString();
+                reader.Close();
+
+                return RedirectToPage("EditLevel", new { id = this.id });
             }
         }
     }

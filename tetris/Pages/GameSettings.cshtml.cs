@@ -39,7 +39,21 @@ namespace tetris.Pages
 			string stat = Request.Form["k1"];
 			string level = Request.Form["k2"];
 			string idd = level.Substring(8);
-			return RedirectToPage("Game", new { id = idd , state = stat});
+
+			string queryString = "SELECT Level_Id FROM [Level] ORDER BY Speed;";
+			SqlCommand command = new SqlCommand(queryString, database.getConnection());
+			database.openConnection();
+			SqlDataReader reader = command.ExecuteReader();
+			int jj = 1;
+			while (jj != Convert.ToInt16(idd))
+			{
+				reader.Read();
+				jj++;
+			}
+			reader.Read();
+			string idd2 = reader[0].ToString();
+			reader.Close();
+			return RedirectToPage("Game", new { id = idd2 , state = stat});
 			
 		}
 	}
