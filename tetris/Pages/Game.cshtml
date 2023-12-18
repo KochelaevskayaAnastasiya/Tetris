@@ -28,7 +28,7 @@
                     <form method="POST" onsubmit="DoSubmit();" name="recordGame">
                         <input type="hidden" id="records" name="records">
                         <button class="button" id="addRecords" type="submit">Сохранить записи</button>
-                        <label id="records"></label>
+                        <label class= "labell" id="records"></label>
                     </form>
 
                 </div>
@@ -46,7 +46,7 @@
         let mode = @Model.point_mode;
 
         let records_list = [];
-        document.getElementById('records').value = 'Результаты текущей сессии:';
+        document.querySelector('.labell').innerHTML += 'Результаты текущей сессии:';
 
         
            
