@@ -4,7 +4,8 @@
     ViewData["Title"] = "Игра";
 }
 <body class="body_game">
-    
+    <form method='post' id='the_form_record'>
+        <input type='hidden' id="record">
     <div class="field_of_play">
         <div class="button_two">
             <button id="pause_button" onclick="Pause();">Пауза</button>
@@ -37,6 +38,9 @@
 
         let mode = @Model.point_mode;
 
+        let record_time;
+        let record_point;
+
         if (mode == 0) {
             document.getElementById('point2').style.visibility = "hidden";
             document.getElementById('point').style.visibility = "hidden";
@@ -44,7 +48,7 @@
             document.getElementById('timer').style.visibility = "hidden";
         }
         else {
-            if (mode === 1) {
+            if (mode == 1) {
                 document.getElementById('point2').style.visibility = "hidden";
                 document.getElementById('point').style.visibility = "hidden";
             }
@@ -270,8 +274,20 @@
 
             return true;
         }
+            function showDetail(kurz) {
+                let sParam = kurz.toString();
+                Result_class.RegisterUser(sParam, onSucess, onError);
 
-        // place the tetromino on the playfield
+                function onSucess(result) {
+                    alert(result);
+                }
+
+                function onError(result) {
+                    alert('Cannot process your request at the moment, please try later.');
+                }
+            }
+
+            // place the tetromino on the playfield
         function placeTetromino() {
             for (let row = 0; row < tetromino.matrix.length; row++) {
                 for (let col = 0; col < tetromino.matrix[row].length; col++) {
@@ -280,6 +296,19 @@
                         // game over if piece has any part offscreen
                         if (tetromino.row + row < 0) {
                             start_time = false;
+                            if(mode != 0){
+                                if (mode==1){
+                                    record_time = minutes*60+seconds;
+                                    document.getElementById('record').innerHTML = record_time;
+                                        Result_class.RegisterUser(record_time);
+            
+                                }
+                                else{
+                                    record_point = count_point;
+                                    document.getElementById('record').innerHTML = record_point;
+                                        
+                                }
+                            }
                             return showGameOver();
                         }
 
@@ -287,6 +316,7 @@
                     }
                 }
             }
+
 
             // check for line clears starting from the bottom and working our way up
             for (let row = playfield.length - 1; row >= 0;) {
@@ -558,5 +588,8 @@
 
         // start the game
         rAF = requestAnimationFrame(loop);
+
+            
     </script>
+    </form>
 </body>

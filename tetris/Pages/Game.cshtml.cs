@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.JSInterop;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Reflection.PortableExecutable;
 using tetris.Add_classes;
+using System.Web.Services;
 
 namespace tetris.Pages
 {
@@ -19,7 +21,7 @@ namespace tetris.Pages
         public int point_mode;
         public Figure GetFigure(int id_figure)
         {
-            string queryString = "SELECT Structure FROM [Shape] WHERE [Shape_Id] ="+id_figure+";";
+            string queryString = "SELECT Structure FROM [Shape] WHERE [Shape_Id] =" + id_figure + ";";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
             database.openConnection();
@@ -57,7 +59,7 @@ namespace tetris.Pages
                 Figure figure = GetFigure(Int32.Parse(data[i].ToString()));
                 figures.Add(figure);
             }
-            
+
             return figures;
         }
         public Glass GetGlass(int id)
@@ -81,7 +83,7 @@ namespace tetris.Pages
             Glass glass = new Glass(Int32.Parse(data[1]), Int32.Parse(data[0]));
             return glass;
         }
-        
+
         public Difficulty_level GetDifficulty_Level(int id)
         {
 
@@ -125,7 +127,7 @@ namespace tetris.Pages
                     point_mode = 2;
                 }
             }
-            
+
             difficulty_level = GetDifficulty_Level(Convert.ToInt16(RouteData.Values["id"]));
 
             List<Figure> figures = difficulty_level.figures;
@@ -146,6 +148,14 @@ namespace tetris.Pages
             }
             figures_mas_with_col = figures_str_with_col.ToArray();
 
+        }
+        
+
+        [HttpPost]
+        public void OnPost()
+        {
+            string s = Request.Form["record"];
+           
         }
     }
 }
