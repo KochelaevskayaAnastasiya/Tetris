@@ -53,7 +53,7 @@ namespace tetris.Pages
 			reader.Read();
 			string idd2 = reader[0].ToString();
 			reader.Close();
-			return RedirectToPage("Game", new { id = idd2 , state = stat});
+			return RedirectToPage("Game", new { id = idd2 , state = stat, lvl = idd});
 			
 		}
 	}
