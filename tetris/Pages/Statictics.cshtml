@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{login}"
 @model tetris.Pages.StaticticsModel
 @{
     ViewData["Title"] = "Статистика";
@@ -8,40 +8,51 @@
         <div id="modal-placeholder"></div>
         <div class="form-box-glass">
             <div class="form-value">
-                <h2 class="h2-glass">Стаканы</h2>
-                <form method="GET" name="formGlasses">
+                <h2 class="h2-glass">Статистика</h2>
                     <div class="content">
+                        <label id="12"></label>
                         <script>
-                            let k = 0;
-                            let l2 = '@String.Join(".",Model.glasses_str)';
 
-                            let lvl = l2.split('.');
-                            let lvl_array = new Array(@Model.glass_count);
+                        const l2 = '@String.Join(",",Model.time)';
+                        const time_mas = l2.split(',');
 
-                            for (let j = 0; j < lvl_array.length; j++) {
-                                lvl_array[j] = new Array(2);
-                                let l = lvl[j].split(';');
-                                for (let i = 0; i < 2; i++) {
-                                    lvl_array[j][i] = l[i];
-                                }
-                            }
+                        const l3 = '@String.Join(",",Model.point)';
+                        const point_mas = l3.split(',');
 
-                                document.querySelector('.content').innerHTML = `<table class="glasses"></table>`;
+                        document.getElementById('12').innerHTML = point_mas;
+
+
+                                document.querySelector('.content').innerHTML = `<table class="statictics"></table>`;
                                 let row = document.createElement('tr');
                                 row.innerHTML = `
                                                 <td class="td3">По времени</td>
                                                 <td class="td3">По очкам</td>
                                                 `;
-                                document.querySelector('.glasses').appendChild(row);
-                                for (let i = 0; i < lvl_array.length; i++) {
+
+                        let mm = Math.max(point_mas.length, time_mas.length);
+                            document.querySelector('.statictics').appendChild(row);
+                        for (let i = 0; i < mm; i++) {
                                     let rw = document.createElement('tr');
-                                        rw.innerHTML = `<td class="td2">${lvl_array[i][0]}</td>
-                                        <td class="td2">${lvl_array[i][1]}</td>`;
-                                    document.querySelector('.glasses').appendChild(rw);
+                                    let pp, tt;
+                            if (point_mas.length<=i) {
+                                tt = time_mas[i];
+                                pp = "";
+                                    }
+                                    else{
+                                if (time_mas.length <= i) {
+                                    pp = point_mas[i];
+                                    tt = "";
+                                }else{
+                                    pp = point_mas[i];
+                                    tt = time_mas[i];
+                                }
+                                    }
+                            rw.innerHTML = `<td class="td2">${tt}</td>
+                                                                    <td class="td2">${pp}</td>`;
+                                document.querySelector('.statictics').appendChild(rw);
                                 }
                         </script>
                         </div>
-                </form>
                 
             </div>
         </div>
