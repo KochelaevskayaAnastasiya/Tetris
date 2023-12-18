@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{login}"
 @model tetris.Pages.GameSettingsModel
 @{
 }
@@ -34,8 +34,10 @@
 						<button class="btn-sett" type="submit">Начать игру</button>
 					<script>
 						function fnctn() {
+							
 							document.formGameSettingsPOST.k1.value = document.querySelector('input[name="state"]:checked').value;
 							document.formGameSettingsPOST.k2.value = document.getElementById("select22").value;
+							
 						return true;
 						}
 					</script>

@@ -38,7 +38,8 @@ namespace tetris.Pages
 		{
 			string stat = Request.Form["k1"];
 			string level = Request.Form["k2"];
-			string idd = level.Substring(8);
+            string login2 = RouteData.Values["login"].ToString();
+            string idd = level.Substring(8);
 
 			string queryString = "SELECT Level_Id FROM [Level] ORDER BY Speed;";
 			SqlCommand command = new SqlCommand(queryString, database.getConnection());
@@ -53,7 +54,7 @@ namespace tetris.Pages
 			reader.Read();
 			string idd2 = reader[0].ToString();
 			reader.Close();
-			return RedirectToPage("Game", new { id = idd2 , state = stat, lvl = idd});
+			return RedirectToPage("Game", new { id = idd2 , state = stat, lvl = idd, login = login2});
 			
 		}
 	}

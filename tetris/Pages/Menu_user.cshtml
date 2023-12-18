@@ -13,10 +13,11 @@
                     <div class="img">
                         <img class="image" src="login.png">
                         <p class="login">@RouteData.Values["login"]</p>
+                        
                     </div>
                     <h2 class="h2-menu">Тетрис</h2>
                     <div class="inputbox-menu">
-                        <a class="button-play" asp-page="/GameSettings">Играть</a>
+                        <a class="button-play" asp-page="/GameSettings" asp-route-login=@RouteData.Values["login"]>Играть</a>
                     </div>
                     <div class="inputbox-menu">
                         <a class="button-menu" asp-page="/Settings">Статистика</a>

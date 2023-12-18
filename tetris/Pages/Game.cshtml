@@ -1,4 +1,4 @@
-﻿@page "{id}/{state}/{lvl}"
+﻿@page "{id}/{state}/{lvl}/{login}"
 @model tetris.Pages.GameModel
 @{
     ViewData["Title"] = "Игра";
@@ -47,6 +47,7 @@
 
         let records_list = [];
         document.querySelector('.labell').innerHTML += 'Результаты текущей сессии:';
+
 
         
            
@@ -438,11 +439,14 @@
             speed_level = @Model.difficulty_level.speed;
             frames = 35 - speed_level;
             gameOver = false;
+            start_time = true;
             seconds = 0;
             minutes = 0;
             count_point = 0;
-
+            count_pointer.textContent = `${count_point.toString()}`;
             document.getElementById('records').textContent = recordsToString();
+            timer.textContent = ` ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            interval = setInterval(updateTime, 1000);
 
 
             for (let row = -2; row < he; row++) {

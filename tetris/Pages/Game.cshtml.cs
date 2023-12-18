@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Reflection.PortableExecutable;
 using tetris.Add_classes;
 using System.Web.Services;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace tetris.Pages
 {
@@ -18,6 +19,7 @@ namespace tetris.Pages
         public string[] figures_mas;
         public string[] figures_mas_with_col;
 
+        public string login;
         public int point_mode;
         public Figure GetFigure(int id_figure)
         {
@@ -112,6 +114,7 @@ namespace tetris.Pages
         public void OnGet()
         {
             string point_mode_str = RouteData.Values["state"].ToString();
+            login = RouteData.Values["login"].ToString();
             if (point_mode_str == "not")
             {
                 point_mode = 0;
@@ -155,9 +158,14 @@ namespace tetris.Pages
         public IActionResult OnPost()
         {
             string s = Request.Form["records"];
+            s = s.Replace("\r", "");
+            s = s.Replace("\t", "");
+            string nnn = RouteData.Values["login"].ToString(); ;
+
             if (s != null)
             {
                 string[] records = s.Split('\n');
+
             }
             return RedirectToPage("Game");
 
