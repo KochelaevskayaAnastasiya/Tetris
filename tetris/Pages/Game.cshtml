@@ -4,12 +4,10 @@
     ViewData["Title"] = "Игра";
 }
 <body class="body_game">
-    <form method="POST" name="recordGame">
-        <input type='hidden' id="record">
     <div class="field_of_play">
         <div class="button_two">
-            <button id="pause_button" onclick="Pause();">Пауза</button>
-            <button onclick="Again();">Заново</button>
+                <button id="pause_button" onclick="Pause();" type="button">Пауза</button>
+                <button type="submit" onclick="Again(); ">Заново</button>
         </div>
         <div class="gg2">
         <div class="canvas_field">
@@ -26,10 +24,12 @@
                     <label id="point">0</label>
                 </div>
            <div class="element">
-                    <button onclick="LevelUp();">Увеличить уровень</button>
-                        <label id="records_2">Результаты текущей сессии:</label>
+                    <button type="button" onclick="LevelUp();">Увеличить уровень</button>
+                    <form method="POST" onsubmit="DoSubmit();" name="recordGame">
+                        <input type="hidden" id="records">
+                        <button class="button" id="addRecords" type="submit">Сохранить записи</button>
+                    </form>
 
-                        <button class="button" id="addRecord" type="submit">Сохранить результаты</button>
                 </div>
         </div>
         </div>
@@ -37,18 +37,28 @@
     <label id="12"></label>
 
     <script>
+        function recordsToString() {
+            let str = '22';
+            for (let col = 0; col < records.length; col++) {
+                str += records[col];
+                if (col != records.length - 1) { str += ','; }
+            }
+            return str;
+        }
+        function DoSubmit() {
+            document.recordGame.records.value = recordsToString();
+            return true;
+        }
+
+
         let frames = 35;
 
         let mode = @Model.point_mode;
 
         let records = [];
 
-        for(){
 
-        }
-            document.getElementById('record').innerHTML = "";
-            document.getElementById('records_2').innerHTML = "";
-
+           
 
         if (mode == 0) {
             document.getElementById('point2').style.visibility = "hidden";
@@ -305,21 +315,14 @@
                         if (tetromino.row + row < 0) {
                             start_time = false;
                             if(mode != 0){
-                                    let rec;
                                     if (mode == 1) {
-                                        rec = timer.value;
+                                        records[records.length] = timer.textContent;
 
                                     }
                                     else {
-                                        rec = count_point;
+                                        records[records.length] = count_point;
                                     }
-                                    records[records.length] = rec;
                             }
-                                let res = '';
-                                for (let re = 0; re < records.length; re++) {
-                                    res += records[re] + '\n';
-                                }
-                                document.getElementById('records_2').textContent = res;
                             return showGameOver();
                         }
 
@@ -435,7 +438,9 @@
             seconds = 0;
             minutes = 0;
             count_point = 0;
-            count_pointer.textContent = `${count_point.toString()}`;
+            
+            
+
             for (let row = -2; row < he; row++) {
                 playfield[row] = [];
 
@@ -602,5 +607,4 @@
 
             
     </script>
-    </form>
 </body>

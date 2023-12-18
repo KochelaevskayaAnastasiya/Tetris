@@ -154,7 +154,7 @@ namespace tetris.Pages
         [HttpPost]
         public IActionResult OnPost()
         {
-            string s = Request.Form["record"];
+            string s = Request.Form["records"];
             return RedirectToPage("Game");
 
 
