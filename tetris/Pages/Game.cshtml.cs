@@ -154,7 +154,7 @@ namespace tetris.Pages
         public int[] GetRecordsBDTime(int id)
         {
             List<int> records = new List<int>();
-            string queryString = "SELECT [Points] FROM [StatisticsTime] WHERE [ID_user]=" + id+";";
+            string queryString = "SELECT [StTime] FROM [StatisticsTime] WHERE [ID_user]=" + id+";";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
             database.openConnection();
@@ -227,11 +227,10 @@ namespace tetris.Pages
                 int k = record[i]/60;
                 int k2 = record[i]%60;
                 string s = k + ":" + k2;
-                string queryString2 = "INSERT INTO StatisticsTime VALUES (" + id + ", " + s + ");";
+                string queryString2 = "INSERT INTO StatisticsTime VALUES (" + id + ", '" + s + "');";
                 database.openConnection();
                 SqlCommand command_insert = new SqlCommand(queryString2, database.getConnection());
-                int number = command_insert.ExecuteNonQuery();
-                Console.WriteLine("Вставлено: {0}", number);
+                command_insert.ExecuteNonQuery();
                 database.closeConnection();
             }
         }
@@ -256,6 +255,7 @@ namespace tetris.Pages
         [HttpPost]
         public IActionResult OnPost()
         {
+            
             string s = Request.Form["records"];
             s = s.Replace("\r", "");
             s = s.Replace("\t", "");
@@ -265,7 +265,8 @@ namespace tetris.Pages
             List<int> rec = new List<int>();
             if (s != null)
             {
-                string[] records = s.Split('\n');
+                string[] records = s.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
                 if (records[0].IndexOf(":")==-1)
                 {
                     //point
