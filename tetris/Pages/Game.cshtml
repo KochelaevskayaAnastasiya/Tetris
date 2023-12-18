@@ -26,8 +26,9 @@
            <div class="element">
                     <button type="button" onclick="LevelUp();">Увеличить уровень</button>
                     <form method="POST" onsubmit="DoSubmit();" name="recordGame">
-                        <input type="hidden" id="records">
+                        <input type="hidden" id="records" name="records">
                         <button class="button" id="addRecords" type="submit">Сохранить записи</button>
+                        <label id="records"></label>
                     </form>
 
                 </div>
@@ -37,27 +38,17 @@
     <label id="12"></label>
 
     <script>
-        function recordsToString() {
-            let str = '22';
-            for (let col = 0; col < records.length; col++) {
-                str += records[col];
-                if (col != records.length - 1) { str += ','; }
-            }
-            return str;
-        }
-        function DoSubmit() {
-            document.recordGame.records.value = recordsToString();
-            return true;
-        }
+        
 
 
         let frames = 35;
 
         let mode = @Model.point_mode;
 
-        let records = [];
+        let records_list = [];
+        document.getElementById('records').innerHTML = 'Результаты текущей сессии:';
 
-
+        
            
 
         if (mode == 0) {
@@ -316,13 +307,14 @@
                             start_time = false;
                             if(mode != 0){
                                     if (mode == 1) {
-                                        records[records.length] = timer.textContent;
+                                        records_list[records_list.length] = timer.textContent;
 
                                     }
                                     else {
-                                        records[records.length] = count_point;
+                                        records_list[records_list.length] = count_point;
                                     }
                             }
+                            document.getElementById('records').textContent += recordsToString();
                             return showGameOver();
                         }
 
@@ -397,7 +389,18 @@
             context.fillText('Пауза', canvas.width / 2, canvas.height / 2);
         }
 
-        
+        function recordsToString() {
+            let str = "\n";
+            for (let col = 0; col < records_list.length; col++) {
+                str += records_list[col];
+                if (col != records_list.length - 1) { str += "\n"; }
+            }
+            return str;
+        }
+        function DoSubmit() {
+            document.recordGame.records.value = recordsToString();
+            return true;
+        }
         
 
         // keep track of what is in every cell of the game using a 2d array
@@ -438,8 +441,9 @@
             seconds = 0;
             minutes = 0;
             count_point = 0;
-            
-            
+
+            document.getElementById('records').textContent = recordsToString();
+
 
             for (let row = -2; row < he; row++) {
                 playfield[row] = [];
