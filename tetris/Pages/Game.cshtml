@@ -4,7 +4,7 @@
     ViewData["Title"] = "Игра";
 }
 <body class="body_game">
-    <form method='post' id='the_form_record'>
+    <form method="POST" name="recordGame">
         <input type='hidden' id="record">
     <div class="field_of_play">
         <div class="button_two">
@@ -27,6 +27,9 @@
                 </div>
            <div class="element">
                     <button onclick="LevelUp();">Увеличить уровень</button>
+                        <label id="records_2">Результаты текущей сессии:</label>
+
+                        <button class="button" id="addRecord" type="submit">Сохранить результаты</button>
                 </div>
         </div>
         </div>
@@ -38,8 +41,14 @@
 
         let mode = @Model.point_mode;
 
-        let record_time;
-        let record_point;
+        let records = [];
+
+        for(){
+
+        }
+            document.getElementById('record').innerHTML = "";
+            document.getElementById('records_2').innerHTML = "";
+
 
         if (mode == 0) {
             document.getElementById('point2').style.visibility = "hidden";
@@ -286,7 +295,6 @@
                     alert('Cannot process your request at the moment, please try later.');
                 }
             }
-
             // place the tetromino on the playfield
         function placeTetromino() {
             for (let row = 0; row < tetromino.matrix.length; row++) {
@@ -297,18 +305,21 @@
                         if (tetromino.row + row < 0) {
                             start_time = false;
                             if(mode != 0){
-                                if (mode==1){
-                                    record_time = minutes*60+seconds;
-                                    document.getElementById('record').innerHTML = record_time;
-                                        Result_class.RegisterUser(record_time);
-            
-                                }
-                                else{
-                                    record_point = count_point;
-                                    document.getElementById('record').innerHTML = record_point;
-                                        
-                                }
+                                    let rec;
+                                    if (mode == 1) {
+                                        rec = timer.value;
+
+                                    }
+                                    else {
+                                        rec = count_point;
+                                    }
+                                    records[records.length] = rec;
                             }
+                                let res = '';
+                                for (let re = 0; re < records.length; re++) {
+                                    res += records[re] + '\n';
+                                }
+                                document.getElementById('records_2').textContent = res;
                             return showGameOver();
                         }
 

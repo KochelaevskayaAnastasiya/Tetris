@@ -152,10 +152,12 @@ namespace tetris.Pages
         
 
         [HttpPost]
-        public void OnPost()
+        public IActionResult OnPost()
         {
             string s = Request.Form["record"];
-           
+            return RedirectToPage("Game");
+
+
         }
     }
 }
