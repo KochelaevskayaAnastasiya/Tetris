@@ -271,7 +271,7 @@ namespace tetris.Pages
                 {
                     //point
                     int[] records1 = GetRecordsBDPoint(id);
-                    SortedSet<int> ints = new SortedSet<int>();
+                    List<int> ints = new List<int>();
                     for (int i=0;i< records1.Length; i++)
                     {
                         ints.Add(records1[i]);
@@ -281,6 +281,9 @@ namespace tetris.Pages
                     {
                         ints.Add(Int32.Parse(records[i]));
                     }
+
+                    ints.Sort();
+
                     int[] intArray;
                     if (ints.Count <= 10)
                     {
@@ -290,7 +293,8 @@ namespace tetris.Pages
                     else
                     {
                         intArray = new int[10];
-                        ints.CopyTo(intArray, ints.Count-10);
+                        ints.CopyTo(ints.Count - 10, intArray, 0, 10);
+
                     }
                     SetRecordsBDPoint(intArray, id);
 
@@ -300,7 +304,7 @@ namespace tetris.Pages
                     //time
                     int[] records2 = GetRecordsBDTime(id);
 
-                    SortedSet<int> ints = new SortedSet<int>();
+                    List<int> ints = new List<int>();
                     
                     for (int i=0; i < records.Length; i++)
                     {
@@ -314,6 +318,7 @@ namespace tetris.Pages
                     {
                         ints.Add(records2[i]);
                     }
+                    ints.Sort();
 
                     int[] intArray;
                     if (ints.Count <= 10)
@@ -324,7 +329,7 @@ namespace tetris.Pages
                     else
                     {
                         intArray = new int[10];
-                        ints.CopyTo(intArray, ints.Count - 10);
+                        ints.CopyTo(ints.Count - 10, intArray, 0, 10);
                     }
                     SetRecordsBDTime(intArray, id);
                 }
