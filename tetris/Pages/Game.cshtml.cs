@@ -226,7 +226,7 @@ namespace tetris.Pages
             {
                 int k = record[i]/60;
                 int k2 = record[i]%60;
-                string s = k + ":" + k2;
+                string s = "00:"+k + ":" + k2;
                 string queryString2 = "INSERT INTO StatisticsTime VALUES (" + id + ", '" + s + "');";
                 database.openConnection();
                 SqlCommand command_insert = new SqlCommand(queryString2, database.getConnection());
