@@ -155,8 +155,8 @@ namespace tetris.Pages
         public int[] GetRecordsBDTime(int id)
         {
             List<int> records = new List<int>();
-            //string queryString = "SELECT [StTime] FROM [StatisticsTime] WHERE [ID_user]=" + id+";";
-            string queryString = "SELECT [StTime] FROM [StatisticsTime] WHERE [User_Id]=" + id + ";";
+            string queryString = "SELECT [StTime] FROM [StatisticsTime] WHERE [ID_user]=" + id+";";
+            //string queryString = "SELECT [StTime] FROM [StatisticsTime] WHERE [User_Id]=" + id + ";";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
             database.openConnection();
@@ -219,8 +219,8 @@ namespace tetris.Pages
 
         public void SetRecordsBDTime(int[] record, int id)
         {
-            //string queryString = "DELETE FROM [StatisticsTime] WHERE [ID_user]=" + id + ";";
-            string queryString = "DELETE FROM [StatisticsTime] WHERE [User_Id]=" + id + ";";
+            string queryString = "DELETE FROM [StatisticsTime] WHERE [ID_user]=" + id + ";";
+            //string queryString = "DELETE FROM [StatisticsTime] WHERE [User_Id]=" + id + ";";
             database.openConnection();
             SqlCommand command_insert2 = new SqlCommand(queryString, database.getConnection());
             int number2 = command_insert2.ExecuteNonQuery();
@@ -242,8 +242,8 @@ namespace tetris.Pages
 
         public int GetIdOnLogin(string login)
         {
-            //string queryString = "SELECT [ID_user] FROM [Users] WHERE [Login] = '"+ login+ "';";
-            string queryString = "SELECT [User_Id] FROM [Users] WHERE [Login] = '" + login + "';";
+            string queryString = "SELECT [ID_user] FROM [Users] WHERE [Login] = '"+ login+ "';";
+            //string queryString = "SELECT [User_Id] FROM [Users] WHERE [Login] = '" + login + "';";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
             database.openConnection();

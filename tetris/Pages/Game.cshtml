@@ -400,8 +400,16 @@
             }
             return str;
         }
+        function recordsToStringBD() {
+            let str = "\n";
+            for (let col = 0; col < records_list.length; col++) {
+                str += records_list[col];
+                if (col != records_list.length - 1) { str += "\n"; }
+            }
+            return str;
+        }
         function DoSubmit() {
-            document.recordGame.records.value = recordsToString();
+            document.recordGame.records.value = recordsToStringBD();
             return true;
         }
         
