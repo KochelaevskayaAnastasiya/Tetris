@@ -772,6 +772,8 @@ button:hover {
     backdrop-filter: blur(15px) brightness(80%);
     text-align: center;
     display: block;
+    justify-content: center;
+    align-items: center;
 }
 
 .block_1 {
