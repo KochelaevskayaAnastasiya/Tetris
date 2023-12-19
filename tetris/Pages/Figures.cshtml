@@ -6,123 +6,127 @@
 
 }
 <body>
-    <h1>Фигуры</h1>
-    <form method="POST" onsubmit="DoSubmit();" name="formFigures">
-        <label id="number_figu"></label>
-        <label id="number_figu2"></label>
-        <div class="block_1">
-            <input onclick="buttonBack()" type="button" value="Назад" id="myButton0">
-            <div class="figure">
-                <canvas width="128" height="128" id="figure" class="figure"></canvas>
-                <input type="hidden" id="kkk" name="kkk"/>
-                
-                <script charset="utf-8">
-                    let text_alert = `@Model.alert_text`;
-                    document.getElementById('number_figu2').style.display = 'none';
-                    document.getElementById('number_figu2').innerHTML = text_alert;
-                    text_alert = document.getElementById('number_figu2').textContent;
-                    if (text_alert.length != 0) { alert(`Внимание! ${text_alert}`); }
-                    let k = 0;
-                    
-                    const canvas = document.getElementById('figure');
-                    const context = canvas.getContext('2d');
-                    const grid = 32;
-                    context.fillStyle = '#000000'; //для линий
-                    context.strokeStyle = 'rgba(0,0,0,1)'; //для закрашенных фигур
-                    let str = `@Model.figures[someint].Structure`;
+    <div class="common_figures">
+        <h1>Фигуры</h1>
+        <form method="POST" onsubmit="DoSubmit();" name="formFigures">
+            <label id="number_figu"></label>
+            <label id="number_figu2"></label>
+            <div class="block_1">
+                <input onclick="buttonBack()" type="button" value="Назад" id="myButton0">
+                <div class="figure">
+                    <canvas width="128" height="128" id="figure" class="figure"></canvas>
+                    <input type="hidden" id="kkk" name="kkk" />
 
-                    let l2 = '@String.Join(",",Model.fig_str)';
-                    let figu = l2.split(',');
+                    <script charset="utf-8">
+                        let text_alert = `@Model.alert_text`;
+                        document.getElementById('number_figu2').style.display = 'none';
+                        document.getElementById('number_figu2').innerHTML = text_alert;
+                        text_alert = document.getElementById('number_figu2').textContent;
+                        if (text_alert.length != 0) { alert(`Внимание! ${text_alert}`); }
+                        let k = 0;
 
-                    drow_figure_chac(figu[k]);
-                    let kk=k+1;
-                    document.getElementById('number_figu').innerHTML = "#" + kk + "/" + figu.length;
-                    function drow_figure_chac(fig)
-                    {
-                        context.clearRect(0, 0, canvas.width, canvas.height);
-                        if (k < figu.length) {
-                            drow_figure(fig);
+                        const canvas = document.getElementById('figure');
+                        const context = canvas.getContext('2d');
+                        const grid = 32;
+                        context.fillStyle = '#000000'; //для линий
+                        context.strokeStyle = 'rgba(0,0,0,1)'; //для закрашенных фигур
+                        let str = `@Model.figures[someint].Structure`;
+
+                        let l2 = '@String.Join(",",Model.fig_str)';
+                        let figu = l2.split(',');
+
+                        drow_figure_chac(figu[k]);
+                        let kk = k + 1;
+                        document.getElementById('number_figu').innerHTML = "#" + kk + "/" + figu.length;
+                        function drow_figure_chac(fig) {
+                            context.clearRect(0, 0, canvas.width, canvas.height);
+                            if (k < figu.length) {
+                                drow_figure(fig);
+                            }
+                            else {
+                                drow_figure_empty();
+                            }
                         }
-                        else {
-                            drow_figure_empty();
-                        }
-                    }
-                    function drow_figure(fig) // no ';' here
-                    {
-                        for (let row = 0; row < 4; row++) {
-                            for (let col = 0; col < 4; col++) {
-                                if (fig[row * 4 + col] == '1') {
-                                    context.fillRect(col * grid, row * grid, grid - 1, grid - 1);
+                        function drow_figure(fig) // no ';' here
+                        {
+                            for (let row = 0; row < 4; row++) {
+                                for (let col = 0; col < 4; col++) {
+                                    if (fig[row * 4 + col] == '1') {
+                                        context.fillRect(col * grid, row * grid, grid - 1, grid - 1);
+                                    }
+                                    else {
+                                        context.lineWidth = 0.5;
+                                        context.strokeRect(col * grid, row * grid, grid - 1, grid - 1);
+                                    }
                                 }
-                                else {
+                            }
+
+                        }
+                        function drow_figure_empty() {
+                            for (let row = 0; row < 4; row++) {
+                                for (let col = 0; col < 4; col++) {
                                     context.lineWidth = 0.5;
                                     context.strokeRect(col * grid, row * grid, grid - 1, grid - 1);
                                 }
                             }
                         }
+                        function buttonFor3() {
+                            k++;
+                            kk = k + 1;
+                            drow_figure_chac(figu[k]);
+                            document.getElementById('number_figu').innerHTML = "#" + kk + "/" + figu.length;
 
-                    }
-                    function drow_figure_empty() {
-                        for (let row = 0; row < 4; row++) {
-                            for (let col = 0; col < 4; col++) {
-                                context.lineWidth = 0.5;
-                                context.strokeRect(col * grid, row * grid, grid - 1, grid - 1);
+                        }
+                        function buttonBack() {
+                            k--;
+                            kk = k + 1;
+                            document.getElementById('number_figu').innerHTML = "#" + kk + "/" + figu.length;
+
+                            if (k == -1) k = figu.length;
+                            drow_figure_chac(figu[k]);
+                        }
+                        function replaceIndex(str, index, replacement) {
+                            return str.substr(0, index) + replacement + str.substr(index + 1);
+                        }
+                        function replaceCommon(str, index) {
+                            if (str[index] == "0") { return replaceIndex(str, index, 1); }
+                            else { return replaceIndex(str, index, 0); }
+                        }
+                        function figuToString() {
+                            let str = '';
+                            for (let col = 0; col < figu.length; col++) {
+                                str += figu[col];
+                                if (col != figu.length - 1) { str += ','; }
                             }
+                            return str;
                         }
-                    }
-                    function buttonFor3()
-                    {
-                        k++;
-                        kk = k+1;
-                        drow_figure_chac(figu[k]);
-                        document.getElementById('number_figu').innerHTML = "#" + kk + "/" + figu.length;
 
-                    }
-                    function buttonBack(){
-                        k--;
-                        kk = k+1;
-                        document.getElementById('number_figu').innerHTML = "#" + kk + "/" + figu.length;
-
-                        if(k==-1) k=figu.length;
-                        drow_figure_chac(figu[k]);
-                    }
-                    function replaceIndex(str, index, replacement) {
-                        return str.substr(0, index) + replacement + str.substr(index + 1);
-                    }
-                    function replaceCommon(str, index) {
-                        if (str[index] == "0") { return replaceIndex(str, index,1); }
-                        else { return replaceIndex(str, index, 0); }
-                    }
-                    function figuToString(){
-                        let str = '';
-                        for (let col = 0; col < figu.length; col++) {
-                            str+=figu[col];
-                            if (col != figu.length - 1) { str +=',';}
+                        function DoSubmit() {
+                            document.formFigures.kkk.value = figuToString();
+                            return true;
                         }
-                        return str;
-                    }
+                        canvas.addEventListener('click', function (event) {
+                            const rect = canvas.getBoundingClientRect();
+                            let x = event.pageX - rect.left,
+                                y = event.pageY - rect.top;
+                            let col = Math.floor(x / grid), row = Math.floor(y / grid);
+                            let index = row * 4 + col;
+                            if (k >= figu.length) {
+                                figu.push('0000000000000000');
+                            }
+                            figu[k] = replaceCommon(figu[k], index);
+                            drow_figure_chac(figu[k]);
+                        }, false);
+                    </script>
 
-                    function DoSubmit() {
-                        document.formFigures.kkk.value = figuToString();
-                        return true;
-                    }
-                    canvas.addEventListener('click', function (event) {
-                        const rect = canvas.getBoundingClientRect();
-                        let x = event.pageX - rect.left,
-                            y = event.pageY - rect.top;
-                        let col = Math.floor(x / grid), row = Math.floor(y / grid);
-                        let index = row * 4 + col;
-                        if (k>=figu.length) {
-                            figu.push('0000000000000000');
-                        }
-                        figu[k] = replaceCommon(figu[k], index);
-                        drow_figure_chac(figu[k]);
-                    }, false);
-                </script>
+                </div>
+                <input onclick="buttonFor3()" type="button" value="Вперед" id="myButton1">
             </div>
-            <input onclick="buttonFor3()" type="button" value="Вперед" id="myButton1">
-            <button class="button" id="addButton" type="submit">Сохранить</button>
-            <a asp-page="/Menu_admin">Назад</a>
-        </div>
-    </form>
+            <div class="button_save_back">
+                <a class="a_button" asp-page="/Menu_admin"><button>Назад</button></a>
+                <button class="button" id="addButton" type="submit">Сохранить</button>
+
+            </div>
+        </form>
+    </div>
 </body>

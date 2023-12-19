@@ -223,6 +223,17 @@ button {
     display: flex;
 }
 
+.common_figures {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    background: transparent;
+    border: none;
+    border-radius: 20px;
+    backdrop-filter: blur(15px) brightness(80%);
+    display: flex;
+}
+
 .login {
     font-size: 25px;
     margin-bottom: 100px;
@@ -751,3 +762,36 @@ button:hover {
 }
 
 
+.common_figures {
+    position: relative;
+    width: 400px;
+    height: 300px;
+    background: transparent;
+    border: none;
+    border-radius: 20px;
+    backdrop-filter: blur(15px) brightness(80%);
+    text-align: center;
+    display: block;
+}
+
+.block_1 {
+    display: flex;
+    justify-content: center;
+}
+
+.button_save_back {
+    display: flex;
+    justify-content: center;
+}
+
+    .button_save_back button {
+        width: 10em;
+        height: 40px;
+        border-radius: 40px;
+        background-color: #fff;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 600;
+    }
