@@ -30,7 +30,7 @@
                         <button class="button" id="addRecords" type="submit">Сохранить записи</button>
                         <label class= "labell" id="records"></label>
                          <div class="records">
-                             <label class= "labellll" id="records"></label>
+                             <p class= "labellll" id="records"></p>
                          </div>
                     </form>
                 </div>
@@ -49,7 +49,6 @@
 
         let records_list = [];
         document.querySelector('.labell').innerHTML += 'Результаты текущей сессии:';
-        document.querySelector('.labellll').innerHTML = recordsToString();
 
 
         
@@ -394,10 +393,10 @@
         }
 
         function recordsToString() {
-            let str = "\n";
+            let str = '';
             for (let col = 0; col < records_list.length; col++) {
                 str += records_list[col];
-                if (col != records_list.length - 1) { str += "\n"; }
+                if (col != records_list.length - 1) { str += '<br>'; }
             }
             return str;
         }
@@ -464,6 +463,9 @@
             next_tetromino = getNextTetromino();
             upgate_next_figure(next_tetromino);
             rAF = requestAnimationFrame(loop);
+
+            //let records = recordsToString();
+            document.querySelector('.labellll').innerHTML = recordsToString();
         }
 
         
