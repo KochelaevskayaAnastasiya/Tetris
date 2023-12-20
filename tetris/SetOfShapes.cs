@@ -13,6 +13,8 @@ namespace tetris
 
         public string[] setFiguLevel;
 
+        public string shapes;
+
         public SetOfShapes()
         {
             List<Figure> figures = GetFigures();

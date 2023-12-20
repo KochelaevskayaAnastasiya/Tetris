@@ -797,3 +797,12 @@ button:hover {
         font-size: 1em;
         font-weight: 600;
     }
+
+    /*Набор фигур для уровня*/
+.div_figures {
+    display:grid;
+    grid-template-columns:repeat(3,auto);
+}
+.divShape{
+    border: 2px;
+}

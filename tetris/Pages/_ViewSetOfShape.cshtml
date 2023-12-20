@@ -10,10 +10,11 @@
                 </button>
             </div>
             <div class="modal-body">
+                    <input asp-for="shapes" class="form-control" type="hidden"></input>
                 <div class="div_figures" id="div_figures">
                     
                 </div>
-                
+                <buttton type="button" class="btn btn-primary" data-save="modal">Добавить</buttton>
                 <script>
                     
                     
@@ -60,6 +61,7 @@
                             let ii = i + 1;
                             let div = document.createElement("div");
                             div.id = 'divFigu' + ii;
+                            div.class = 'divShape';
                             // create a new html canvas element
                             let canvas = document.createElement("canvas");
                             // assign the new canvas an id, width and height

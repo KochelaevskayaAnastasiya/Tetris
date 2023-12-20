@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -78,6 +79,12 @@ namespace tetris.Pages
             if (ModelState.IsValid)
             {
                 Glasses.Add(model);
+                string queryString2 = $"INSERT INTO Glass (Length, Width) VALUES ({Convert.ToInt32(Glasses[Glasses.Count-1].Height)}, {Convert.ToInt32(Glasses[Glasses.Count - 1].Width)})";
+                database.openConnection();
+                SqlCommand command2 = new SqlCommand(queryString2, database.getConnection());
+                command2.ExecuteNonQuery();
+                database.closeConnection();
+                RedirectToPage("Glasses");
             }
 
             return new PartialViewResult
