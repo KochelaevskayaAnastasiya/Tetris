@@ -12,8 +12,8 @@ namespace tetris.Pages
         public string[] GetRecordsBDTime(int id)
         {
             List<string> records = new List<string>();
-            //string queryString = "SELECT [StTime] FROM [StatisticsTime] WHERE [ID_user]=" + id + ";";
-            string queryString = "SELECT [StTime] FROM [StatisticsTime] WHERE [User_id]=" + id + ";";
+            string queryString = "SELECT [StTime] FROM [StatisticsTime] WHERE [ID_user]=" + id + ";";
+            //string queryString = "SELECT [StTime] FROM [StatisticsTime] WHERE [User_id]=" + id + ";";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
             database.openConnection();
@@ -33,8 +33,8 @@ namespace tetris.Pages
         public int[] GetRecordsBDPoint(int id)
         {
             List<int> records = new List<int>();
-            //string queryString = "SELECT [Points] FROM [StatisticsPoints] WHERE [ID_user]=" + id + ";";
-            string queryString = "SELECT [Points] FROM [StatisticsPoints] WHERE [User_id]=" + id + ";";
+            string queryString = "SELECT [Points] FROM [StatisticsPoints] WHERE [ID_user]=" + id + ";";
+            //string queryString = "SELECT [Points] FROM [StatisticsPoints] WHERE [User_id]=" + id + ";";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
             database.openConnection();
@@ -52,8 +52,8 @@ namespace tetris.Pages
         }
         public int GetIdOnLogin(string login)
         {
-            //string queryString = "SELECT [ID_user] FROM [Users] WHERE [Login] = '" + login + "';";
-            string queryString = "SELECT [User_Id] FROM [Users] WHERE [Login] = '" + login + "';";
+            string queryString = "SELECT [ID_user] FROM [Users] WHERE [Login] = '" + login + "';";
+            //string queryString = "SELECT [User_Id] FROM [Users] WHERE [Login] = '" + login + "';";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
             database.openConnection();
