@@ -2,6 +2,7 @@
 {
     public class InfoAboutUs
     {
+
         public string s1 = "Самарский университет";
         public string s2 = "Кафедра программных систем";
         public string s3 = "Курсовой проект по дисциплине \"Программная инженерия\"";
@@ -10,5 +11,10 @@
         public string s6 = "Кочелаевская А.А";
         public string s7 = "Тимонина А.В.";
         public string s8 = "Самара 2023";
+        public int k;
+        public InfoAboutUs(int k)
+        {
+            this.k = k;
+        }
     }
 }

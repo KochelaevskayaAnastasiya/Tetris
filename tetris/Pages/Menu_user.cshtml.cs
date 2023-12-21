@@ -25,6 +25,7 @@ namespace tetris.Pages
         }
         public PartialViewResult OnGetViewModalInfo()
         {
+            int k = 5;
             // this handler returns _ContactModalPartial
             return new PartialViewResult
             {
