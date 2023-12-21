@@ -157,7 +157,7 @@ namespace tetris.Pages
 
             if (noIntegrity!=0 || noUnick != 0)
             {
-                alert_text = "Некоторые фигуры были удалены:\n";
+                alert_text = "Некоторые фигуры не были приняты:\n";
                 if (noIntegrity != 0)
                 {
                     alert_text += "Не целостны: " + noIntegrity;

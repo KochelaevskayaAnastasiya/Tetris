@@ -28,25 +28,38 @@
                                                 <td class="td3">По времени</td>
                                                 <td class="td3">По очкам</td>
                                                 `;
+                       
 
                         let mm = Math.max(point_mas.length, time_mas.length);
                             document.querySelector('.statictics').appendChild(row);
                         for (let i = 0; i < mm; i++) {
                                     let rw = document.createElement('tr');
                                     let pp, tt;
-                            if (point_mas.length<=i) {
-                                tt = time_mas[i];
-                                pp = "";
-                                    }
-                                    else{
-                                if (time_mas.length <= i) {
-                                    pp = point_mas[i];
-                                    tt = "";
-                                }else{
-                                    pp = point_mas[i];
+                            if (point_mas.length <= i) {
+                                if (time_mas[i] == '00:00:00') {
+                                    tt = ' ';
+                                    break;
+                                }
+                                else {
                                     tt = time_mas[i];
                                 }
+                                pp = ' ';
+                            }
+                            else {
+                                if (time_mas.length <= i) {
+                                    pp = point_mas[i];
+                                    tt = ' ';
+                                } else {
+                                    pp = point_mas[i];
+                                    if (time_mas[i] == '00:00:00') {
+                                        tt = ' ';
                                     }
+                                    else {
+                                        tt = time_mas[i];
+                                    }
+                                }
+                            }
+
                             rw.innerHTML = `<td class="td2">${tt}</td>
                                                                     <td class="td2">${pp}</td>`;
                                 document.querySelector('.statictics').appendChild(rw);
