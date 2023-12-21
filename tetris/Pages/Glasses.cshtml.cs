@@ -54,10 +54,10 @@ namespace tetris.Pages
             database.closeConnection();
         }
 
-        public string getGl()
+        public string getGl(string kkk)
         {
             string s2 = "</td>";
-            string s = Request.Form["kkk"];
+            string s = kkk;
             //int i1 = s.IndexOf(s1);
             int i2 = s.IndexOf(s2);
             if (i2 == -1)
@@ -93,13 +93,19 @@ namespace tetris.Pages
             string s2 = "</td>";
             string s = Request.Form["kkk"];
             //int i1 = s.IndexOf(s1);
-            int i2 = s.IndexOf(s2);
-            if (i2 == -1)
-                id = "-1";
-            else if (s == null)
+            int i2;
+            if (s == null)
+            {
                 id = "0";
+            }
             else
-                id = s.Substring(16, i2 - 16);
+            {
+                i2 = s.IndexOf(s2);
+                if (i2 == -1)
+                    id = "-1";
+                else
+                    id = s.Substring(16, i2 - 16);
+            }
         }
         public PartialViewResult OnGetViewEditGlass()
         {
@@ -120,14 +126,15 @@ namespace tetris.Pages
                 string queryString2 = $"INSERT INTO Glass (Length, Width) VALUES ({Convert.ToInt32(Glasses[Glasses.Count-1].Height)}, {Convert.ToInt32(Glasses[Glasses.Count - 1].Width)})";
                 database.openConnection();
                 string queryString = $"SELECT Glass_Id FROM Glass WHERE Width = {Convert.ToInt32(Glasses[Glasses.Count - 1].Width)} AND Length = {Convert.ToInt32(Glasses[Glasses.Count - 1].Height)}";
-                SqlCommand command2 = new SqlCommand(queryString2, database.getConnection());
+                SqlCommand command3 = new SqlCommand(queryString2, database.getConnection());
                 SqlCommand command = new SqlCommand(queryString, database.getConnection());
-                SqlDataReader reader = command.ExecuteReader();
-                if (!reader.Read())
+                SqlDataReader reader5 = command.ExecuteReader();
+                if (!reader5.Read())
                 {
-                    command2.ExecuteNonQuery();
+                    reader5.Close();
+                    command3.ExecuteNonQuery();
                 }
-                reader.Close();
+                reader5.Close();
                 database.closeConnection();
                 RedirectToPage("Glasses");
             }
@@ -155,14 +162,15 @@ namespace tetris.Pages
             if (ModelState.IsValid)
             {
                 NewGlasses.Add(model);
-                string queryString2 = $"INSERT INTO Glass (Length, Width) VALUES ({Convert.ToInt32(Glasses[Glasses.Count - 1].Height)}, {Convert.ToInt32(Glasses[Glasses.Count - 1].Width)})";
+                string queryString2 = $"INSERT INTO Glass (Length, Width) VALUES ({Convert.ToInt32(NewGlasses[NewGlasses.Count - 1].Height)}, {Convert.ToInt32(NewGlasses[NewGlasses.Count - 1].Width)})";
                 database.openConnection();
-                string queryString = $"SELECT Glass_Id FROM Glass WHERE Width = {Convert.ToInt32(Glasses[Glasses.Count - 1].Width)} AND Length = {Convert.ToInt32(Glasses[Glasses.Count - 1].Height)}";
+                string queryString = $"SELECT Glass_Id FROM Glass WHERE Width = {Convert.ToInt32(NewGlasses[NewGlasses.Count - 1].Width)} AND Length = {Convert.ToInt32(NewGlasses[NewGlasses.Count - 1].Height)}";
                 SqlCommand command2 = new SqlCommand(queryString2, database.getConnection());
                 SqlCommand command = new SqlCommand(queryString, database.getConnection());
                 SqlDataReader reader = command.ExecuteReader();
                 if (!reader.Read())
                 {
+                    reader.Close();
                     command2.ExecuteNonQuery();
                 }
                 reader.Close();

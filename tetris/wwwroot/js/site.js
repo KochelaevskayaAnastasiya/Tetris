@@ -71,17 +71,10 @@ $(function () {
     var placeholderElement = $('#modal-placeholder');
     $('button[data-toggle="ajax-modal"]').click(function (event) {
         var url = $(this).data('url');
-        var data_id = $(this).attr('data-id');
-
-        if (data_id != "") {
             $.get(url).done(function (data) {
                 placeholderElement.html(data);
                 placeholderElement.find('.modal').modal('show');
             });
-        }
-        else {
-            location.reload();
-        }
     });
     placeholderElement.on('click', '[data-save="modal"]', function (event) {
         event.preventDefault();

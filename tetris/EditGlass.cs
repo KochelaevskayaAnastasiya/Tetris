@@ -9,7 +9,7 @@ namespace tetris
         public string Height { get; set; }
 
         [Required(ErrorMessage = "Необходимо заполнить поле \"Ширина\"")]
-        [Range(10, 20, ErrorMessage = "Значение поля \"Высота\" должно находиться в диапозоне от {1} до {2}")]
+        [Range(10, 20, ErrorMessage = "Значение поля \"Ширина\" должно находиться в диапозоне от {1} до {2}")]
         public string Width { get; set; }
         
 

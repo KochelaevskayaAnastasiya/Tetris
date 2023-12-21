@@ -45,14 +45,12 @@
                 <form method="POST" onsubmit="fnctn( );" name="formGlassesPOST">
                     <input type="hidden" id="kkk" name="kkk" />
                     <button id="btn-modal-1" type="button" class="button-glass" glass-id="@Model.id" data-toggle="ajax-modal" data-url="@Url.Page("Glasses", "ViewNewGlass")">Добавить стакан</button>
-                    <button id="btn-modal-2" name="kkk" type="button" class="button-glass" glass-id="@Model.id" onclick="fnctn();" data-toggle="ajax-modal" data-url="@Url.Page("Glasses", "ViewEditGlass")">Редактировать стакан</button>
+                    <button id="btn-modal-2" type="button" class="button-glass" glass-id="@Model.id" data-toggle="ajax-modal" data-url="@Url.Page("Glasses", "ViewEditGlass")">Редактировать стакан</button>
 
                     <script>
                         function fnctn() {
                             let items=document.getElementsByClassName('active');
                             document.formLevelsPOST.kkk.value = items[0].innerHTML;
-                            let kk = @Model.getGl(); 
-                            document.formLevelsPOST.kkk.value = kk;
                         }
                     </script>
                 </form>
