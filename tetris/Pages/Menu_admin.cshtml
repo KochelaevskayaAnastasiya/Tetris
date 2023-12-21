@@ -23,8 +23,7 @@
 
                         <button class="button-menu">О системе</button>
 
-                        <button class="button-menu" onclick="openModal({ url: '/Developers'})" 
-                            data-toggle="ajax-modal" data-target="Modal">О разработчиках</button>
+                        <button type="button" class="button-menu" data-toggle="ajax-modal3" data-url="@Url.Page("Menu_user", "ViewModalInfo")">О разработчиках</button>
                     </div>
                     <script>
                         function openModal(parameters){
