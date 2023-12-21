@@ -11,10 +11,6 @@
         public string s6 = "Кочелаевская А.А";
         public string s7 = "Тимонина А.В.";
         public string s8 = "Самара 2023";
-        public int k;
-        public InfoAboutUs(int k)
-        {
-            this.k = k;
-        }
+        
     }
 }
