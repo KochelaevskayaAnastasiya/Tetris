@@ -30,7 +30,7 @@ namespace tetris.Pages
             return new PartialViewResult
             {
                 ViewName = "_ViewModalInfo",
-                ViewData = new ViewDataDictionary<InfoAboutUs>(ViewData, new InfoAboutUs { })
+                ViewData = new ViewDataDictionary<InfoAboutUs>(ViewData, new InfoAboutUs(k) { })
             
             };
         }
