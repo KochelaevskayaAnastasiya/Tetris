@@ -1,4 +1,4 @@
-﻿@page "{id}/{state}/{lvl}/{login}"
+﻿@page "{id}/{state}/{lvl}/{login}/{color}/{mus}/{setka}/{next_figu}"
 @model tetris.Pages.GameModel
 @{
     ViewData["Title"] = "Игра";
@@ -33,6 +33,11 @@
                              <p class= "labellll" id="records"></p>
                          </div>
                     </form>
+                    <a class="button" asp-page="/GameSettings" asp-route-login=@RouteData.Values["login"]
+                       asp-route-color=@RouteData.Values["color"]
+                       asp-route-mus=@RouteData.Values["mus"]
+                       asp-route-setka=@RouteData.Values["setka"]
+                       asp-route-next_figu=@RouteData.Values["next_figu"]>Назад</a>
                 </div>
         </div>
         </div>
@@ -41,7 +46,7 @@
 
     <script>
         
-
+        
 
         let frames = 35;
 
@@ -168,7 +173,14 @@
         next_figure.width = 4 * grid;
         next_figure.height = 4 * grid;
 
+        let next_figu = '@String.Join("",Model.next_figu)';
+        if (next_figu == 'null') {
+            next_figure.style.display = "none"; 
+        }
 
+        let setk = '@String.Join("",Model.setka)';
+        let color_pole = '@String.Join("",Model.color)';
+        
 
         // https://tetris.fandom.com/wiki/Tetris_Guideline
 
@@ -481,6 +493,7 @@
             context_next_figure.clearRect(0, 0, next_figure.width, next_figure.height);
             
             /*добавленый*/
+            if (setk != 'null') {
             context_next_figure.fillStyle = 'black';
             for (let row = 0; row < 4; row++) {
                 context_next_figure.fillRect(row * grid - 1, 0, 0.5, next_figure.height);
@@ -488,7 +501,7 @@
             for (let col = 0; col < 4; col++) {
                 context_next_figure.fillRect(0, col * grid - 1, next_figure.width, 0.5);
             }
-             
+            }
 
             for (let row = 0; row < tetromino.matrix.length; row++) {
                 for (let col = 0; col < tetromino.matrix[row].length; col++) {
@@ -510,9 +523,25 @@
         function loop() {
             rAF = requestAnimationFrame(loop);
             if (isPause == false){
-            context.clearRect(0, 0, canvas.width, canvas.height);
+                if (color_pole == '1')
+                {
+                    context.fillStyle = 'white';
+                }
+                else{
+                    if (color_pole == '2'){
+                        context.fillStyle = 'gainsboro';
 
+                    }
+                    else{
+                        context.fillStyle = 'MistyRose';
+                    }
+                }
+                
+                
+            context.fillRect(0, 0, canvas.width, canvas.height);
+                
 
+            if (setk != 'null') {
              /*добавленый*/
             context.fillStyle = 'black';
             for (let row = 0; row < wi; row++) {
@@ -520,6 +549,7 @@
             }
             for (let col = 0; col < he; col++) {
                 context.fillRect(0, col * grid - 1, canvas.width, 0.5);
+            }
             }
             /*добавленый*/
 

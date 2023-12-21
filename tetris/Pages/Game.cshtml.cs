@@ -22,6 +22,14 @@ namespace tetris.Pages
 
         public int point_mode;
 
+
+        public string color;
+        public string mus;
+        public string setka;
+        public string next_figu; 
+        public string state;
+        public string lvl;
+
         public Figure GetFigure(int id_figure)
         {
             string queryString = "SELECT Structure FROM [Shape] WHERE [Shape_Id] =" + id_figure + ";";
@@ -115,6 +123,18 @@ namespace tetris.Pages
         public void OnGet()
         {
             string point_mode_str = RouteData.Values["state"].ToString();
+
+            color = RouteData.Values["color"].ToString();
+            mus = RouteData.Values["mus"].ToString();
+            setka = RouteData.Values["setka"].ToString();
+            next_figu = RouteData.Values["next_figu"].ToString();
+
+            state = RouteData.Values["state"].ToString();
+
+            lvl = RouteData.Values["lvl"].ToString();
+
+
+
             if (point_mode_str == "not")
             {
                 point_mode = 0;
@@ -340,7 +360,7 @@ namespace tetris.Pages
                     SetRecordsBDTime(intArray, id);
                 }
             }
-            return RedirectToPage("Game");
+            return RedirectToPage("Game", new { id = id, state = state, lvl = lvl, login= login, color= color, mus= mus, setka= setka, next_figu = next_figu });
         }
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
+using System.Drawing;
 
 namespace tetris.Pages
 {
@@ -39,6 +40,10 @@ namespace tetris.Pages
 			string stat = Request.Form["k1"];
 			string level = Request.Form["k2"];
             string login2 = RouteData.Values["login"].ToString();
+            string color = RouteData.Values["color"].ToString();
+            string mus = RouteData.Values["mus"].ToString();
+            string setka = RouteData.Values["setka"].ToString();
+            string next_figu = RouteData.Values["next_figu"].ToString();
             string idd = level.Substring(8);
 
 			string queryString = "SELECT Level_Id FROM [Level] ORDER BY Speed;";
@@ -54,7 +59,7 @@ namespace tetris.Pages
 			reader.Read();
 			string idd2 = reader[0].ToString();
 			reader.Close();
-			return RedirectToPage("Game", new { id = idd2 , state = stat, lvl = idd, login = login2});
+			return RedirectToPage("Game", new { id = idd2 , state = stat, lvl = idd, login = login2, color = color, mus = mus, setka = setka, next_figu = next_figu });
 			
 		}
 	}

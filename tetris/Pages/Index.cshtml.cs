@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
+using System.Drawing;
 
 namespace tetris.Pages
 {
@@ -43,7 +44,8 @@ namespace tetris.Pages
                     { return RedirectToPage("Menu_admin"); }
                     else
                     {
-                        return RedirectToPage("Menu_user", new { login = this.login });
+                        return RedirectToPage("Menu_user", new { login = login, color = "1", mus = "null", setka = "null", next_figu = "null" });
+
                     }
                 }
                 else

@@ -1,4 +1,4 @@
-﻿@page "{login}"
+﻿@page "{login}/{color}/{mus}/{setka}/{next_figu}"
 @model tetris.Pages.Menu_userModel
 @{
     ViewData["Title"] = "Меню";
@@ -17,12 +17,20 @@
                     </div>
                     <h2 class="h2-menu">Тетрис</h2>
                     <div class="inputbox-menu">
-                        <a class="button-play" asp-page="/GameSettings" asp-route-login=@RouteData.Values["login"]>Играть</a>
+                        <a class="button-play" asp-page="/GameSettings" asp-route-login=@RouteData.Values["login"]
+                           asp-route-color=@Model.color
+                           asp-route-mus=@Model.mus
+                           asp-route-setka=@Model.setka
+                           asp-route-next_figu=@Model.next_figu>Играть</a>
                     </div>
                     <div class="inputbox-menu">
                         <a class="button-menu" asp-page="/Statictics" asp-route-login=@RouteData.Values["login"]>Статистика</a>
 
-                        <a class="button-menu" asp-page="/Settings">Настройки</a>
+                        <a class="button-menu" asp-page="/Settings" asp-route-login=@RouteData.Values["login"]
+                           asp-route-color=@Model.color
+                           asp-route-mus=@Model.mus
+                           asp-route-setka=@Model.setka
+                           asp-route-next_figu=@Model.next_figu>Настройки</a>
 
                         <button class="button-menu">О системе</button>
 

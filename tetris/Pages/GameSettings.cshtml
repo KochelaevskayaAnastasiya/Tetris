@@ -1,4 +1,4 @@
-﻿@page "{login}"
+﻿@page "{login}/{color}/{mus}/{setka}/{next_figu}"
 @model tetris.Pages.GameSettingsModel
 @{
 }
@@ -42,6 +42,11 @@
 						}
 					</script>
 				</form>
+				<a class="btn-sett" asp-page="/Menu_user" asp-route-login=@RouteData.Values["login"]
+				   asp-route-color=@RouteData.Values["color"]
+				   asp-route-mus=@RouteData.Values["mus"]
+				   asp-route-setka=@RouteData.Values["setka"]
+				   asp-route-next_figu=@RouteData.Values["next_figu"]>В меню</a>
 			</div>
 		</div>
 	</section>

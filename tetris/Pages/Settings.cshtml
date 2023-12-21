@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{login}/{color}/{mus}/{setka}/{next_figu}"
 @model tetris.Pages.SettingsModel
 @{
 	ViewData["Title"] = "Настройки";
@@ -9,14 +9,48 @@
 			<div class="form-value">
 				<form method="POST">
 					<h2 class="h2-sett">Настройки</h2>
-			<div class="field2">
+					<div class="field2">
+						<div class="sett">
+							<label>Звуковое сопровождение</label>
+							<input type="checkbox" id="checkbox1" name="checkbox_mus" class="oval" />
+							<label class="saxrunikangsa blue" for="checkbox1"></label>
+						</div>
+						<div class="sett">
+							<label>Отображение сетки</label>
+							<input type="checkbox" id="checkbox2" name="checkbox_setka" class="oval" />
+							<label class="saxrunikangsa blue" for="checkbox2"></label>
+						</div>
+						<div class="sett">
+							<label>Показ следующей фигуры</label>
+							<input type="checkbox" id="checkbox3" name="checkbox_next" class="oval" />
+							<label class="saxrunikangsa blue" for="checkbox3"></label>
+						</div>
+						<div class="color">
+							<div class="form_radio_btn">
+								<input id="radio-1" type="radio" name="radio" value="1" checked>
+								<label for="radio-1">Белый</label>
+							</div>
 
-			</div>
-			<div class="field22" align="left">
-			</div>
-			<script>
+							<div class="form_radio_btn">
+								<input id="radio-2" type="radio" name="radio" value="2">
+								<label for="radio-2">Серый</label>
+							</div>
 
-			</script>
+							<div class="form_radio_btn">
+								<input id="radio-3" type="radio" name="radio" value="3">
+								<label for="radio-3">Светло-розовый</label>
+							</div>
+						</div>
+						<script>
+							let 
+						</script>
+						<button>Сохранить</button>
+					</div>
+					<div class="field22" align="left">
+					</div>
+					<script>
+
+					</script>
 				</form>
 			</div>
 		</div>
