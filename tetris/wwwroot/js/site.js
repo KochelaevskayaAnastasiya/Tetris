@@ -108,10 +108,16 @@ $(function () {
     });
 });
 
+function openModal() {
+
+}
+let kkk_2;
 $(function () {
     var placeholderElement = $('#modal-placeholder');
     $('button[data-toggle="ajax-modal2"]').click(function (event) {
         var url = $(this).data('url');
+        kkk_2 = $(this).data('kkk');
+        kkk_2 = this.value;
         //if (width != "" && height != "") {
             $.get(url).done(function (data) {
                 placeholderElement.html(data);

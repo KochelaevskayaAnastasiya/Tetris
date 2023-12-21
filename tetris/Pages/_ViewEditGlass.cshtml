@@ -11,6 +11,7 @@
             </div>
             <div class="modal-body">
                 <form asp-page-handler="ViewEditGlass">
+                    <label id="12"></label>
                     <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
                     <div class="form-group">
                         <label asp-for="Height">Высота</label>
@@ -22,6 +23,9 @@
                         <input asp-for="Width" class="form-control" id ="w"/>
                         <span asp-validation-for="Width" class="text-danger"></span>
                     </div>
+                    <script>
+                        document.getElementById('12').innerHTML = kkk_2;
+                    </script>
                 </form>
             </div>
             <div class="modal-footer">

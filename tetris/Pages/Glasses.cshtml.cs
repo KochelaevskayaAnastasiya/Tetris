@@ -25,8 +25,11 @@ namespace tetris.Pages
         private readonly static List<NewGlass> NewGlasses = new List<NewGlass>();
 
         public string id = "";
-        public void OnGet()
+
+        public int isModal = 0;
+        public void OnGet(int isM)
         {
+            isModal= isM;
             string queryString = "SELECT * FROM [Glass];";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
@@ -88,7 +91,7 @@ namespace tetris.Pages
         }
 
         [HttpPost]
-        public void OnPost()
+        public IActionResult OnPost()
         {   //string s1 = "<td class=\"td1\">";
             string s2 = "</td>";
             string s = Request.Form["kkk"];
@@ -119,7 +122,9 @@ namespace tetris.Pages
                     database.closeConnection();
                 }
             }
+            return RedirectToPage("Glasses", new { isM = 1 });
         }
+        
         public PartialViewResult OnGetViewEditGlass()
         {
             // this handler returns _ContactModalPartial 
