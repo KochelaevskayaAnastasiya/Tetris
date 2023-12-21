@@ -16,8 +16,8 @@ namespace tetris.Pages
         public int glass_count = 0;
         public int k = 0;
 
-        public string w;
-        public string h;
+        public string w ="";
+        public string h = "";
 
         public List<String> glasses_str = new List<String>();
 
@@ -104,7 +104,20 @@ namespace tetris.Pages
                 if (i2 == -1)
                     id = "-1";
                 else
+                {
                     id = s.Substring(16, i2 - 16);
+                    string queryString5 = $"SELECT Width, Length FROM Glass WHERE Glass_Id = {Convert.ToInt32(id)}";
+                    database.openConnection();
+                    SqlCommand command = new SqlCommand(queryString5, database.getConnection());
+                    SqlDataReader reader5 = command.ExecuteReader();
+                    if (reader5.Read())
+                    {
+                        w = reader5[0].ToString();
+                        h = reader5[1].ToString();
+                    }
+                    reader5.Close();
+                    database.closeConnection();
+                }
             }
         }
         public PartialViewResult OnGetViewEditGlass()

@@ -45,7 +45,7 @@
                 <form method="POST" onsubmit="fnctn( );" name="formGlassesPOST">
                     <input type="hidden" id="kkk" name="kkk" />
                     <button id="btn-modal-1" type="button" class="button-glass" glass-id="@Model.id" data-toggle="ajax-modal" data-url="@Url.Page("Glasses", "ViewNewGlass")">Добавить стакан</button>
-                    <button id="btn-modal-2" type="button" class="button-glass" glass-id="@Model.id" data-toggle="ajax-modal" data-url="@Url.Page("Glasses", "ViewEditGlass")">Редактировать стакан</button>
+                    <button id="btn-modal-2" type="button" class="button-glass" glass-id="@Model.id" data-toggle="ajax-modal2" data-url="@Url.Page("Glasses", "ViewEditGlass")">Редактировать стакан</button>
 
                     <script>
                         function fnctn() {
@@ -70,6 +70,7 @@ $(document).ready(function(){
         $('.glasses tr').removeClass('active');
         $(this).addClass('active');
     });
+
 });
     </script>
 </body>

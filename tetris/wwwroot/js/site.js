@@ -71,10 +71,10 @@ $(function () {
     var placeholderElement = $('#modal-placeholder');
     $('button[data-toggle="ajax-modal"]').click(function (event) {
         var url = $(this).data('url');
-            $.get(url).done(function (data) {
-                placeholderElement.html(data);
-                placeholderElement.find('.modal').modal('show');
-            });
+        $.get(url).done(function (data) {
+            placeholderElement.html(data);
+            placeholderElement.find('.modal').modal('show');
+        });
     });
     placeholderElement.on('click', '[data-save="modal"]', function (event) {
         event.preventDefault();
@@ -107,6 +107,65 @@ $(function () {
         });
     });
 });
+
+$(function () {
+    var placeholderElement = $('#modal-placeholder');
+    $('button[data-toggle="ajax-modal2"]').click(function (event) {
+        var url = $(this).data('url');
+        //if (width != "" && height != "") {
+            $.get(url).done(function (data) {
+                placeholderElement.html(data);
+                placeholderElement.find('.modal').modal('show');
+            });
+        //}
+    });
+    placeholderElement.on('click', '[data-save="modal"]', function (event) {
+        event.preventDefault();
+
+        var form = $(this).parents('.modal').find('form');
+        var actionUrl = form.attr('action');
+        var dataToSend = form.serialize();
+
+        $.post(actionUrl, dataToSend).done(function (data) {
+            var newBody = $('.modal-body', data);
+            placeholderElement.find('.modal-body').replaceWith(newBody);
+
+            var isValid = newBody.find('[name="IsValid"]').val() == 'True';
+            if (isValid) {
+                placeholderElement.find('.modal').modal('hide');
+                location.reload();
+            }
+        });
+    });
+    placeholderElement.on('click', '[data-dismiss="modal"]', function (event) {
+        event.preventDefault();
+
+        var form = $(this).parents('.modal').find('form');
+        var actionUrl = form.attr('action');
+        var dataToSend = form.serialize();
+
+        $.post(actionUrl, dataToSend).done(function (data) {
+            placeholderElement.find('.modal').modal('hide');
+
+        });
+    });
+});
+
+
+$(function () {
+    var placeholderElement = $('#modal-placeholder');
+    $('button[data-toggle="ajax-modal3"]').click(function (event) {
+        var url = $(this).data('url');
+        $.get(url).done(function (data) {
+            placeholderElement.html(data);
+            placeholderElement.find('.modal').modal('show');
+        });
+    });
+    placeholderElement.on('click', '[data-dismiss="modal"]', function (event) {
+        placeholderElement.find('.modal').modal('hide');
+    });
+});
+
 let id_level = 0;
 
 
@@ -114,9 +173,9 @@ $("#button_chen").on("click", function () {
     id_level = $(this).attr('level-id');
 });
 
-let id_glass = 0;
+function saveGlass(kkk){
 
-
+}
 $("#btn-modal-2").on("click", function () {
     id_glass = $(this).attr('glass-id');
 });
