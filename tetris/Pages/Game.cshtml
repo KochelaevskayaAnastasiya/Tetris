@@ -43,11 +43,12 @@
         </div>
     </div>
     <label id="12"></label>
-
+    <audio src="~/music/mus.mp3" id="music"></audio>
     <script>
-        
-        
-
+        let mus = '@String.Join("",Model.mus)';
+        document.getElementById('music').hidden = true;
+        if (mus != 'null') { document.getElementById('music').autoplay = true; }
+ 
         let frames = 35;
 
         let mode = @Model.point_mode;

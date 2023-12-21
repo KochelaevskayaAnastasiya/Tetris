@@ -7,7 +7,7 @@ namespace tetris.Pages
     public class SettingsModel : PageModel
     {
         public string color = "";
-        public string mus = "";
+        public string mus = "null";
         public string setka = "";
         public string next_figu = "";
         public string login = "";

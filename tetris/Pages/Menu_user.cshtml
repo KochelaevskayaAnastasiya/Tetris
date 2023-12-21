@@ -11,7 +11,7 @@
             <div class="form-value">
                 <form class="form" method="POST" onsubmit="">
                     <div class="img">
-                        <img class="image" src="login.png">
+                        <img class="image" src="~/image/login.png">
                         <p class="login">@RouteData.Values["login"]</p>
                         
                     </div>
@@ -37,7 +37,16 @@
                         <button type="button" class="button-menu" data-toggle="ajax-modal" data-url="@Url.Page("Menu_user", "ViewModalInfo")">
                             О разработчиках
                         </button>
-                        
+
+
+                        <audio src="~/music/mus.mp3" id="music"></audio>
+                        <script>
+                            let mus = '@String.Join("",Model.mus)';
+        document.getElementById('music').hidden = true;
+        if (mus!= 'null') { 
+            document.getElementById('music').autoplay = true; 
+        }
+                        </script>
                     </div>
                 </form>
             </div>

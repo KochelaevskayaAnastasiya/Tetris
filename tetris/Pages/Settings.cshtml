@@ -42,14 +42,17 @@
 							</div>
 						</div>
 						<script>
-							let 
+							let
 						</script>
 						<button>Сохранить</button>
 					</div>
 					<div class="field22" align="left">
 					</div>
+					<audio src="~/music/mus.mp3" id="music"></audio>
 					<script>
-
+							let mus = '@String.Join("",Model.mus)';
+						document.getElementById('music').hidden = true;
+						if (mus != 'null') { document.getElementById('music').autoplay = true; }
 					</script>
 				</form>
 			</div>

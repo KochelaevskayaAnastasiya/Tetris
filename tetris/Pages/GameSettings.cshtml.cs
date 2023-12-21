@@ -12,9 +12,11 @@ namespace tetris.Pages
 		public int lvl_count = 0;
 
 		public List<String> lvl_str = new List<String>();
+		public string mus;
 		public void OnGet()
         {
-			string queryString = "SELECT Level_Id FROM [Level];";
+            mus = RouteData.Values["mus"].ToString();
+            string queryString = "SELECT Level_Id FROM [Level];";
 
 			SqlCommand command = new SqlCommand(queryString, database.getConnection());
 			database.openConnection();
@@ -41,7 +43,7 @@ namespace tetris.Pages
 			string level = Request.Form["k2"];
             string login2 = RouteData.Values["login"].ToString();
             string color = RouteData.Values["color"].ToString();
-            string mus = RouteData.Values["mus"].ToString();
+            mus = RouteData.Values["mus"].ToString();
             string setka = RouteData.Values["setka"].ToString();
             string next_figu = RouteData.Values["next_figu"].ToString();
             string idd = level.Substring(8);

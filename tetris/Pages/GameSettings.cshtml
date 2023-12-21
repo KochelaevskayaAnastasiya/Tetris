@@ -48,6 +48,15 @@
 				   asp-route-setka=@RouteData.Values["setka"]
 				   asp-route-next_figu=@RouteData.Values["next_figu"]>В меню</a>
 			</div>
+			<audio src="~/music/mus.mp3" id="music"></audio>
+                        <script>
+				let mus = '@String.Join("",Model.mus)';
+				document.getElementById('music').hidden = true;
+				if (mus != 'null') {
+					document.getElementById('music').autoplay = true;
+				}
+
+                        </script>
 		</div>
 	</section>
 </body>
