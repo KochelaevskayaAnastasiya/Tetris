@@ -50,9 +50,37 @@
 					</div>
 					<audio src="~/music/mus.mp3" id="music"></audio>
 					<script>
+					let mus_check = document.getElementById('checkbox1');
 							let mus = '@String.Join("",Model.mus)';
 						document.getElementById('music').hidden = true;
-						if (mus != 'null') { document.getElementById('music').autoplay = true; }
+						if (mus != 'null') { 
+							document.getElementById('music').autoplay = true; 
+							mus_check.checked = true;
+						}
+						let set = document.getElementById('checkbox2');
+						let sekt = '@String.Join("",Model.setka)';
+						if (sekt != 'null') {
+							set.checked = true;
+						}
+						let nex = document.getElementById('checkbox3');
+						let ne = '@String.Join("",Model.next_figu)';
+						if (ne != 'null') {
+							nex.checked = true;
+						}
+						let col = '@String.Join("",Model.color)';
+						if (col=='1'){
+							document.getElementById('radio-1').checked = true;
+						}
+						else{
+							if (col == '2') {
+								document.getElementById('radio-2').checked = true;
+
+							}
+							else {
+								document.getElementById('radio-3').checked = true;
+
+							}
+						}
 					</script>
 				</form>
 			</div>
