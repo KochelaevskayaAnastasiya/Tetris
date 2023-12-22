@@ -11,20 +11,26 @@
             </div>
             <div class="modal-body">
                 <form asp-page-handler="ViewEditGlass">
-                    <label id="12"></label>
                     <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <input asp-for="Id" type="hidden" class="form-control3" id ="id"/>
+                    <span asp-validation-for="Id" class="text-danger"></span>
                     <div class="form-group">
                         <label asp-for="Height">Высота</label>
-                        <input asp-for="Height" class="form-control" id ="h"/>
+                        <input asp-for="Height" class="form-control1" id ="h"/>
                         <span asp-validation-for="Height" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Width">Ширина</label>
-                        <input asp-for="Width" class="form-control" id ="w"/>
+                        <input asp-for="Width" class="form-control2" id ="w"/>
                         <span asp-validation-for="Width" class="text-danger"></span>
                     </div>
+                    <input asp-for="HW" type="hidden" class="form-control4" id ="hw"/>
+                    <span asp-validation-for="HW" class="text-danger"></span>
                     <script>
-                        document.getElementById('12').innerHTML = kkk_2;
+                        document.getElementById('h').value = w;
+                        document.getElementById('w').value = h;
+                        document.getElementById('id').value = iddd;
+                        document.getElementById('hw').value = hw;
                     </script>
                 </form>
             </div>

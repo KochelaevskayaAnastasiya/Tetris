@@ -112,18 +112,30 @@ function openModal() {
 
 }
 let kkk_2;
+let w;
+let h;
+let index;
+let index1;
+let iddd;
+let hw;
 $(function () {
     var placeholderElement = $('#modal-placeholder');
     $('button[data-toggle="ajax-modal2"]').click(function (event) {
         var url = $(this).data('url');
         kkk_2 = $(this).data('kkk');
         kkk_2 = this.value;
-        //if (width != "" && height != "") {
+        index = kkk_2.indexOf("x");
+        index1 = kkk_2.indexOf("</td>");
+        w = kkk_2.substring(index - 2, index);
+        h = kkk_2.substring(index + 1, index + 3); 
+        iddd = kkk_2.substring(16, index1); 
+        hw = w + h+iddd;
+        if (kkk_2 != "4" && kkk_2.indexOf("Размер")<0) {
             $.get(url).done(function (data) {
                 placeholderElement.html(data);
                 placeholderElement.find('.modal').modal('show');
             });
-        //}
+        }
     });
     placeholderElement.on('click', '[data-save="modal"]', function (event) {
         event.preventDefault();
@@ -171,6 +183,7 @@ $(function () {
         placeholderElement.find('.modal').modal('hide');
     });
 });
+
 
 let id_level = 0;
 

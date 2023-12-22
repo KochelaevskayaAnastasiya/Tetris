@@ -6,6 +6,7 @@
 
 <body>
     <section>
+        <div id="modal-placeholder"></div>
         <div class="form-box-menu">
             <div class="form-value">
                 <form class="form" method="POST" onsubmit="">
@@ -23,7 +24,9 @@
 
                         <button class="button-menu">О системе</button>
 
-                        <button type="button" class="button-menu" data-toggle="ajax-modal3" data-url="@Url.Page("Menu_user", "ViewModalInfo")">О разработчиках</button>
+                        <button type="button" class="button-menu" data-toggle="ajax-modal3" data-url="@Url.Page("Menu_admin", "ViewModalInfo")">
+                            О разработчиках
+                        </button>
                     </div>
                     <script>
                         function openModal(parameters){

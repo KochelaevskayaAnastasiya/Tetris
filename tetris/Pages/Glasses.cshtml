@@ -49,14 +49,11 @@
                     <input type="hidden" id="kkk" name="kkk" class="kkk"/>
                     <button id="btn-modal-1" type="button" class="button-glass" glass-id="@Model.id" data-toggle="ajax-modal" data-url="@Url.Page("Glasses", "ViewNewGlass")">Добавить стакан</button>
                     <button id="btn-modal-2" type="button" onclick="fnctn();" class="button-glass" value="4" data-kkk="12" glass-id="@Model.id" data-toggle="ajax-modal2" data-url="@Url.Page("Glasses", "ViewEditGlass")">Редактировать стакан</button>
-                    <button id="btn-modal-3" name="eeeee" type="submit" class="button-glass">Редактировать стакан</button>
+
 
                     <script>
                         let isMM = @Model.isModal;
-                        function fnctn() {
-                            alert('!!!!!!!!!!!!!!!!1');
-                            
-                            
+                        function fnctn() {                     
                             let items=document.getElementsByClassName('active');
                             let str = items[0].innerHTML;
                             document.getElementById('btn-modal-2').value = str;

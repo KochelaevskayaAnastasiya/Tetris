@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using System.Data.SqlClient;
+using tetris.Add_classes;
 
 namespace tetris
 {
@@ -11,8 +14,11 @@ namespace tetris
         [Required(ErrorMessage = "Необходимо заполнить поле \"Ширина\"")]
         [Range(10, 20, ErrorMessage = "Значение поля \"Ширина\" должно находиться в диапозоне от {1} до {2}")]
         public string Width { get; set; }
-        
-        
+
+        public string Id { get; set; }
+
+        [MyAnnotationAttribute]
+        public string HW { get; set; }
 
     }
 }

@@ -57,39 +57,6 @@ namespace tetris.Pages
             database.closeConnection();
         }
 
-        public string getGl(string kkk)
-        {
-            string s2 = "</td>";
-            string s = kkk;
-            //int i1 = s.IndexOf(s1);
-            int i2 = s.IndexOf(s2);
-            if (i2 == -1)
-                id = "-1";
-            else if (s == null)
-                id = "0";
-            else
-                id = s.Substring(16, i2 - 16);
-
-            string str = "";
-            if (id != "-1" && id != "0"){
-                string queryString = $"SELECT Length, Width FROM Glass WHERE Glass_Id='{id}'";
-
-                SqlCommand command = new SqlCommand(queryString, database.getConnection());
-                database.openConnection();
-                SqlDataReader reader = command.ExecuteReader();
-                string[] data1 = new string[2];
-                if (reader.Read())
-                {
-                    data1[0] = reader[0].ToString();
-                    data1[1] = reader[1].ToString();
-                    str = data1[0] + " " + data1[1];
-                }
-                reader.Close();
-                database.closeConnection();
-            }
-            return str;
-        }
-
         [HttpPost]
         public IActionResult OnPost()
         {   //string s1 = "<td class=\"td1\">";
@@ -141,9 +108,9 @@ namespace tetris.Pages
             if (ModelState.IsValid)
             {
                 Glasses.Add(model);
-                string queryString2 = $"INSERT INTO Glass (Length, Width) VALUES ({Convert.ToInt32(Glasses[Glasses.Count-1].Height)}, {Convert.ToInt32(Glasses[Glasses.Count - 1].Width)})";
+                string queryString2 = $"UPDATE Glass SET Length = {Convert.ToInt32(Glasses[Glasses.Count-1].Height)}, Width = {Convert.ToInt32(Glasses[Glasses.Count - 1].Width)} WHERE Glass_Id = {Convert.ToInt32(Glasses[Glasses.Count - 1].Id)}";
                 database.openConnection();
-                string queryString = $"SELECT Glass_Id FROM Glass WHERE Width = {Convert.ToInt32(Glasses[Glasses.Count - 1].Width)} AND Length = {Convert.ToInt32(Glasses[Glasses.Count - 1].Height)}";
+                string queryString = $"SELECT Glass_Id FROM Glass WHERE Width = {Convert.ToInt32(Glasses[Glasses.Count - 1].Width)} AND Length = {Convert.ToInt32(Glasses[Glasses.Count - 1].Height)} AND Glass_Id != {Convert.ToInt32(Glasses[Glasses.Count - 1].Id)}";
                 SqlCommand command3 = new SqlCommand(queryString2, database.getConnection());
                 SqlCommand command = new SqlCommand(queryString, database.getConnection());
                 SqlDataReader reader5 = command.ExecuteReader();
@@ -152,7 +119,11 @@ namespace tetris.Pages
                     reader5.Close();
                     command3.ExecuteNonQuery();
                 }
-                reader5.Close();
+                else
+                {
+                    reader5.Close();
+                }
+                
                 database.closeConnection();
                 RedirectToPage("Glasses");
             }
