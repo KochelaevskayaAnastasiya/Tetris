@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Data.SqlClient;
+using tetris.Add_classes;
 
 namespace tetris.Pages
 {
@@ -116,6 +117,22 @@ namespace tetris.Pages
                 ViewData = new ViewDataDictionary<SetOfShapes>(ViewData, new SetOfShapes { })
 
             };
+        }
+
+        public PartialViewResult OnPostViewSetOfShape(SetOfShapes model)
+        {
+			if (true)
+			{
+                RedirectToPage("EditLevel");
+
+			}
+
+            return new PartialViewResult
+            {
+                ViewName = "_ViewSetOfShape",
+                ViewData = new ViewDataDictionary<SetOfShapes>(ViewData, model)
+            };
+
         }
 
         [HttpPost]

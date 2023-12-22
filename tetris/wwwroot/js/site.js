@@ -89,11 +89,10 @@ $(function () {
             var newBody = $('.modal-body', data);
             placeholderElement.find('.modal-body').replaceWith(newBody);
 
-            var isValid = newBody.find('[name="IsValid"]').val() == 'True';
-            if (isValid) {
+            
                 placeholderElement.find('.modal').modal('hide');
                 location.reload();
-            }
+            
         });
     });
     placeholderElement.on('click', '[data-dismiss="modal"]', function (event) {

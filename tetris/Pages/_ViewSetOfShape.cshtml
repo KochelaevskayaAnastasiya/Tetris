@@ -10,15 +10,19 @@
                 </button>
             </div>
             <div class="modal-body">
-                    <input asp-for="shapes" id="input_sage_figu" class="form-control" type="hidden"></input>
+                    <input asp-for="shapes" id="input_sage_figu" value="12" class="form-control" type="hidden"></input>
                 <div class="div_figures" id="div_figures">
                     
                 </div>
-                <buttton type="button" class="btn btn-primary" data-save="modal">Добавить</buttton>
+                <label id="12"></label>
+                <buttton type="button" value="12" id="button_safe_figu" class="btn btn-primary" data-save="modal">Добавить</buttton>
                 <script>
                     
-                    
-                        let inputElements = document.getElementsByClassName('checkboxfigures');
+                    let inputElements = document.getElementsByClassName('checkboxfigures');
+                    const button_safe = document.getElementById('button_safe_figu');
+
+                    button_safe.addEventListener('click', event => {
+                        let str='';
                         for (let i = 0; i < inputElements.length; i++) {
                             if (inputElements[i].checked) {
                                 str += '1';
@@ -27,6 +31,7 @@
                             }
                         }
                         document.getElementById('input_sage_figu').value = str;
+                        document.getElementById('12').innerHTML = str;
                     });
 
                     
