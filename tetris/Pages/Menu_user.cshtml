@@ -32,7 +32,7 @@
                            asp-route-setka=@Model.setka
                            asp-route-next_figu=@Model.next_figu>Настройки</a>
 
-                        <button class="button-menu">О системе</button>
+                        <a class="button-menu" asp-page="/AboutSystem">О системе</a>
 
                         <button type="button" class="button-menu" data-toggle="ajax-modal3" data-url="@Url.Page("Menu_user", "ViewModalInfo")">
                             О разработчиках
