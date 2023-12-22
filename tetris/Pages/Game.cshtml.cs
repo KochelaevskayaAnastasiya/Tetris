@@ -281,7 +281,12 @@ namespace tetris.Pages
         [HttpPost]
         public IActionResult OnPost()
         {
-            
+            state = RouteData.Values["state"].ToString();
+            color = RouteData.Values["color"].ToString();
+            mus = RouteData.Values["mus"].ToString();
+            setka = RouteData.Values["setka"].ToString();
+            next_figu = RouteData.Values["next_figu"].ToString();
+            lvl = RouteData.Values["lvl"].ToString();
             string s = Request.Form["records"];
             s = s.Replace("\r", "");
             s = s.Replace("\t", "");
@@ -360,7 +365,8 @@ namespace tetris.Pages
                     SetRecordsBDTime(intArray, id);
                 }
             }
-            return RedirectToPage("Game", new { id = id, state = state, lvl = lvl, login= login, color= color, mus= mus, setka= setka, next_figu = next_figu });
+            return RedirectToPage("Game", new { id = lvl, state = state, lvl = lvl, login = login, color = color, mus = mus, setka = setka, next_figu = next_figu });
+
         }
     }
 }
