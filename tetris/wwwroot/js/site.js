@@ -67,6 +67,7 @@ $(document).ready(function () {
     $("#txtConfirmPassword").keyup(checkPasswordMatch);
 });
 
+let val_str;
 $(function () {
     var placeholderElement = $('#modal-placeholder');
     $('button[data-toggle="ajax-modal"]').click(function (event) {
@@ -81,6 +82,7 @@ $(function () {
 
         var form = $(this).parents('.modal').find('form');
         var actionUrl = form.attr('action');
+        val_str = this.value;
         var dataToSend = form.serialize();
 
         $.post(actionUrl, dataToSend).done(function (data) {

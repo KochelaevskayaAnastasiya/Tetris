@@ -10,12 +10,25 @@
                 </button>
             </div>
             <div class="modal-body">
-                    <input asp-for="shapes" class="form-control" type="hidden"></input>
+                    <input asp-for="shapes" id="input_sage_figu" class="form-control" type="hidden"></input>
                 <div class="div_figures" id="div_figures">
                     
                 </div>
                 <buttton type="button" class="btn btn-primary" data-save="modal">Добавить</buttton>
-                <script> 
+                <script>
+                    
+                    
+                        let inputElements = document.getElementsByClassName('checkboxfigures');
+                        for (let i = 0; i < inputElements.length; i++) {
+                            if (inputElements[i].checked) {
+                                str += '1';
+                            } else {
+                                str += '0';
+                            }
+                        }
+                        document.getElementById('input_sage_figu').value = str;
+                    });
+
                     
                     let level_id_mode = id_level;
 
@@ -85,6 +98,7 @@
                             div.appendChild(canvas);
                             let check = document.createElement('input');
                             check.type = 'checkbox';
+                            check.className = 'checkboxfigures';
                             check.id = 'figureCheckBox' + ii;
                             if (fingFugureInSet(ii)){
                                 check.checked = true;
@@ -98,6 +112,8 @@
                             contexts[i] = ctx;
                         }
                     }
+                    
+                    
                     
                 </script>
             </div>
