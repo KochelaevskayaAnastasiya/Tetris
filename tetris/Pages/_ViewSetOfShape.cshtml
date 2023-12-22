@@ -11,15 +11,19 @@
             </div>
             <div class="modal-body">
                 <form asp-page-handler="ViewSetOfShapes">
-                    <input asp-for="shapes" id="input_sage_figu" value="12" class="form-control" type="hidden"></input>
-                <div class="div_figures" id="div_figures">
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+
+                    <input asp-for="AAAAA" id="input_sage_figu" value="12" class="form-control" type="hidden">
+                    <input asp-for="id" id="id_level" value="12" class="form-control" type="hidden">
+                    <div class="div_figures" id="div_figures">
                     
                 </div>
                 <label id="12"></label>
-                <buttton type="button" value="12" id="button_safe_figu" class="btn btn-primary" data-save="modal">Добавить</buttton>
                 </form>
+                <buttton type="button" value="12" id="button_safe_figu" class="btn btn-primary" data-save="modal">Добавить</buttton>
+
                 <script>
-                    
+                    document.getElementById('id_level').value = id_level;
                     let inputElements = document.getElementsByClassName('checkboxfigures');
                     const button_safe = document.getElementById('button_safe_figu');
 
@@ -34,6 +38,8 @@
                         }
                         document.getElementById('input_sage_figu').value = str;
                         document.getElementById('12').innerHTML = str;
+                        document.getElementById('button_safe_figu').value = str;
+
                     });
 
                     

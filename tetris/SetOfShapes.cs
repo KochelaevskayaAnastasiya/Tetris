@@ -15,6 +15,12 @@ namespace tetris
 
         public string shapes;
 
+        [MyAnnotationAttribute]
+        public string AAAAA { get; set; }
+
+        [MyAnnotationAttribute]
+        public int id { get; set; }
+
         public SetOfShapes()
         {
             List<Figure> figures = GetFigures();

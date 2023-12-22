@@ -68,30 +68,19 @@ $(document).ready(function () {
 });
 
 let val_str;
+
 $(function () {
     var placeholderElement = $('#modal-placeholder');
     $('button[data-toggle="ajax-modal"]').click(function (event) {
         var url = $(this).data('url');
-        $.get(url).done(function (data) {
-            placeholderElement.html(data);
-            placeholderElement.find('.modal').modal('show');
-        });
+        
+            $.get(url).done(function (data) {
+                placeholderElement.html(data);
+                placeholderElement.find('.modal').modal('show');
+            });
+        
     });
-    placeholderElement.on('click', '[data-save="modal"]', function (event) {
-        event.preventDefault();
-        var form = $(this).parents('.modal').find('form');
-        var actionUrl = form.attr('action');
-        val_str = this.value;
-        alert('12');
-
-        $.post(actionUrl, val_str).done(function (data) {
-            var newBody = $('.modal-body', data);
-            placeholderElement.find('.modal-body').replaceWith(newBody);
-                placeholderElement.find('.modal').modal('hide');
-                location.reload();
-            
-        });
-    });
+    
     placeholderElement.on('click', '[data-dismiss="modal"]', function (event) {
         event.preventDefault();
 
@@ -105,10 +94,6 @@ $(function () {
         });
     });
 });
-
-function openModal() {
-
-}
 let kkk_2;
 let w;
 let h;
@@ -146,11 +131,10 @@ $(function () {
             var newBody = $('.modal-body', data);
             placeholderElement.find('.modal-body').replaceWith(newBody);
 
-            var isValid = newBody.find('[name="IsValid"]').val() == 'True';
-            if (isValid) {
+           
                 placeholderElement.find('.modal').modal('hide');
                 location.reload();
-            }
+            
         });
     });
     placeholderElement.on('click', '[data-dismiss="modal"]', function (event) {

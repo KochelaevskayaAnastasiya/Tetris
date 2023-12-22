@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using tetris.Add_classes;
 
@@ -108,32 +109,7 @@ namespace tetris.Pages
 			}
 			database.closeConnection();
 		}
-        public PartialViewResult OnGetViewSetOfShape()
-        {
-            // this handler returns _ContactModalPartial
-            return new PartialViewResult
-            {
-                ViewName = "_ViewSetOfShape",
-                ViewData = new ViewDataDictionary<SetOfShapes>(ViewData, new SetOfShapes { })
-
-            };
-        }
-
-        public PartialViewResult OnPostViewSetOfShape(SetOfShapes model)
-        {
-			if (true)
-			{
-                RedirectToPage("EditLevel");
-
-			}
-
-            return new PartialViewResult
-            {
-                ViewName = "_ViewSetOfShape",
-                ViewData = new ViewDataDictionary<SetOfShapes>(ViewData, model)
-            };
-
-        }
+        
 
         [HttpPost]
 		public IActionResult OnPost()
@@ -176,5 +152,56 @@ namespace tetris.Pages
 				return RedirectToPage("EditLevel", new { id = RouteData.Values["id"].ToString() });
 			}
 		}
-	}
+
+        public PartialViewResult OnGetViewSetOfShape()
+        {
+            // this handler returns _ContactModalPartial
+            return new PartialViewResult
+            {
+                ViewName = "_ViewSetOfShape",
+                ViewData = new ViewDataDictionary<SetOfShapes>(ViewData, new SetOfShapes { })
+
+            };
+        }
+
+		public void DeleteSet(int id)
+		{
+            string query = "DELETE FROM [SetOfShapes] WHERE [Level_Id]=" +id+";";
+            database.openConnection();
+            SqlCommand command_insert2 = new SqlCommand(query, database.getConnection());
+            int number2 = command_insert2.ExecuteNonQuery();
+            Console.WriteLine("Удалено: {0} связей с уровнями", number2);
+            database.closeConnection();
+        }
+
+        public PartialViewResult OnPostViewSetOfShapes(SetOfShapes model)
+        {
+            string k = model.AAAAA;
+			int kkkk = model.id;
+			DeleteSet(kkkk);
+
+			for (int j=0;j<k.Length;j++)
+            {
+				if (k[j] == '1')
+				{
+					int ii = j + 1;
+                    string queryString = "INSERT INTO[SetOfShapes] VALUES(" + ii + ",'" + kkkk + "');";
+                    database.openConnection();
+                    SqlCommand command_insert = new SqlCommand(queryString, database.getConnection());
+                    int number = command_insert.ExecuteNonQuery();
+                    Console.WriteLine("Вставлено: {0}", number);
+                    database.closeConnection();
+                }
+			}
+            RedirectToPage("EditLevel");
+
+
+            return new PartialViewResult
+            {
+                ViewName = "_ViewSetOfShape",
+                ViewData = new ViewDataDictionary<SetOfShapes>(ViewData, model)
+            };
+
+        }
+    }
 }
