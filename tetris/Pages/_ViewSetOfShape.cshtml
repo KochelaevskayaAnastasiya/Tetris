@@ -10,12 +10,14 @@
                 </button>
             </div>
             <div class="modal-body">
+                <form asp-page-handler="ViewSetOfShapes">
                     <input asp-for="shapes" id="input_sage_figu" value="12" class="form-control" type="hidden"></input>
                 <div class="div_figures" id="div_figures">
                     
                 </div>
                 <label id="12"></label>
                 <buttton type="button" value="12" id="button_safe_figu" class="btn btn-primary" data-save="modal">Добавить</buttton>
+                </form>
                 <script>
                     
                     let inputElements = document.getElementsByClassName('checkboxfigures');

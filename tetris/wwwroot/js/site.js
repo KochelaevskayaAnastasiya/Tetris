@@ -79,17 +79,14 @@ $(function () {
     });
     placeholderElement.on('click', '[data-save="modal"]', function (event) {
         event.preventDefault();
-
         var form = $(this).parents('.modal').find('form');
         var actionUrl = form.attr('action');
         val_str = this.value;
-        var dataToSend = form.serialize();
+        alert('12');
 
-        $.post(actionUrl, dataToSend).done(function (data) {
+        $.post(actionUrl, val_str).done(function (data) {
             var newBody = $('.modal-body', data);
             placeholderElement.find('.modal-body').replaceWith(newBody);
-
-            
                 placeholderElement.find('.modal').modal('hide');
                 location.reload();
             
