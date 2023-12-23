@@ -3,74 +3,42 @@
 @{
 }
 <body>
-<nav class="toc" name="top">
-  <h2>Приложение «Игра Тетрис» с функциями администратора</h2>
-  <ul>
-	<li><a href="#raz">Введение</a>
-	  <ul>
-		<li><a href="#avto">Авторизация, регистрация</a>
-	  </ul>
-	<li><a href="#dva">Режим игрока</a>
-	  <ul>
-		<li><a href="#r">Игра</a>
-		<li><a href="#stat">Статистика</a>
-	<li><a href="#sett">Настройки</a>
-	  </ul>
-	<li><a href="#adm">Режим Администратора</a>
-	  <ul>
-		<li><a href="#lvl">Уровни сложности</a>
-		<ul>
-		<li><a href="#clvl">Создание уровня сложности</a>
-		<li><a href="#elvl">Редактирование уровня сложности</a>
-	  </ul>
-		<li><a href="#gl">Стаканы</a>
-	<li><a href="#shape">Фигуры</a>
-	  </ul>
-	<li><a href="#dev">О разработчиках</a>
-	<li><a href="#syst">О системе</a>
-</nav>
-	<h3 id="raz">Введение</h3>
-Приложение «Игра Тетрис» с функциями администратора - это развлекательная игра «Тетрис» с возможностью выбора уровня сложности и способа подсчета статистики. ДЛя настройки игры существует режим администратора, позволяющий создавать и редактировать уровни сложности, стаканы и фигуры.<br>
-Приложение использует базу MS SQL(требует предустановления сервера MS SQL и базы данных). Программная система совместима с Windows 10.
-	<h4 id="avto">Авторизация, регистрация</h4>
-При запуске сайта появляется страница авторизации. Здесь пользователю необходимо ввести логин и пароль и нажать кнопку «Войти» или перейти к регистрации при отсутствии аккаунта.<br>
-	<center>
-	<img class="image" src="~/image/avto.png"><br>
-	</center><br>
-	<a href="#top" id="back-to-top" class="back-to-top">Вернуться наверх</a><br>
-На странице регистрация пользователь должен придумать и ввести логин и пароль, а также повторить ввод пароля и нажать на кнопку «Зарегистрироваться».<br>
-<center>
-	<img class="image" src="~/image/regist.png"><br>
-	</center><br>
-	<a href="#top" id="back-to-top" class="back-to-top">Вернуться наверх</a>
-	<h3 id="dva">Режим игрока</h3>
-При авторизации в роли игрока открывается страница с соответсвующим меню. В нем пользователь может выбрать при нажатии соответствующей кнопки: поиграть, перейти в настройки, посмотреть статистику, посмотреть информацию о системе или о разработчиках.<br>
-<center>
-	<img class="image" src="~/image/menu_user.png"><br>
-	</center><br>
-	<a href="#top" id="back-to-top" class="back-to-top">Вернуться наверх</a>
-	<h4 id="r">Игра</h4>
-Перед игрой открывается её настройка, где пользователь может выбрать уровень в выпадающем списке, способ подсчета статистики и нажать на кнопку 
-«Начать игру».<br>
-	<center>
-	<img class="image" src="~/image/settplay.png"><br>
-	</center><br>
-	<a href="#top" id="back-to-top" class="back-to-top">Вернуться наверх</a><br>
-На странице игры пользователю отображается стакан, следующая фигура (если выбрано в настройках), текущее количество очков, уровень и результаты за текщую сессию, которые можно сохранить в базу данных с помощью кнопки «Сохранить». Также на странице расположены кнопки, которые позволят поставить игру на паузу или же начать ее заново. Падающей фигурой игрок может управлять четырьмя кнопками на клавиатуре: стрелка вверх - поворот фигуры на 90 градусов; стрелка влево - сдвиг фигуры на одну клетку влево; стрелка вправо - сдвиг фигуры на одну клетку вправо; стрелка вниз - сброс фигуры.<br>
-	<center>
-	<img class="image" src="~/image/play.png"><br>
-	</center><br>
-	<a href="#top" id="back-to-top" class="back-to-top">Вернуться наверх</a>
-	<h4 id="stat">Статистика</h4>
-На странице статистики пользователь может просмотреть свою статистику прошедших игр как по очкам, так и по времени.<br>
-	<center>
-	<img class="image" src="~/image/stst.png"><br>
-	</center><br>
-	<a href="#top" id="back-to-top" class="back-to-top">Вернуться наверх</a>
-	<h4 id="sett">Настройки</h4>
-На странице настроек пользователь может задать общие настройки: с помощью переключателей включить или выключить музыкальное сопровождение, показ сетки в игре, а также выбрать цвет стакана в игре нажатием на соответсвующую кнопку.<br>
-	<center>
-	<img class="image" src="~/image/sett.png"><br>
-	</center><br>
-	<a href="#top" id="back-to-top" class="back-to-top">Вернуться наверх</a>
+    <div id="div1"></div>
+    <script>
+        let err = @Model.isError;
+        if (err==0){
+        let str = '@String.Join("",Model.textHTML)';
+
+        str = str.replace(/&lt;/g, "<");
+        str = str.replace(/&gt;/g, ">");
+        str = str.replace(/&quot;/g, "\"");
+        str = str.replace(/&#10;/g, "");
+        str = str.replace(/&amp;/g, "&");
+
+        const words = str.split('<img class="image" src="~/');
+        for (let i = 0; i < words.length; i++) {
+            if (words[i].includes("image")) {
+                let index = words[i].indexOf('">');
+                let nameIm = words[i].substr(0, index);
+
+                
+                
+                var div = document.createElement('div');
+                // Define the image tag and html directly and then apply to innerHTML in this way
+                div.innerHTML = '<center><img class="image" src = "' + nameIm + '" /></center> <a href="#top" id="back-to-top" class="back-to-top">Вернуться наверх</a>';
+
+                document.getElementById('div1').appendChild(div);
+
+                document.getElementById('div1').innerHTML += words[i].substr(words[i].indexOf('">') + 2);;
+            }
+            else{
+                document.getElementById('div1').innerHTML += words[i];
+            }
+        }
+        }else{
+            alert('Файл справки не найден!');
+        }
+
+    </script>
 </body>
+
