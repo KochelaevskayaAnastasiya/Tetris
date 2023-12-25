@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using tetris.Add_classes;
+using System.Web.UI;
 
 namespace tetris.Pages
 {
@@ -26,6 +27,7 @@ namespace tetris.Pages
 
         public string id = "";
 
+        public int allalert_ = 0;
         public void OnGet()
         {
             string queryString = "SELECT * FROM [Glass];";
@@ -124,7 +126,6 @@ namespace tetris.Pages
                 
                 database.closeConnection();
             }
-            RedirectToPage();
 
             return new PartialViewResult
             {
@@ -162,7 +163,7 @@ namespace tetris.Pages
                 }
                 reader.Close();
                 database.closeConnection();
-                //RedirectToPage("Glasses");
+
             }
 
             return new PartialViewResult

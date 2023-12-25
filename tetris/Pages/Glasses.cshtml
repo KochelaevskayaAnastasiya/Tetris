@@ -11,7 +11,14 @@
                 <h2 class="h2-glass">Стаканы</h2>
                 <form method="GET" name="formGlasses">
                     <div class="content">
+                        <script type="text/javascript">
+                            
+                        </script>
                         <script>
+                            let aller = @Model.allalert_;
+                            if (aller==1){
+                                alert('Такая фигура уже существует!');
+                            }
                             let k = 0;
                             let l2 = '@String.Join(".",Model.glasses_str)';
 
