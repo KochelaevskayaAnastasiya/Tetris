@@ -26,10 +26,8 @@ namespace tetris.Pages
 
         public string id = "";
 
-        public int isModal = 0;
-        public void OnGet(int isM)
+        public void OnGet()
         {
-            isModal= isM;
             string queryString = "SELECT * FROM [Glass];";
 
             SqlCommand command = new SqlCommand(queryString, database.getConnection());
@@ -89,7 +87,7 @@ namespace tetris.Pages
                     database.closeConnection();
                 }
             }
-            return RedirectToPage("Glasses", new { isM = 1 });
+            return RedirectToPage("Glasses");
         }
         
         public PartialViewResult OnGetViewEditGlass()
@@ -125,8 +123,8 @@ namespace tetris.Pages
                 }
                 
                 database.closeConnection();
-                RedirectToPage("Glasses");
             }
+            RedirectToPage();
 
             return new PartialViewResult
             {
