@@ -164,7 +164,7 @@ namespace tetris.Pages
                 }
                 reader.Close();
                 database.closeConnection();
-                RedirectToPage("Glasses");
+                //RedirectToPage("Glasses");
             }
 
             return new PartialViewResult

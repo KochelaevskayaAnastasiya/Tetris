@@ -11,7 +11,7 @@
             </div>
             <div class="modal-body">
                 <form asp-page-handler="ViewNewGlass">
-                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <input name="IsValid1" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
                     <div class="form-group">
                         <label asp-for="Height">Высота</label>
                         <input asp-for="Height" class="form-control" value="@Model.Height"/>
@@ -19,7 +19,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Width">Ширина</label>
-                        <input asp-for="Width" class="form-control" value="@Model.Width" />
+                        <input asp-for="Width" class="form-control" value="@Model.Width"/>
                         <span asp-validation-for="Width" class="text-danger"></span>
                     </div>
                 </form>
