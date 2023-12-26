@@ -92,6 +92,11 @@ $(function () {
         });
     });
 });
+let errrrr;
+function Xnjnj(lll){
+    errrrr = lll;
+}
+
 $(function () {
     var placeholderElement = $('#modal-placeholder');
     $('button[data-toggle="ajax-modal4"]').click(function (event) {
@@ -116,6 +121,10 @@ $(function () {
             var isValid = newBody.find('[name="IsValid1"]').val() == 'True';
             if (isValid) {
                 placeholderElement.find('.modal').modal('hide');
+                let ccc = newBody.find('[name="IsValid2"]').val();
+
+                if (ccc == 1) { alert('Такой стакан уже существует! Операция отклонена.'); }
+
                 location.reload();
             }
         });

@@ -116,11 +116,17 @@ namespace tetris.Pages
                 SqlDataReader reader5 = command.ExecuteReader();
                 if (!reader5.Read())
                 {
+                    allalert_ = 0;
+                    model.err = 0;
+
                     reader5.Close();
                     command3.ExecuteNonQuery();
                 }
                 else
                 {
+                    allalert_ = 1;
+                    model.err = 1;
+
                     reader5.Close();
                 }
                 
@@ -144,22 +150,47 @@ namespace tetris.Pages
 
             };
         }
+        public int getCountGlass()
+        {
+                string queryString = "SELECT COUNT(*) FROM [Glass];";
 
+                SqlCommand command = new SqlCommand(queryString, database.getConnection());
+                database.openConnection();
+                SqlDataReader reader = command.ExecuteReader();
+                int l = 0;
+                while (reader.Read())
+                {
+                    l = int.Parse(reader[0].ToString());
+                }
+                reader.Close();
+                database.closeConnection();
+                return l;
+        }
         public PartialViewResult OnPostViewNewGlass(NewGlass model)
         {
             if (ModelState.IsValid)
             {
                 NewGlasses.Add(model);
-                string queryString2 = $"INSERT INTO Glass (Length, Width) VALUES ({Convert.ToInt32(NewGlasses[NewGlasses.Count - 1].Height)}, {Convert.ToInt32(NewGlasses[NewGlasses.Count - 1].Width)})";
+                string queryString2 = $"INSERT INTO Glass (Glass_Id, Length, Width) VALUES ({getCountGlass()+1}, {Convert.ToInt32(NewGlasses[NewGlasses.Count - 1].Height)}, {Convert.ToInt32(NewGlasses[NewGlasses.Count - 1].Width)})";
                 database.openConnection();
                 string queryString = $"SELECT Glass_Id FROM Glass WHERE Width = {Convert.ToInt32(NewGlasses[NewGlasses.Count - 1].Width)} AND Length = {Convert.ToInt32(NewGlasses[NewGlasses.Count - 1].Height)}";
                 SqlCommand command2 = new SqlCommand(queryString2, database.getConnection());
                 SqlCommand command = new SqlCommand(queryString, database.getConnection());
                 SqlDataReader reader = command.ExecuteReader();
+                
                 if (!reader.Read())
                 {
+                    allalert_ = 0;
+                    model.err = 0;
+
                     reader.Close();
                     command2.ExecuteNonQuery();
+                }
+                else
+                {
+                    model.err = 1;
+                    allalert_ = 1;
+                    reader.Close();
                 }
                 reader.Close();
                 database.closeConnection();

@@ -21,7 +21,8 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Width">Ширина</label>
-                        <input asp-for="Width" class="form-control2" id ="w"/>
+                        <input asp-for="Width" class="form-control2" id="w" />
+                        <input hidden asp-for="err" name="IsValid2" class="form-control2" id="e" />
                         <span asp-validation-for="Width" class="text-danger"></span>
                     </div>
                     <input asp-for="HW" type="hidden" class="form-control4" id ="hw"/>
@@ -37,6 +38,9 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-save="modal">Сохранить</button>
             </div>
+            <script>
+                document.getElementById('e').innerHTML = @ViewData.Model.err;
+            </script>
         </div>
     </div>
 </div>

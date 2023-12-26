@@ -19,6 +19,7 @@ namespace tetris
 
         [MyAnnotationAttribute]
         public string HW { get; set; }
+        public int err { get; set; }
 
     }
 }

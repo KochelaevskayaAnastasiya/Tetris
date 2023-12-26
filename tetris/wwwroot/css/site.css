@@ -863,6 +863,7 @@ button:hover {
 /*настройки*/
 input[type=checkbox].oval {
     visibility: hidden;
+    align-items: center;
 }
 .sett {
     display: flex;
@@ -873,12 +874,11 @@ input[type=checkbox].oval {
     margin-top: 1em;
 }
 label.saxrunikangsa {
-    width: 80.7px;
-    height: 34.9px;
+    width: 40px;
+    height: 20px;
     position: relative;
     display: inline-block;
     border-radius: 25px;
-    box-shadow: 8px 2px 8px rgba(14, 14, 14, 0.81) inset, -7px 1px 8px rgba(12, 12, 12, 0.85) inset;
     left: 0;
     top: 0;
     background: #807777;
@@ -889,7 +889,7 @@ label.saxrunikangsa {
 
     label.saxrunikangsa::before {
         text-shadow: 0 -2px 1px #5d5757;
-        content: 'OFF';
+       
         position: absolute;
         color: #f1e8e8;
         top: 11px;
@@ -899,8 +899,8 @@ label.saxrunikangsa {
     label.saxrunikangsa::after { /* Round Knob "off" state */
         content: '';
         display: block;
-        width: 40px;
-        height: 40px;
+        width: 20px;
+        height: 20px;
         border-radius: 40px;
         -webkit-transition: all .5s ease;
         -moz-transition: all .5s ease;
@@ -922,12 +922,11 @@ label.saxrunikangsa {
     }
 
 input[type=checkbox]:checked + label::before {
-    content: 'ON';
     left: 11%;
 }
 
 input[type=checkbox]:checked + label::after {
-    left: 45px;
+    left: 25px;
 }
 
 label.rukursa::before {
