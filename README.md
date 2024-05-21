@@ -69,7 +69,7 @@
  <img alt="YOUR-ALT-TEXT" src="images_readme/игра.PNG" width="600">
 </picture>
 
-Статистика
+Статистика текущего пользователя
 
 <picture>
  <img alt="YOUR-ALT-TEXT" src="images_readme/статистика.PNG" width="600">
