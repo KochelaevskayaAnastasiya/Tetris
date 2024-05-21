@@ -34,7 +34,7 @@
  <img alt="YOUR-ALT-TEXT" src="images_readme/уровнисло.PNG" width="600">
 </picture>
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/новый уровень.PNG" width="600">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/новыйуровень.PNG" width="600">
 </picture>
 <picture>
  <img alt="YOUR-ALT-TEXT" src="images_readme/наборфиг.PNG" width="600">
