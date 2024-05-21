@@ -11,7 +11,59 @@
 Программа написана на языке С# в среде Visual Studio 22 и функционирует под управлением операционной системы Windows 7 и выше. Доступ к данным осуществляется с помощью СУБД MS SQL Server 16.0.
 
 ## Описание интерфейса пользователя
-
+Страницы авторизации и регистрации.
 <picture>
  <img alt="YOUR-ALT-TEXT" src="images_readme/авторизация.PNG" width="800">
+</picture>
+<picture>
+ <img alt="YOUR-ALT-TEXT" src="images_readme/регистрация.PNG" width="800">
+</picture>
+
+Функционал администратора.
+
+Меню
+<picture>
+ <img alt="YOUR-ALT-TEXT" src="images_readme/менюадмин.PNG" width="800">
+</picture>
+
+Страницы редактирования и/или добавления объектов
+<picture>
+ <img alt="YOUR-ALT-TEXT" src="images_readme/уровнисло.PNG" width="800">
+</picture>
+<picture>
+ <img alt="YOUR-ALT-TEXT" src="images_readme/новый уровень.PNG" width="800">
+</picture>
+<picture>
+ <img alt="YOUR-ALT-TEXT" src="images_readme/наборфиг.PNG" width="800">
+</picture>
+<picture>
+ <img alt="YOUR-ALT-TEXT" src="images_readme/фигуры.PNG" width="800">
+</picture>
+<picture>
+ <img alt="YOUR-ALT-TEXT" src="images_readme/стаканы.PNG" width="800">
+</picture>
+
+Функционал игрока.
+
+Меню
+<picture>
+ <img alt="YOUR-ALT-TEXT" src="images_readme/менюпользователь.PNG" width="800">
+</picture>
+
+Страницы нстроек игры и перед игрой
+<picture>
+ <img alt="YOUR-ALT-TEXT" src="images_readme/настройки.PNG" width="800">
+</picture>
+<picture>
+ <img alt="YOUR-ALT-TEXT" src="images_readme/настройкиигра.PNG" width="800">
+</picture>
+
+Игра
+<picture>
+ <img alt="YOUR-ALT-TEXT" src="images_readme/игра.PNG" width="800">
+</picture>
+
+Статистика
+<picture>
+ <img alt="YOUR-ALT-TEXT" src="images_readme/статистика.PNG" width="800">
 </picture>
