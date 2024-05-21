@@ -13,5 +13,5 @@
 ## Описание интерфейса пользователя
 
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/авторизация.PNG" width="200">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/авторизация.PNG" width="800">
 </picture>
