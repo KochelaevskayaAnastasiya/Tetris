@@ -12,58 +12,65 @@
 
 ## Описание интерфейса пользователя
 Страницы авторизации и регистрации.
+
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/авторизация.PNG" width="800">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/авторизация.PNG" width="600">
 </picture>
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/регистрация.PNG" width="800">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/регистрация.PNG" width="600">
 </picture>
 
 Функционал администратора.
 
 Меню
+
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/менюадмин.PNG" width="800">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/менюадмин.PNG" width="600">
 </picture>
 
 Страницы редактирования и/или добавления объектов
+
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/уровнисло.PNG" width="800">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/уровнисло.PNG" width="600">
 </picture>
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/новый уровень.PNG" width="800">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/новый уровень.PNG" width="600">
 </picture>
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/наборфиг.PNG" width="800">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/наборфиг.PNG" width="600">
 </picture>
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/фигуры.PNG" width="800">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/фигуры.PNG" width="600">
 </picture>
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/стаканы.PNG" width="800">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/стаканы.PNG" width="600">
 </picture>
 
 Функционал игрока.
 
 Меню
+
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/менюпользователь.PNG" width="800">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/менюпользователь.PNG" width="600">
 </picture>
 
 Страницы нстроек игры и перед игрой
+
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/настройки.PNG" width="800">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/настройки.PNG" width="600">
 </picture>
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/настройкиигра.PNG" width="800">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/настройикигра.PNG" width="600">
 </picture>
 
 Игра
+
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/игра.PNG" width="800">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/игра.PNG" width="600">
 </picture>
 
 Статистика
+
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/статистика.PNG" width="800">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/статистика.PNG" width="600">
 </picture>
