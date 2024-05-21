@@ -60,7 +60,7 @@
  <img alt="YOUR-ALT-TEXT" src="images_readme/настройки.PNG" width="600">
 </picture>
 <picture>
- <img alt="YOUR-ALT-TEXT" src="images_readme/настройикигра.PNG" width="600">
+ <img alt="YOUR-ALT-TEXT" src="images_readme/настройикигра2.PNG" width="600">
 </picture>
 
 Игра
