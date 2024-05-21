@@ -20,7 +20,7 @@
  <img alt="YOUR-ALT-TEXT" src="images_readme/регистрация.PNG" width="600">
 </picture>
 
-Функционал администратора.
+### Функционал администратора
 
 Меню
 
@@ -46,7 +46,7 @@
  <img alt="YOUR-ALT-TEXT" src="images_readme/стаканы.PNG" width="600">
 </picture>
 
-Функционал игрока.
+### Функционал игрока
 
 Меню
 
@@ -54,7 +54,7 @@
  <img alt="YOUR-ALT-TEXT" src="images_readme/менюпользователь.PNG" width="600">
 </picture>
 
-Страницы нстроек игры и перед игрой
+Страницы настроек игры и перед игрой
 
 <picture>
  <img alt="YOUR-ALT-TEXT" src="images_readme/настройки.PNG" width="600">
